@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.logitech</groupId>
-    <artifactId>aws.lambda</artifactId>
+    <artifactId>server.ec2</artifactId>
     <version>0.0.1-SNAPSHOT</version>
 
     <properties>
@@ -27,25 +27,9 @@
             <version>1.2.1</version>
         </dependency>
 
-        <!-- Spring -->
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-core</artifactId>
-            <version>${spring-version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-context</artifactId>
-            <version>${spring-version}</version>
-        </dependency>
 
 
-        <!-- JSON Marshalling -->
-        <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-core</artifactId>
-            <version>2.5.0</version>
-        </dependency>
+
 
         <!-- Logging -->
         <dependency>
@@ -64,6 +48,14 @@
             <version>1.2.17</version>
         </dependency>
 
+        <!-- JMS for SQS -->
+        <dependency>
+            <groupId>com.amazonaws</groupId>
+            <artifactId>amazon-sqs-java-messaging-lib</artifactId>
+            <version>1.0.0</version>
+            <type>jar</type>
+        </dependency>
+
         <!-- Annotations -->
         <dependency>
             <groupId>com.intellij</groupId>
@@ -71,8 +63,62 @@
             <version>12.0</version>
         </dependency>
 
-      
 
+        <!-- hibernate-->
+
+
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-core</artifactId>
+            <version>4.3.8.Final</version>
+        </dependency>
+
+        <!-- for JPA, use hibernate-entitymanager instead of hibernate-core -->
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-entitymanager</artifactId>
+            <version>4.3.8.Final</version>
+        </dependency>
+
+        <!-- optional -->
+
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-osgi</artifactId>
+            <version>4.3.8.Final</version>
+        </dependency>
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-envers</artifactId>
+            <version>4.3.8.Final</version>
+        </dependency>
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-c3p0</artifactId>
+            <version>4.3.8.Final</version>
+        </dependency>
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-proxool</artifactId>
+            <version>4.3.8.Final</version>
+        </dependency>
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-infinispan</artifactId>
+            <version>4.3.8.Final</version>
+        </dependency>
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-ehcache</artifactId>
+            <version>4.3.8.Final</version>
+        </dependency>
+
+  <!--Postgres driver for Redshift-->
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>9.4-1201-jdbc4</version>
+        </dependency>
     </dependencies>
 
     <build>
@@ -91,10 +137,13 @@
                 <artifactId>exec-maven-plugin</artifactId>
                 <version>1.2.1</version>
                 <configuration>
-                    <mainClass>kinesis.Main</mainClass>
+                    <mainClass>receiver.synchronous.SyncMessageReceiver</mainClass>
                 </configuration>
             </plugin>
         </plugins>
     </build>
+
+
+
 
 </project>

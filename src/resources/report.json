@@ -1,0 +1,14 @@
+[
+  {"key":"os_version","timestamp":1422981452757,"value":"6.3.9600.17056"},
+  {"key":"os_type","timestamp":1422981452757,"value":"windows"},
+  {"key":"app_change","timestamp":1422981452828,"value":"analytics_test.exe;0.0.0.0"},
+  {"key":"app_change","timestamp":1422981453321,"value":"devenv.exe;12.0.21005.1"},
+  {"key":"app_change","timestamp":1422981453853,"value":"analytics_test.exe;0.0.0.0"},
+  {"key":"app_change","timestamp":1422981454569,"value":"devenv.exe;12.0.21005.1"},
+  {"key":"app_change","timestamp":1422981455002,"value":"analytics_test.exe;0.0.0.0"},
+  {"key":"app_change","timestamp":1422981456266,"value":"explorer.exe;6.3.9600.17284"},
+  {"key":"app_change","timestamp":1422981457218,"value":"analytics_test.exe;0.0.0.0"},
+  {"key":"app_change","timestamp":1422981460070,"value":"explorer.exe;6.3.9600.17284"},
+  {"key":"app_change","timestamp":1422981460158,"value":"taskmgr.exe;6.3.9600.17031"},
+  {"key":"app_change","timestamp":1422981461645,"value":"analytics_test.exe;0.0.0.0"}
+]

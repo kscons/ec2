@@ -1,67 +1,74 @@
-package ec2.dynamodb.listener;
+package receiver.synchronous;
 
+import receiver.synchronous.synchronouscommands.MainProcessor;
+import configurations.MessageReceiversConfigurator;
+import configurations.LoggerConfigurator;
 import com.amazon.sqs.javamessaging.SQSConnection;
 import com.amazon.sqs.javamessaging.SQSConnectionFactory;
 import com.amazonaws.auth.profile.ProfileCredentialsProvider;
-import com.amazonaws.regions.Region;
-import com.amazonaws.regions.Regions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import ec2.dynamodb.DynamoDBUtil;
 
-import javax.jms.JMSException;
-import javax.jms.MessageConsumer;
-import javax.jms.Session;
-import javax.jms.TextMessage;
-import javax.swing.*;
+import javax.jms.*;
 import java.util.concurrent.TimeUnit;
+
+/**
+ * These class is the main class in project that listen the updates in SQS queue.
+ */
 
 public class SyncMessageReceiver {
     private static final Logger LOG = LoggerFactory.getLogger(SyncMessageReceiver.class);
-    private static final String DEFAULT_QUEUE_NAME = "TestQueue";
-    private static final Region DEFAULT_REGION = Region.getRegion(Regions.US_WEST_2);
-    final static DynamoDBUtil dbUtil = DynamoDBUtil.getInstance();
+
 
     public static void main(String args[]) {
         // Create the connection factory based on the config
+        LoggerConfigurator.initLogger();
+        // Create connection with SQS
         SQSConnectionFactory connectionFactory =
                 SQSConnectionFactory.builder()
-                        .withRegion(DEFAULT_REGION)
+                        .withRegion(MessageReceiversConfigurator.getDefaultRegion())
                         .withAWSCredentialsProvider(new ProfileCredentialsProvider())
                         .build();
         // Create the connection
         try {
+
             SQSConnection connection = connectionFactory.createConnection();
             // Create the session
             Session session = connection.createSession(false, Session.CLIENT_ACKNOWLEDGE);
-            MessageConsumer consumer = session.createConsumer(session.createQueue(DEFAULT_QUEUE_NAME));
+            MessageConsumer consumer = session.createConsumer(session.createQueue(MessageReceiversConfigurator.getDefaultQueueName()));
             connection.start();
             receiveMessages(session, consumer);
             // Close the connection. This will close the session automatically
             connection.close();
-            LOG.info("Connection close");
+            LOG.info(" SyncMessageReceiver: Connection close");
         } catch (JMSException jmse) {
-            LOG.error("Can't create connection");
+            LOG.error(" SyncMessageReceiver: Can't create connection");
         }
+
+
     }
 
+
+    //
     private static void receiveMessages(Session session, final MessageConsumer consumer) {
         try {
             while (true) {
-                System.out.println("Waiting for messages");
+                LOG.debug("SyncMessageReceiver: Waiting for messages");
                 // Wait 1 minute for a message
-                javax.jms.Message message = consumer.receive(TimeUnit.MINUTES.toMillis(1));
+                javax.jms.Message message = consumer.receive(TimeUnit.DAYS.toMillis(MessageReceiversConfigurator.getAliveDaysCount()));
                 if (message != null) {
-                    String mesageBody = ((TextMessage) message).getText();
-                    dbUtil.insertRecord(JSONParser.getRecord(mesageBody));
+                    String messageBody = ((TextMessage) message).getText();
+                    MainProcessor.doProcess(messageBody);
                     message = null;
-                    JOptionPane.showMessageDialog(null,"priyom");
                 }
-
             }
         } catch (JMSException e) {
-            System.err.println("Error receiving from SQS: " + e.getMessage());
-            e.printStackTrace();
+            LOG.error("SyncMessageReceiver: Error receiving from SQS: " + e.getMessage());
+
         }
     }
+
+
 }
+
+    

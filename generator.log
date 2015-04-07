@@ -1,0 +1,858 @@
+2015-04-02 12:52:35 DEBUG InternalConfig:258 - Configuration override awssdk_config_override.json not found.
+2015-04-02 12:52:36 INFO  RedshiftUtil:65 - 	 Redshift: Connection successfully created
+2015-04-02 12:52:36 DEBUG request:642 - Sending Request: POST https://sqs.eu-west-1.amazonaws.com / Parameters: (Action: GetQueueUrl, Version: 2012-11-05, QueueName: TestQueue, ) Headers: (User-Agent: aws-sdk-java/1.9.16 Linux/3.13.0-46-generic OpenJDK_64-Bit_Server_VM/24.75-b04/1.7.0_75/SQS Java Messaging Client v1.0, aws-sdk-java/1.9.16 Linux/3.13.0-46-generic OpenJDK_64-Bit_Server_VM/24.75-b04/1.7.0_75, ) 
+2015-04-02 12:52:36 DEBUG AWS4Signer:302 - AWS4 Canonical Request: '"POST
+/
+
+host:sqs.eu-west-1.amazonaws.com
+user-agent:aws-sdk-java/1.9.16 Linux/3.13.0-46-generic OpenJDK_64-Bit_Server_VM/24.75-b04/1.7.0_75/SQS Java Messaging Client v1.0, aws-sdk-java/1.9.16 Linux/3.13.0-46-generic OpenJDK_64-Bit_Server_VM/24.75-b04/1.7.0_75
+x-amz-date:20150402T095236Z
+
+host;user-agent;x-amz-date
+33c41ea95e6e7bdb19d1cb5e9a2e74f7b7c14d53a9aab74c4300eb4b6a5cbad5"
+2015-04-02 12:52:36 DEBUG AWS4Signer:326 - AWS4 String to Sign: '"AWS4-HMAC-SHA256
+20150402T095236Z
+20150402/eu-west-1/sqs/aws4_request
+e9683309889e0290685398a86bb7e8c4bd0cd33716010c95470d0cfcdf85be76"
+2015-04-02 12:52:36 DEBUG AWS4Signer:355 - Generating a new signing key as the signing key not available in the cache for the date 1427932800000
+2015-04-02 12:52:36 DEBUG PoolingClientConnectionManager:182 - Connection request: [route: {s}->https://sqs.eu-west-1.amazonaws.com][total kept alive: 0; route allocated: 0 of 50; total allocated: 0 of 50]
+2015-04-02 12:52:36 DEBUG PoolingClientConnectionManager:214 - Connection leased: [id: 0][route: {s}->https://sqs.eu-west-1.amazonaws.com][total kept alive: 0; route allocated: 1 of 50; total allocated: 1 of 50]
+2015-04-02 12:52:37 DEBUG SdkTLSSocketFactory:63 - socket.getSupportedProtocols(): [SSLv2Hello, SSLv3, TLSv1, TLSv1.1, TLSv1.2], socket.getEnabledProtocols(): [TLSv1]
+2015-04-02 12:52:37 DEBUG SdkTLSSocketFactory:91 - TLS protocol enabled for SSL handshake: [TLSv1.2, TLSv1.1, TLSv1]
+2015-04-02 12:52:37 DEBUG DefaultClientConnectionOperator:174 - Connecting to sqs.eu-west-1.amazonaws.com:443
+2015-04-02 12:52:37 DEBUG SdkTLSSocketFactory:116 - connecting to sqs.eu-west-1.amazonaws.com/54.239.32.140:443
+2015-04-02 12:52:37 DEBUG SdkSSLSocket:40 - created: sqs.eu-west-1.amazonaws.com/54.239.32.140:443
+2015-04-02 12:52:37 DEBUG RequestAddCookies:122 - CookieSpec selected: best-match
+2015-04-02 12:52:37 DEBUG RequestAuthCache:75 - Auth cache not set in the context
+2015-04-02 12:52:37 DEBUG RequestProxyAuthentication:87 - Proxy auth state: UNCHALLENGED
+2015-04-02 12:52:37 DEBUG SdkHttpClient:683 - Attempt 1 to execute request
+2015-04-02 12:52:37 DEBUG DefaultClientConnection:268 - Sending request: POST / HTTP/1.1
+2015-04-02 12:52:37 DEBUG wire:72 -  >> "POST / HTTP/1.1[\r][\n]"
+2015-04-02 12:52:37 DEBUG wire:72 -  >> "Host: sqs.eu-west-1.amazonaws.com[\r][\n]"
+2015-04-02 12:52:37 DEBUG wire:72 -  >> "X-Amz-Date: 20150402T095236Z[\r][\n]"
+2015-04-02 12:52:37 DEBUG wire:72 -  >> "Authorization: AWS4-HMAC-SHA256 Credential=AKIAIQLO2VIW2QBPJ6LQ/20150402/eu-west-1/sqs/aws4_request, SignedHeaders=host;user-agent;x-amz-date, Signature=57dd548eba0f321cc5124e2f561d44af8d7afeb530a407f2474273d992aa1e6a[\r][\n]"
+2015-04-02 12:52:37 DEBUG wire:72 -  >> "User-Agent: aws-sdk-java/1.9.16 Linux/3.13.0-46-generic OpenJDK_64-Bit_Server_VM/24.75-b04/1.7.0_75/SQS Java Messaging Client v1.0, aws-sdk-java/1.9.16 Linux/3.13.0-46-generic OpenJDK_64-Bit_Server_VM/24.75-b04/1.7.0_75[\r][\n]"
+2015-04-02 12:52:37 DEBUG wire:72 -  >> "Content-Type: application/x-www-form-urlencoded; charset=utf-8[\r][\n]"
+2015-04-02 12:52:37 DEBUG wire:72 -  >> "Content-Length: 57[\r][\n]"
+2015-04-02 12:52:37 DEBUG wire:72 -  >> "Connection: Keep-Alive[\r][\n]"
+2015-04-02 12:52:37 DEBUG wire:72 -  >> "[\r][\n]"
+2015-04-02 12:52:37 DEBUG headers:272 - >> POST / HTTP/1.1
+2015-04-02 12:52:37 DEBUG headers:275 - >> Host: sqs.eu-west-1.amazonaws.com
+2015-04-02 12:52:37 DEBUG headers:275 - >> X-Amz-Date: 20150402T095236Z
+2015-04-02 12:52:37 DEBUG headers:275 - >> Authorization: AWS4-HMAC-SHA256 Credential=AKIAIQLO2VIW2QBPJ6LQ/20150402/eu-west-1/sqs/aws4_request, SignedHeaders=host;user-agent;x-amz-date, Signature=57dd548eba0f321cc5124e2f561d44af8d7afeb530a407f2474273d992aa1e6a
+2015-04-02 12:52:37 DEBUG headers:275 - >> User-Agent: aws-sdk-java/1.9.16 Linux/3.13.0-46-generic OpenJDK_64-Bit_Server_VM/24.75-b04/1.7.0_75/SQS Java Messaging Client v1.0, aws-sdk-java/1.9.16 Linux/3.13.0-46-generic OpenJDK_64-Bit_Server_VM/24.75-b04/1.7.0_75
+2015-04-02 12:52:37 DEBUG headers:275 - >> Content-Type: application/x-www-form-urlencoded; charset=utf-8
+2015-04-02 12:52:37 DEBUG headers:275 - >> Content-Length: 57
+2015-04-02 12:52:37 DEBUG headers:275 - >> Connection: Keep-Alive
+2015-04-02 12:52:37 DEBUG wire:86 -  >> "Action=GetQueueUrl&Version=2012-11-05&QueueName=TestQueue"
+2015-04-02 12:52:37 DEBUG wire:72 -  << "HTTP/1.1 200 OK[\r][\n]"
+2015-04-02 12:52:37 DEBUG wire:72 -  << "Server: Server[\r][\n]"
+2015-04-02 12:52:37 DEBUG wire:72 -  << "Date: Thu, 02 Apr 2015 09:52:37 GMT[\r][\n]"
+2015-04-02 12:52:37 DEBUG wire:72 -  << "Content-Type: text/xml[\r][\n]"
+2015-04-02 12:52:37 DEBUG wire:72 -  << "Content-Length: 329[\r][\n]"
+2015-04-02 12:52:37 DEBUG wire:72 -  << "Connection: keep-alive[\r][\n]"
+2015-04-02 12:52:37 DEBUG wire:72 -  << "x-amzn-RequestId: 2f656ec5-ff9b-571e-8cab-2352ec3e3f2f[\r][\n]"
+2015-04-02 12:52:37 DEBUG wire:72 -  << "[\r][\n]"
+2015-04-02 12:52:37 DEBUG DefaultClientConnection:253 - Receiving response: HTTP/1.1 200 OK
+2015-04-02 12:52:37 DEBUG headers:256 - << HTTP/1.1 200 OK
+2015-04-02 12:52:37 DEBUG headers:259 - << Server: Server
+2015-04-02 12:52:37 DEBUG headers:259 - << Date: Thu, 02 Apr 2015 09:52:37 GMT
+2015-04-02 12:52:37 DEBUG headers:259 - << Content-Type: text/xml
+2015-04-02 12:52:37 DEBUG headers:259 - << Content-Length: 329
+2015-04-02 12:52:37 DEBUG headers:259 - << Connection: keep-alive
+2015-04-02 12:52:37 DEBUG headers:259 - << x-amzn-RequestId: 2f656ec5-ff9b-571e-8cab-2352ec3e3f2f
+2015-04-02 12:52:37 DEBUG SdkHttpClient:510 - Connection can be kept alive indefinitely
+2015-04-02 12:52:37 DEBUG wire:86 -  << "<"
+2015-04-02 12:52:37 DEBUG wire:86 -  << "?"
+2015-04-02 12:52:37 DEBUG wire:86 -  << "x"
+2015-04-02 12:52:37 DEBUG wire:86 -  << "m"
+2015-04-02 12:52:37 DEBUG wire:86 -  << "l version="1.0"?><GetQueueUr"
+2015-04-02 12:52:37 DEBUG wire:86 -  << "lResponse xmlns="http://queue.amazonaws.com/doc/2012-11-05/"><GetQueueUrlResult><QueueUrl>https://sqs.eu-west-1.amazonaws.com/655334590711/TestQueue</QueueUrl></GetQueueUrlResult><ResponseMetadata><RequestId>2f656ec5-ff9b-571e-8cab-2352ec3e3f2f</RequestId></ResponseMetadata></GetQueueUrlResponse>"
+2015-04-02 12:52:37 DEBUG PoolingClientConnectionManager:262 - Connection [id: 0][route: {s}->https://sqs.eu-west-1.amazonaws.com] can be kept alive indefinitely
+2015-04-02 12:52:37 DEBUG PoolingClientConnectionManager:269 - Connection released: [id: 0][route: {s}->https://sqs.eu-west-1.amazonaws.com][total kept alive: 1; route allocated: 1 of 50; total allocated: 1 of 50]
+2015-04-02 12:52:37 DEBUG request:992 - Received successful response: 200, AWS Request ID: 2f656ec5-ff9b-571e-8cab-2352ec3e3f2f
+2015-04-02 12:52:37 DEBUG SyncMessageReceiver:140 - SyncMessageReceiver: Waiting for messages
+2015-04-02 12:52:37 DEBUG request:642 - Sending Request: POST https://sqs.eu-west-1.amazonaws.com /655334590711/TestQueue Parameters: (Action: ReceiveMessage, Version: 2012-11-05, AttributeName.1: All, MessageAttributeName.1: All, MaxNumberOfMessages: 1, WaitTimeSeconds: 20, ) Headers: (User-Agent: aws-sdk-java/1.9.16 Linux/3.13.0-46-generic OpenJDK_64-Bit_Server_VM/24.75-b04/1.7.0_75/SQS Java Messaging Client v1.0, aws-sdk-java/1.9.16 Linux/3.13.0-46-generic OpenJDK_64-Bit_Server_VM/24.75-b04/1.7.0_75, ) 
+2015-04-02 12:52:37 DEBUG AWS4Signer:302 - AWS4 Canonical Request: '"POST
+/655334590711/TestQueue
+
+host:sqs.eu-west-1.amazonaws.com
+user-agent:aws-sdk-java/1.9.16 Linux/3.13.0-46-generic OpenJDK_64-Bit_Server_VM/24.75-b04/1.7.0_75/SQS Java Messaging Client v1.0, aws-sdk-java/1.9.16 Linux/3.13.0-46-generic OpenJDK_64-Bit_Server_VM/24.75-b04/1.7.0_75
+x-amz-date:20150402T095237Z
+
+host;user-agent;x-amz-date
+28761fa6362efd6a44905d1e6522bfc11503c52af65200f36ac56f501999c6ea"
+2015-04-02 12:52:37 DEBUG AWS4Signer:326 - AWS4 String to Sign: '"AWS4-HMAC-SHA256
+20150402T095237Z
+20150402/eu-west-1/sqs/aws4_request
+6321bb625be0ec8a9ccccfb1194a6096c6b298ba48bf4c2e903e207e2a41ae8b"
+2015-04-02 12:52:37 DEBUG PoolingClientConnectionManager:182 - Connection request: [route: {s}->https://sqs.eu-west-1.amazonaws.com][total kept alive: 1; route allocated: 1 of 50; total allocated: 1 of 50]
+2015-04-02 12:52:37 DEBUG PoolingClientConnectionManager:214 - Connection leased: [id: 0][route: {s}->https://sqs.eu-west-1.amazonaws.com][total kept alive: 0; route allocated: 1 of 50; total allocated: 1 of 50]
+2015-04-02 12:52:37 DEBUG SdkHttpClient:432 - Stale connection check
+2015-04-02 12:52:37 DEBUG RequestAddCookies:122 - CookieSpec selected: best-match
+2015-04-02 12:52:37 DEBUG RequestAuthCache:75 - Auth cache not set in the context
+2015-04-02 12:52:37 DEBUG RequestProxyAuthentication:87 - Proxy auth state: UNCHALLENGED
+2015-04-02 12:52:37 DEBUG SdkHttpClient:683 - Attempt 1 to execute request
+2015-04-02 12:52:37 DEBUG DefaultClientConnection:268 - Sending request: POST /655334590711/TestQueue HTTP/1.1
+2015-04-02 12:52:37 DEBUG wire:72 -  >> "POST /655334590711/TestQueue HTTP/1.1[\r][\n]"
+2015-04-02 12:52:37 DEBUG wire:72 -  >> "Host: sqs.eu-west-1.amazonaws.com[\r][\n]"
+2015-04-02 12:52:37 DEBUG wire:72 -  >> "X-Amz-Date: 20150402T095237Z[\r][\n]"
+2015-04-02 12:52:37 DEBUG wire:72 -  >> "Authorization: AWS4-HMAC-SHA256 Credential=AKIAIQLO2VIW2QBPJ6LQ/20150402/eu-west-1/sqs/aws4_request, SignedHeaders=host;user-agent;x-amz-date, Signature=9d5849e2d80da305e700b82049bee8098cdc4e176cdedfdbcbd68d013f6e57b1[\r][\n]"
+2015-04-02 12:52:37 DEBUG wire:72 -  >> "User-Agent: aws-sdk-java/1.9.16 Linux/3.13.0-46-generic OpenJDK_64-Bit_Server_VM/24.75-b04/1.7.0_75/SQS Java Messaging Client v1.0, aws-sdk-java/1.9.16 Linux/3.13.0-46-generic OpenJDK_64-Bit_Server_VM/24.75-b04/1.7.0_75[\r][\n]"
+2015-04-02 12:52:37 DEBUG wire:72 -  >> "Content-Type: application/x-www-form-urlencoded; charset=utf-8[\r][\n]"
+2015-04-02 12:52:37 DEBUG wire:72 -  >> "Content-Length: 128[\r][\n]"
+2015-04-02 12:52:37 DEBUG wire:72 -  >> "Connection: Keep-Alive[\r][\n]"
+2015-04-02 12:52:37 DEBUG wire:72 -  >> "[\r][\n]"
+2015-04-02 12:52:37 DEBUG headers:272 - >> POST /655334590711/TestQueue HTTP/1.1
+2015-04-02 12:52:37 DEBUG headers:275 - >> Host: sqs.eu-west-1.amazonaws.com
+2015-04-02 12:52:37 DEBUG headers:275 - >> X-Amz-Date: 20150402T095237Z
+2015-04-02 12:52:37 DEBUG headers:275 - >> Authorization: AWS4-HMAC-SHA256 Credential=AKIAIQLO2VIW2QBPJ6LQ/20150402/eu-west-1/sqs/aws4_request, SignedHeaders=host;user-agent;x-amz-date, Signature=9d5849e2d80da305e700b82049bee8098cdc4e176cdedfdbcbd68d013f6e57b1
+2015-04-02 12:52:37 DEBUG headers:275 - >> User-Agent: aws-sdk-java/1.9.16 Linux/3.13.0-46-generic OpenJDK_64-Bit_Server_VM/24.75-b04/1.7.0_75/SQS Java Messaging Client v1.0, aws-sdk-java/1.9.16 Linux/3.13.0-46-generic OpenJDK_64-Bit_Server_VM/24.75-b04/1.7.0_75
+2015-04-02 12:52:37 DEBUG headers:275 - >> Content-Type: application/x-www-form-urlencoded; charset=utf-8
+2015-04-02 12:52:37 DEBUG headers:275 - >> Content-Length: 128
+2015-04-02 12:52:37 DEBUG headers:275 - >> Connection: Keep-Alive
+2015-04-02 12:52:37 DEBUG wire:86 -  >> "Action=ReceiveMessage&Version=2012-11-05&AttributeName.1=All&MessageAttributeName.1=All&MaxNumberOfMessages=1&WaitTimeSeconds=20"
+2015-04-02 12:52:58 DEBUG wire:72 -  << "HTTP/1.1 200 OK[\r][\n]"
+2015-04-02 12:52:58 DEBUG wire:72 -  << "Server: Server[\r][\n]"
+2015-04-02 12:52:58 DEBUG wire:72 -  << "Date: Thu, 02 Apr 2015 09:52:58 GMT[\r][\n]"
+2015-04-02 12:52:58 DEBUG wire:72 -  << "Content-Type: text/xml[\r][\n]"
+2015-04-02 12:52:58 DEBUG wire:72 -  << "Content-Length: 240[\r][\n]"
+2015-04-02 12:52:58 DEBUG wire:72 -  << "Connection: keep-alive[\r][\n]"
+2015-04-02 12:52:58 DEBUG wire:72 -  << "x-amzn-RequestId: 67e38b4f-f71d-5be3-92dc-c6d8e4bbf3d2[\r][\n]"
+2015-04-02 12:52:58 DEBUG wire:72 -  << "[\r][\n]"
+2015-04-02 12:52:58 DEBUG DefaultClientConnection:253 - Receiving response: HTTP/1.1 200 OK
+2015-04-02 12:52:58 DEBUG headers:256 - << HTTP/1.1 200 OK
+2015-04-02 12:52:58 DEBUG headers:259 - << Server: Server
+2015-04-02 12:52:58 DEBUG headers:259 - << Date: Thu, 02 Apr 2015 09:52:58 GMT
+2015-04-02 12:52:58 DEBUG headers:259 - << Content-Type: text/xml
+2015-04-02 12:52:58 DEBUG headers:259 - << Content-Length: 240
+2015-04-02 12:52:58 DEBUG headers:259 - << Connection: keep-alive
+2015-04-02 12:52:58 DEBUG headers:259 - << x-amzn-RequestId: 67e38b4f-f71d-5be3-92dc-c6d8e4bbf3d2
+2015-04-02 12:52:58 DEBUG SdkHttpClient:510 - Connection can be kept alive indefinitely
+2015-04-02 12:52:58 DEBUG wire:86 -  << "<"
+2015-04-02 12:52:58 DEBUG wire:86 -  << "?"
+2015-04-02 12:52:58 DEBUG wire:86 -  << "x"
+2015-04-02 12:52:58 DEBUG wire:86 -  << "m"
+2015-04-02 12:52:58 DEBUG wire:86 -  << "l version="1.0"?><ReceiveMes"
+2015-04-02 12:52:58 DEBUG wire:86 -  << "sageResponse xmlns="http://queue.amazonaws.com/doc/2012-11-05/"><ReceiveMessageResult/><ResponseMetadata><RequestId>67e38b4f-f71d-5be3-92dc-c6d8e4bbf3d2</RequestId></ResponseMetadata></ReceiveMessageResponse>"
+2015-04-02 12:52:58 DEBUG PoolingClientConnectionManager:262 - Connection [id: 0][route: {s}->https://sqs.eu-west-1.amazonaws.com] can be kept alive indefinitely
+2015-04-02 12:52:58 DEBUG PoolingClientConnectionManager:269 - Connection released: [id: 0][route: {s}->https://sqs.eu-west-1.amazonaws.com][total kept alive: 1; route allocated: 1 of 50; total allocated: 1 of 50]
+2015-04-02 12:52:58 DEBUG request:992 - Received successful response: 200, AWS Request ID: 67e38b4f-f71d-5be3-92dc-c6d8e4bbf3d2
+2015-04-02 12:52:58 DEBUG request:642 - Sending Request: POST https://sqs.eu-west-1.amazonaws.com /655334590711/TestQueue Parameters: (Action: ReceiveMessage, Version: 2012-11-05, AttributeName.1: All, MessageAttributeName.1: All, MaxNumberOfMessages: 1, WaitTimeSeconds: 20, ) Headers: (User-Agent: aws-sdk-java/1.9.16 Linux/3.13.0-46-generic OpenJDK_64-Bit_Server_VM/24.75-b04/1.7.0_75/SQS Java Messaging Client v1.0, aws-sdk-java/1.9.16 Linux/3.13.0-46-generic OpenJDK_64-Bit_Server_VM/24.75-b04/1.7.0_75, ) 
+2015-04-02 12:52:58 DEBUG AWS4Signer:302 - AWS4 Canonical Request: '"POST
+/655334590711/TestQueue
+
+host:sqs.eu-west-1.amazonaws.com
+user-agent:aws-sdk-java/1.9.16 Linux/3.13.0-46-generic OpenJDK_64-Bit_Server_VM/24.75-b04/1.7.0_75/SQS Java Messaging Client v1.0, aws-sdk-java/1.9.16 Linux/3.13.0-46-generic OpenJDK_64-Bit_Server_VM/24.75-b04/1.7.0_75
+x-amz-date:20150402T095258Z
+
+host;user-agent;x-amz-date
+28761fa6362efd6a44905d1e6522bfc11503c52af65200f36ac56f501999c6ea"
+2015-04-02 12:52:58 DEBUG AWS4Signer:326 - AWS4 String to Sign: '"AWS4-HMAC-SHA256
+20150402T095258Z
+20150402/eu-west-1/sqs/aws4_request
+9cdfd69535142ae1d42a2e1633879bfc890c392956056191279d64ee13c858b3"
+2015-04-02 12:52:58 DEBUG PoolingClientConnectionManager:182 - Connection request: [route: {s}->https://sqs.eu-west-1.amazonaws.com][total kept alive: 1; route allocated: 1 of 50; total allocated: 1 of 50]
+2015-04-02 12:52:58 DEBUG PoolingClientConnectionManager:214 - Connection leased: [id: 0][route: {s}->https://sqs.eu-west-1.amazonaws.com][total kept alive: 0; route allocated: 1 of 50; total allocated: 1 of 50]
+2015-04-02 12:52:58 DEBUG SdkHttpClient:432 - Stale connection check
+2015-04-02 12:52:58 DEBUG RequestAddCookies:122 - CookieSpec selected: best-match
+2015-04-02 12:52:58 DEBUG RequestAuthCache:75 - Auth cache not set in the context
+2015-04-02 12:52:58 DEBUG RequestProxyAuthentication:87 - Proxy auth state: UNCHALLENGED
+2015-04-02 12:52:58 DEBUG SdkHttpClient:683 - Attempt 1 to execute request
+2015-04-02 12:52:58 DEBUG DefaultClientConnection:268 - Sending request: POST /655334590711/TestQueue HTTP/1.1
+2015-04-02 12:52:58 DEBUG wire:72 -  >> "POST /655334590711/TestQueue HTTP/1.1[\r][\n]"
+2015-04-02 12:52:58 DEBUG wire:72 -  >> "Host: sqs.eu-west-1.amazonaws.com[\r][\n]"
+2015-04-02 12:52:58 DEBUG wire:72 -  >> "X-Amz-Date: 20150402T095258Z[\r][\n]"
+2015-04-02 12:52:58 DEBUG wire:72 -  >> "Authorization: AWS4-HMAC-SHA256 Credential=AKIAIQLO2VIW2QBPJ6LQ/20150402/eu-west-1/sqs/aws4_request, SignedHeaders=host;user-agent;x-amz-date, Signature=281c21bf14847e359d00f97597b4f3d86e98e1d76df7318fb5ff924c54b82a19[\r][\n]"
+2015-04-02 12:52:58 DEBUG wire:72 -  >> "User-Agent: aws-sdk-java/1.9.16 Linux/3.13.0-46-generic OpenJDK_64-Bit_Server_VM/24.75-b04/1.7.0_75/SQS Java Messaging Client v1.0, aws-sdk-java/1.9.16 Linux/3.13.0-46-generic OpenJDK_64-Bit_Server_VM/24.75-b04/1.7.0_75[\r][\n]"
+2015-04-02 12:52:58 DEBUG wire:72 -  >> "Content-Type: application/x-www-form-urlencoded; charset=utf-8[\r][\n]"
+2015-04-02 12:52:58 DEBUG wire:72 -  >> "Content-Length: 128[\r][\n]"
+2015-04-02 12:52:58 DEBUG wire:72 -  >> "Connection: Keep-Alive[\r][\n]"
+2015-04-02 12:52:58 DEBUG wire:72 -  >> "[\r][\n]"
+2015-04-02 12:52:58 DEBUG headers:272 - >> POST /655334590711/TestQueue HTTP/1.1
+2015-04-02 12:52:58 DEBUG headers:275 - >> Host: sqs.eu-west-1.amazonaws.com
+2015-04-02 12:52:58 DEBUG headers:275 - >> X-Amz-Date: 20150402T095258Z
+2015-04-02 12:52:58 DEBUG headers:275 - >> Authorization: AWS4-HMAC-SHA256 Credential=AKIAIQLO2VIW2QBPJ6LQ/20150402/eu-west-1/sqs/aws4_request, SignedHeaders=host;user-agent;x-amz-date, Signature=281c21bf14847e359d00f97597b4f3d86e98e1d76df7318fb5ff924c54b82a19
+2015-04-02 12:52:58 DEBUG headers:275 - >> User-Agent: aws-sdk-java/1.9.16 Linux/3.13.0-46-generic OpenJDK_64-Bit_Server_VM/24.75-b04/1.7.0_75/SQS Java Messaging Client v1.0, aws-sdk-java/1.9.16 Linux/3.13.0-46-generic OpenJDK_64-Bit_Server_VM/24.75-b04/1.7.0_75
+2015-04-02 12:52:58 DEBUG headers:275 - >> Content-Type: application/x-www-form-urlencoded; charset=utf-8
+2015-04-02 12:52:58 DEBUG headers:275 - >> Content-Length: 128
+2015-04-02 12:52:58 DEBUG headers:275 - >> Connection: Keep-Alive
+2015-04-02 12:52:58 DEBUG wire:86 -  >> "Action=ReceiveMessage&Version=2012-11-05&AttributeName.1=All&MessageAttributeName.1=All&MaxNumberOfMessages=1&WaitTimeSeconds=20"
+2015-04-02 12:53:18 DEBUG wire:72 -  << "HTTP/1.1 200 OK[\r][\n]"
+2015-04-02 12:53:18 DEBUG wire:72 -  << "Server: Server[\r][\n]"
+2015-04-02 12:53:18 DEBUG wire:72 -  << "Date: Thu, 02 Apr 2015 09:53:18 GMT[\r][\n]"
+2015-04-02 12:53:18 DEBUG wire:72 -  << "Content-Type: text/xml[\r][\n]"
+2015-04-02 12:53:18 DEBUG wire:72 -  << "Content-Length: 240[\r][\n]"
+2015-04-02 12:53:18 DEBUG wire:72 -  << "Connection: keep-alive[\r][\n]"
+2015-04-02 12:53:18 DEBUG wire:72 -  << "x-amzn-RequestId: 70ca1747-2fea-572d-a3f5-5ad03c501f1c[\r][\n]"
+2015-04-02 12:53:18 DEBUG wire:72 -  << "[\r][\n]"
+2015-04-02 12:53:18 DEBUG DefaultClientConnection:253 - Receiving response: HTTP/1.1 200 OK
+2015-04-02 12:53:18 DEBUG headers:256 - << HTTP/1.1 200 OK
+2015-04-02 12:53:18 DEBUG headers:259 - << Server: Server
+2015-04-02 12:53:18 DEBUG headers:259 - << Date: Thu, 02 Apr 2015 09:53:18 GMT
+2015-04-02 12:53:18 DEBUG headers:259 - << Content-Type: text/xml
+2015-04-02 12:53:18 DEBUG headers:259 - << Content-Length: 240
+2015-04-02 12:53:18 DEBUG headers:259 - << Connection: keep-alive
+2015-04-02 12:53:18 DEBUG headers:259 - << x-amzn-RequestId: 70ca1747-2fea-572d-a3f5-5ad03c501f1c
+2015-04-02 12:53:18 DEBUG SdkHttpClient:510 - Connection can be kept alive indefinitely
+2015-04-02 12:53:18 DEBUG wire:86 -  << "<"
+2015-04-02 12:53:18 DEBUG wire:86 -  << "?"
+2015-04-02 12:53:18 DEBUG wire:86 -  << "x"
+2015-04-02 12:53:18 DEBUG wire:86 -  << "m"
+2015-04-02 12:53:18 DEBUG wire:86 -  << "l version="1.0"?><ReceiveMes"
+2015-04-02 12:53:18 DEBUG wire:86 -  << "sageResponse xmlns="http://queue.amazonaws.com/doc/2012-11-05/"><ReceiveMessageResult/><ResponseMetadata><RequestId>70ca1747-2fea-572d-a3f5-5ad03c501f1c</RequestId></ResponseMetadata></ReceiveMessageResponse>"
+2015-04-02 12:53:18 DEBUG PoolingClientConnectionManager:262 - Connection [id: 0][route: {s}->https://sqs.eu-west-1.amazonaws.com] can be kept alive indefinitely
+2015-04-02 12:53:18 DEBUG PoolingClientConnectionManager:269 - Connection released: [id: 0][route: {s}->https://sqs.eu-west-1.amazonaws.com][total kept alive: 1; route allocated: 1 of 50; total allocated: 1 of 50]
+2015-04-02 12:53:18 DEBUG request:992 - Received successful response: 200, AWS Request ID: 70ca1747-2fea-572d-a3f5-5ad03c501f1c
+2015-04-02 12:53:18 DEBUG request:642 - Sending Request: POST https://sqs.eu-west-1.amazonaws.com /655334590711/TestQueue Parameters: (Action: ReceiveMessage, Version: 2012-11-05, AttributeName.1: All, MessageAttributeName.1: All, MaxNumberOfMessages: 1, WaitTimeSeconds: 20, ) Headers: (User-Agent: aws-sdk-java/1.9.16 Linux/3.13.0-46-generic OpenJDK_64-Bit_Server_VM/24.75-b04/1.7.0_75/SQS Java Messaging Client v1.0, aws-sdk-java/1.9.16 Linux/3.13.0-46-generic OpenJDK_64-Bit_Server_VM/24.75-b04/1.7.0_75, ) 
+2015-04-02 12:53:18 DEBUG AWS4Signer:302 - AWS4 Canonical Request: '"POST
+/655334590711/TestQueue
+
+host:sqs.eu-west-1.amazonaws.com
+user-agent:aws-sdk-java/1.9.16 Linux/3.13.0-46-generic OpenJDK_64-Bit_Server_VM/24.75-b04/1.7.0_75/SQS Java Messaging Client v1.0, aws-sdk-java/1.9.16 Linux/3.13.0-46-generic OpenJDK_64-Bit_Server_VM/24.75-b04/1.7.0_75
+x-amz-date:20150402T095318Z
+
+host;user-agent;x-amz-date
+28761fa6362efd6a44905d1e6522bfc11503c52af65200f36ac56f501999c6ea"
+2015-04-02 12:53:18 DEBUG AWS4Signer:326 - AWS4 String to Sign: '"AWS4-HMAC-SHA256
+20150402T095318Z
+20150402/eu-west-1/sqs/aws4_request
+04fd01277684e08c36147d489d76fc237292a636ff285acfed15910fbea9a369"
+2015-04-02 12:53:18 DEBUG PoolingClientConnectionManager:182 - Connection request: [route: {s}->https://sqs.eu-west-1.amazonaws.com][total kept alive: 1; route allocated: 1 of 50; total allocated: 1 of 50]
+2015-04-02 12:53:18 DEBUG PoolingClientConnectionManager:214 - Connection leased: [id: 0][route: {s}->https://sqs.eu-west-1.amazonaws.com][total kept alive: 0; route allocated: 1 of 50; total allocated: 1 of 50]
+2015-04-02 12:53:18 DEBUG SdkHttpClient:432 - Stale connection check
+2015-04-02 12:53:18 DEBUG RequestAddCookies:122 - CookieSpec selected: best-match
+2015-04-02 12:53:18 DEBUG RequestAuthCache:75 - Auth cache not set in the context
+2015-04-02 12:53:18 DEBUG RequestProxyAuthentication:87 - Proxy auth state: UNCHALLENGED
+2015-04-02 12:53:18 DEBUG SdkHttpClient:683 - Attempt 1 to execute request
+2015-04-02 12:53:18 DEBUG DefaultClientConnection:268 - Sending request: POST /655334590711/TestQueue HTTP/1.1
+2015-04-02 12:53:18 DEBUG wire:72 -  >> "POST /655334590711/TestQueue HTTP/1.1[\r][\n]"
+2015-04-02 12:53:18 DEBUG wire:72 -  >> "Host: sqs.eu-west-1.amazonaws.com[\r][\n]"
+2015-04-02 12:53:18 DEBUG wire:72 -  >> "X-Amz-Date: 20150402T095318Z[\r][\n]"
+2015-04-02 12:53:18 DEBUG wire:72 -  >> "Authorization: AWS4-HMAC-SHA256 Credential=AKIAIQLO2VIW2QBPJ6LQ/20150402/eu-west-1/sqs/aws4_request, SignedHeaders=host;user-agent;x-amz-date, Signature=e4fad17a4b1acedb4c059d33cd4663befcd47172730194fe3fbcb365209b6685[\r][\n]"
+2015-04-02 12:53:18 DEBUG wire:72 -  >> "User-Agent: aws-sdk-java/1.9.16 Linux/3.13.0-46-generic OpenJDK_64-Bit_Server_VM/24.75-b04/1.7.0_75/SQS Java Messaging Client v1.0, aws-sdk-java/1.9.16 Linux/3.13.0-46-generic OpenJDK_64-Bit_Server_VM/24.75-b04/1.7.0_75[\r][\n]"
+2015-04-02 12:53:18 DEBUG wire:72 -  >> "Content-Type: application/x-www-form-urlencoded; charset=utf-8[\r][\n]"
+2015-04-02 12:53:18 DEBUG wire:72 -  >> "Content-Length: 128[\r][\n]"
+2015-04-02 12:53:18 DEBUG wire:72 -  >> "Connection: Keep-Alive[\r][\n]"
+2015-04-02 12:53:18 DEBUG wire:72 -  >> "[\r][\n]"
+2015-04-02 12:53:18 DEBUG headers:272 - >> POST /655334590711/TestQueue HTTP/1.1
+2015-04-02 12:53:18 DEBUG headers:275 - >> Host: sqs.eu-west-1.amazonaws.com
+2015-04-02 12:53:18 DEBUG headers:275 - >> X-Amz-Date: 20150402T095318Z
+2015-04-02 12:53:18 DEBUG headers:275 - >> Authorization: AWS4-HMAC-SHA256 Credential=AKIAIQLO2VIW2QBPJ6LQ/20150402/eu-west-1/sqs/aws4_request, SignedHeaders=host;user-agent;x-amz-date, Signature=e4fad17a4b1acedb4c059d33cd4663befcd47172730194fe3fbcb365209b6685
+2015-04-02 12:53:18 DEBUG headers:275 - >> User-Agent: aws-sdk-java/1.9.16 Linux/3.13.0-46-generic OpenJDK_64-Bit_Server_VM/24.75-b04/1.7.0_75/SQS Java Messaging Client v1.0, aws-sdk-java/1.9.16 Linux/3.13.0-46-generic OpenJDK_64-Bit_Server_VM/24.75-b04/1.7.0_75
+2015-04-02 12:53:18 DEBUG headers:275 - >> Content-Type: application/x-www-form-urlencoded; charset=utf-8
+2015-04-02 12:53:18 DEBUG headers:275 - >> Content-Length: 128
+2015-04-02 12:53:18 DEBUG headers:275 - >> Connection: Keep-Alive
+2015-04-02 12:53:18 DEBUG wire:86 -  >> "Action=ReceiveMessage&Version=2012-11-05&AttributeName.1=All&MessageAttributeName.1=All&MaxNumberOfMessages=1&WaitTimeSeconds=20"
+2015-04-02 12:53:35 DEBUG PoolingClientConnectionManager:286 - Closing connections idle longer than 60 SECONDS
+2015-04-02 12:53:35 DEBUG PoolingClientConnectionManager:286 - Closing connections idle longer than 60 SECONDS
+2015-04-02 12:53:35 DEBUG PoolingClientConnectionManager:286 - Closing connections idle longer than 60 SECONDS
+2015-04-02 12:53:35 DEBUG PoolingClientConnectionManager:286 - Closing connections idle longer than 60 SECONDS
+2015-04-02 12:53:38 DEBUG wire:72 -  << "HTTP/1.1 200 OK[\r][\n]"
+2015-04-02 12:53:38 DEBUG wire:72 -  << "Server: Server[\r][\n]"
+2015-04-02 12:53:38 DEBUG wire:72 -  << "Date: Thu, 02 Apr 2015 09:53:38 GMT[\r][\n]"
+2015-04-02 12:53:38 DEBUG wire:72 -  << "Content-Type: text/xml[\r][\n]"
+2015-04-02 12:53:38 DEBUG wire:72 -  << "Content-Length: 240[\r][\n]"
+2015-04-02 12:53:38 DEBUG wire:72 -  << "Connection: keep-alive[\r][\n]"
+2015-04-02 12:53:38 DEBUG wire:72 -  << "x-amzn-RequestId: 7aaffdab-523c-52a3-9f61-b03c41f2da92[\r][\n]"
+2015-04-02 12:53:38 DEBUG wire:72 -  << "[\r][\n]"
+2015-04-02 12:53:38 DEBUG DefaultClientConnection:253 - Receiving response: HTTP/1.1 200 OK
+2015-04-02 12:53:38 DEBUG headers:256 - << HTTP/1.1 200 OK
+2015-04-02 12:53:38 DEBUG headers:259 - << Server: Server
+2015-04-02 12:53:38 DEBUG headers:259 - << Date: Thu, 02 Apr 2015 09:53:38 GMT
+2015-04-02 12:53:38 DEBUG headers:259 - << Content-Type: text/xml
+2015-04-02 12:53:38 DEBUG headers:259 - << Content-Length: 240
+2015-04-02 12:53:38 DEBUG headers:259 - << Connection: keep-alive
+2015-04-02 12:53:38 DEBUG headers:259 - << x-amzn-RequestId: 7aaffdab-523c-52a3-9f61-b03c41f2da92
+2015-04-02 12:53:38 DEBUG SdkHttpClient:510 - Connection can be kept alive indefinitely
+2015-04-02 12:53:38 DEBUG wire:86 -  << "<"
+2015-04-02 12:53:38 DEBUG wire:86 -  << "?"
+2015-04-02 12:53:38 DEBUG wire:86 -  << "x"
+2015-04-02 12:53:38 DEBUG wire:86 -  << "m"
+2015-04-02 12:53:38 DEBUG wire:86 -  << "l version="1.0"?><ReceiveMes"
+2015-04-02 12:53:38 DEBUG wire:86 -  << "sageResponse xmlns="http://queue.amazonaws.com/doc/2012-11-05/"><ReceiveMessageResult/><ResponseMetadata><RequestId>7aaffdab-523c-52a3-9f61-b03c41f2da92</RequestId></ResponseMetadata></ReceiveMessageResponse>"
+2015-04-02 12:53:38 DEBUG PoolingClientConnectionManager:262 - Connection [id: 0][route: {s}->https://sqs.eu-west-1.amazonaws.com] can be kept alive indefinitely
+2015-04-02 12:53:38 DEBUG PoolingClientConnectionManager:269 - Connection released: [id: 0][route: {s}->https://sqs.eu-west-1.amazonaws.com][total kept alive: 1; route allocated: 1 of 50; total allocated: 1 of 50]
+2015-04-02 12:53:38 DEBUG request:992 - Received successful response: 200, AWS Request ID: 7aaffdab-523c-52a3-9f61-b03c41f2da92
+2015-04-02 12:53:38 DEBUG request:642 - Sending Request: POST https://sqs.eu-west-1.amazonaws.com /655334590711/TestQueue Parameters: (Action: ReceiveMessage, Version: 2012-11-05, AttributeName.1: All, MessageAttributeName.1: All, MaxNumberOfMessages: 1, WaitTimeSeconds: 20, ) Headers: (User-Agent: aws-sdk-java/1.9.16 Linux/3.13.0-46-generic OpenJDK_64-Bit_Server_VM/24.75-b04/1.7.0_75/SQS Java Messaging Client v1.0, aws-sdk-java/1.9.16 Linux/3.13.0-46-generic OpenJDK_64-Bit_Server_VM/24.75-b04/1.7.0_75, ) 
+2015-04-02 12:53:38 DEBUG AWS4Signer:302 - AWS4 Canonical Request: '"POST
+/655334590711/TestQueue
+
+host:sqs.eu-west-1.amazonaws.com
+user-agent:aws-sdk-java/1.9.16 Linux/3.13.0-46-generic OpenJDK_64-Bit_Server_VM/24.75-b04/1.7.0_75/SQS Java Messaging Client v1.0, aws-sdk-java/1.9.16 Linux/3.13.0-46-generic OpenJDK_64-Bit_Server_VM/24.75-b04/1.7.0_75
+x-amz-date:20150402T095338Z
+
+host;user-agent;x-amz-date
+28761fa6362efd6a44905d1e6522bfc11503c52af65200f36ac56f501999c6ea"
+2015-04-02 12:53:38 DEBUG AWS4Signer:326 - AWS4 String to Sign: '"AWS4-HMAC-SHA256
+20150402T095338Z
+20150402/eu-west-1/sqs/aws4_request
+ca06693a4c5751da47224491a54d2590ec7ac4bbd77da24b2ac3c1c227aaa5a6"
+2015-04-02 12:53:38 DEBUG PoolingClientConnectionManager:182 - Connection request: [route: {s}->https://sqs.eu-west-1.amazonaws.com][total kept alive: 1; route allocated: 1 of 50; total allocated: 1 of 50]
+2015-04-02 12:53:38 DEBUG PoolingClientConnectionManager:214 - Connection leased: [id: 0][route: {s}->https://sqs.eu-west-1.amazonaws.com][total kept alive: 0; route allocated: 1 of 50; total allocated: 1 of 50]
+2015-04-02 12:53:38 DEBUG SdkHttpClient:432 - Stale connection check
+2015-04-02 12:53:38 DEBUG RequestAddCookies:122 - CookieSpec selected: best-match
+2015-04-02 12:53:38 DEBUG RequestAuthCache:75 - Auth cache not set in the context
+2015-04-02 12:53:38 DEBUG RequestProxyAuthentication:87 - Proxy auth state: UNCHALLENGED
+2015-04-02 12:53:38 DEBUG SdkHttpClient:683 - Attempt 1 to execute request
+2015-04-02 12:53:38 DEBUG DefaultClientConnection:268 - Sending request: POST /655334590711/TestQueue HTTP/1.1
+2015-04-02 12:53:38 DEBUG wire:72 -  >> "POST /655334590711/TestQueue HTTP/1.1[\r][\n]"
+2015-04-02 12:53:38 DEBUG wire:72 -  >> "Host: sqs.eu-west-1.amazonaws.com[\r][\n]"
+2015-04-02 12:53:38 DEBUG wire:72 -  >> "X-Amz-Date: 20150402T095338Z[\r][\n]"
+2015-04-02 12:53:38 DEBUG wire:72 -  >> "Authorization: AWS4-HMAC-SHA256 Credential=AKIAIQLO2VIW2QBPJ6LQ/20150402/eu-west-1/sqs/aws4_request, SignedHeaders=host;user-agent;x-amz-date, Signature=fd014f67b149de724d75be20e4226aa793bad1ba5ecea497dbb8ee785d0ecb5a[\r][\n]"
+2015-04-02 12:53:38 DEBUG wire:72 -  >> "User-Agent: aws-sdk-java/1.9.16 Linux/3.13.0-46-generic OpenJDK_64-Bit_Server_VM/24.75-b04/1.7.0_75/SQS Java Messaging Client v1.0, aws-sdk-java/1.9.16 Linux/3.13.0-46-generic OpenJDK_64-Bit_Server_VM/24.75-b04/1.7.0_75[\r][\n]"
+2015-04-02 12:53:38 DEBUG wire:72 -  >> "Content-Type: application/x-www-form-urlencoded; charset=utf-8[\r][\n]"
+2015-04-02 12:53:38 DEBUG wire:72 -  >> "Content-Length: 128[\r][\n]"
+2015-04-02 12:53:38 DEBUG wire:72 -  >> "Connection: Keep-Alive[\r][\n]"
+2015-04-02 12:53:38 DEBUG wire:72 -  >> "[\r][\n]"
+2015-04-02 12:53:38 DEBUG headers:272 - >> POST /655334590711/TestQueue HTTP/1.1
+2015-04-02 12:53:38 DEBUG headers:275 - >> Host: sqs.eu-west-1.amazonaws.com
+2015-04-02 12:53:38 DEBUG headers:275 - >> X-Amz-Date: 20150402T095338Z
+2015-04-02 12:53:38 DEBUG headers:275 - >> Authorization: AWS4-HMAC-SHA256 Credential=AKIAIQLO2VIW2QBPJ6LQ/20150402/eu-west-1/sqs/aws4_request, SignedHeaders=host;user-agent;x-amz-date, Signature=fd014f67b149de724d75be20e4226aa793bad1ba5ecea497dbb8ee785d0ecb5a
+2015-04-02 12:53:38 DEBUG headers:275 - >> User-Agent: aws-sdk-java/1.9.16 Linux/3.13.0-46-generic OpenJDK_64-Bit_Server_VM/24.75-b04/1.7.0_75/SQS Java Messaging Client v1.0, aws-sdk-java/1.9.16 Linux/3.13.0-46-generic OpenJDK_64-Bit_Server_VM/24.75-b04/1.7.0_75
+2015-04-02 12:53:38 DEBUG headers:275 - >> Content-Type: application/x-www-form-urlencoded; charset=utf-8
+2015-04-02 12:53:38 DEBUG headers:275 - >> Content-Length: 128
+2015-04-02 12:53:38 DEBUG headers:275 - >> Connection: Keep-Alive
+2015-04-02 12:53:38 DEBUG wire:86 -  >> "Action=ReceiveMessage&Version=2012-11-05&AttributeName.1=All&MessageAttributeName.1=All&MaxNumberOfMessages=1&WaitTimeSeconds=20"
+2015-04-02 12:53:58 DEBUG wire:72 -  << "HTTP/1.1 200 OK[\r][\n]"
+2015-04-02 12:53:58 DEBUG wire:72 -  << "Server: Server[\r][\n]"
+2015-04-02 12:53:58 DEBUG wire:72 -  << "Date: Thu, 02 Apr 2015 09:53:58 GMT[\r][\n]"
+2015-04-02 12:53:58 DEBUG wire:72 -  << "Content-Type: text/xml[\r][\n]"
+2015-04-02 12:53:58 DEBUG wire:72 -  << "Content-Length: 240[\r][\n]"
+2015-04-02 12:53:58 DEBUG wire:72 -  << "Connection: keep-alive[\r][\n]"
+2015-04-02 12:53:58 DEBUG wire:72 -  << "x-amzn-RequestId: 8d71074e-db9d-536b-b87a-4ad9c87feb5a[\r][\n]"
+2015-04-02 12:53:58 DEBUG wire:72 -  << "[\r][\n]"
+2015-04-02 12:53:58 DEBUG DefaultClientConnection:253 - Receiving response: HTTP/1.1 200 OK
+2015-04-02 12:53:58 DEBUG headers:256 - << HTTP/1.1 200 OK
+2015-04-02 12:53:58 DEBUG headers:259 - << Server: Server
+2015-04-02 12:53:58 DEBUG headers:259 - << Date: Thu, 02 Apr 2015 09:53:58 GMT
+2015-04-02 12:53:58 DEBUG headers:259 - << Content-Type: text/xml
+2015-04-02 12:53:58 DEBUG headers:259 - << Content-Length: 240
+2015-04-02 12:53:58 DEBUG headers:259 - << Connection: keep-alive
+2015-04-02 12:53:58 DEBUG headers:259 - << x-amzn-RequestId: 8d71074e-db9d-536b-b87a-4ad9c87feb5a
+2015-04-02 12:53:58 DEBUG SdkHttpClient:510 - Connection can be kept alive indefinitely
+2015-04-02 12:53:58 DEBUG wire:86 -  << "<"
+2015-04-02 12:53:58 DEBUG wire:86 -  << "?"
+2015-04-02 12:53:58 DEBUG wire:86 -  << "x"
+2015-04-02 12:53:58 DEBUG wire:86 -  << "m"
+2015-04-02 12:53:58 DEBUG wire:86 -  << "l version="1.0"?><ReceiveMes"
+2015-04-02 12:53:58 DEBUG wire:86 -  << "sageResponse xmlns="http://queue.amazonaws.com/doc/2012-11-05/"><ReceiveMessageResult/><ResponseMetadata><RequestId>8d71074e-db9d-536b-b87a-4ad9c87feb5a</RequestId></ResponseMetadata></ReceiveMessageResponse>"
+2015-04-02 12:53:58 DEBUG PoolingClientConnectionManager:262 - Connection [id: 0][route: {s}->https://sqs.eu-west-1.amazonaws.com] can be kept alive indefinitely
+2015-04-02 12:53:58 DEBUG PoolingClientConnectionManager:269 - Connection released: [id: 0][route: {s}->https://sqs.eu-west-1.amazonaws.com][total kept alive: 1; route allocated: 1 of 50; total allocated: 1 of 50]
+2015-04-02 12:53:58 DEBUG request:992 - Received successful response: 200, AWS Request ID: 8d71074e-db9d-536b-b87a-4ad9c87feb5a
+2015-04-02 12:53:58 DEBUG request:642 - Sending Request: POST https://sqs.eu-west-1.amazonaws.com /655334590711/TestQueue Parameters: (Action: ReceiveMessage, Version: 2012-11-05, AttributeName.1: All, MessageAttributeName.1: All, MaxNumberOfMessages: 1, WaitTimeSeconds: 20, ) Headers: (User-Agent: aws-sdk-java/1.9.16 Linux/3.13.0-46-generic OpenJDK_64-Bit_Server_VM/24.75-b04/1.7.0_75/SQS Java Messaging Client v1.0, aws-sdk-java/1.9.16 Linux/3.13.0-46-generic OpenJDK_64-Bit_Server_VM/24.75-b04/1.7.0_75, ) 
+2015-04-02 12:53:58 DEBUG AWS4Signer:302 - AWS4 Canonical Request: '"POST
+/655334590711/TestQueue
+
+host:sqs.eu-west-1.amazonaws.com
+user-agent:aws-sdk-java/1.9.16 Linux/3.13.0-46-generic OpenJDK_64-Bit_Server_VM/24.75-b04/1.7.0_75/SQS Java Messaging Client v1.0, aws-sdk-java/1.9.16 Linux/3.13.0-46-generic OpenJDK_64-Bit_Server_VM/24.75-b04/1.7.0_75
+x-amz-date:20150402T095358Z
+
+host;user-agent;x-amz-date
+28761fa6362efd6a44905d1e6522bfc11503c52af65200f36ac56f501999c6ea"
+2015-04-02 12:53:58 DEBUG AWS4Signer:326 - AWS4 String to Sign: '"AWS4-HMAC-SHA256
+20150402T095358Z
+20150402/eu-west-1/sqs/aws4_request
+541f65cecc317c828accf4415f7a9fcbd590398971c773affde7d80b8d6904ac"
+2015-04-02 12:53:58 DEBUG PoolingClientConnectionManager:182 - Connection request: [route: {s}->https://sqs.eu-west-1.amazonaws.com][total kept alive: 1; route allocated: 1 of 50; total allocated: 1 of 50]
+2015-04-02 12:53:58 DEBUG PoolingClientConnectionManager:214 - Connection leased: [id: 0][route: {s}->https://sqs.eu-west-1.amazonaws.com][total kept alive: 0; route allocated: 1 of 50; total allocated: 1 of 50]
+2015-04-02 12:53:58 DEBUG SdkHttpClient:432 - Stale connection check
+2015-04-02 12:53:58 DEBUG RequestAddCookies:122 - CookieSpec selected: best-match
+2015-04-02 12:53:58 DEBUG RequestAuthCache:75 - Auth cache not set in the context
+2015-04-02 12:53:58 DEBUG RequestProxyAuthentication:87 - Proxy auth state: UNCHALLENGED
+2015-04-02 12:53:58 DEBUG SdkHttpClient:683 - Attempt 1 to execute request
+2015-04-02 12:53:58 DEBUG DefaultClientConnection:268 - Sending request: POST /655334590711/TestQueue HTTP/1.1
+2015-04-02 12:53:58 DEBUG wire:72 -  >> "POST /655334590711/TestQueue HTTP/1.1[\r][\n]"
+2015-04-02 12:53:58 DEBUG wire:72 -  >> "Host: sqs.eu-west-1.amazonaws.com[\r][\n]"
+2015-04-02 12:53:58 DEBUG wire:72 -  >> "X-Amz-Date: 20150402T095358Z[\r][\n]"
+2015-04-02 12:53:58 DEBUG wire:72 -  >> "Authorization: AWS4-HMAC-SHA256 Credential=AKIAIQLO2VIW2QBPJ6LQ/20150402/eu-west-1/sqs/aws4_request, SignedHeaders=host;user-agent;x-amz-date, Signature=919c8231a3222de30c5384884bb96026fb2cf21d404372ed4737ee15431a5f74[\r][\n]"
+2015-04-02 12:53:58 DEBUG wire:72 -  >> "User-Agent: aws-sdk-java/1.9.16 Linux/3.13.0-46-generic OpenJDK_64-Bit_Server_VM/24.75-b04/1.7.0_75/SQS Java Messaging Client v1.0, aws-sdk-java/1.9.16 Linux/3.13.0-46-generic OpenJDK_64-Bit_Server_VM/24.75-b04/1.7.0_75[\r][\n]"
+2015-04-02 12:53:58 DEBUG wire:72 -  >> "Content-Type: application/x-www-form-urlencoded; charset=utf-8[\r][\n]"
+2015-04-02 12:53:58 DEBUG wire:72 -  >> "Content-Length: 128[\r][\n]"
+2015-04-02 12:53:58 DEBUG wire:72 -  >> "Connection: Keep-Alive[\r][\n]"
+2015-04-02 12:53:58 DEBUG wire:72 -  >> "[\r][\n]"
+2015-04-02 12:53:58 DEBUG headers:272 - >> POST /655334590711/TestQueue HTTP/1.1
+2015-04-02 12:53:58 DEBUG headers:275 - >> Host: sqs.eu-west-1.amazonaws.com
+2015-04-02 12:53:58 DEBUG headers:275 - >> X-Amz-Date: 20150402T095358Z
+2015-04-02 12:53:58 DEBUG headers:275 - >> Authorization: AWS4-HMAC-SHA256 Credential=AKIAIQLO2VIW2QBPJ6LQ/20150402/eu-west-1/sqs/aws4_request, SignedHeaders=host;user-agent;x-amz-date, Signature=919c8231a3222de30c5384884bb96026fb2cf21d404372ed4737ee15431a5f74
+2015-04-02 12:53:58 DEBUG headers:275 - >> User-Agent: aws-sdk-java/1.9.16 Linux/3.13.0-46-generic OpenJDK_64-Bit_Server_VM/24.75-b04/1.7.0_75/SQS Java Messaging Client v1.0, aws-sdk-java/1.9.16 Linux/3.13.0-46-generic OpenJDK_64-Bit_Server_VM/24.75-b04/1.7.0_75
+2015-04-02 12:53:58 DEBUG headers:275 - >> Content-Type: application/x-www-form-urlencoded; charset=utf-8
+2015-04-02 12:53:58 DEBUG headers:275 - >> Content-Length: 128
+2015-04-02 12:53:58 DEBUG headers:275 - >> Connection: Keep-Alive
+2015-04-02 12:53:58 DEBUG wire:86 -  >> "Action=ReceiveMessage&Version=2012-11-05&AttributeName.1=All&MessageAttributeName.1=All&MaxNumberOfMessages=1&WaitTimeSeconds=20"
+2015-04-02 12:54:18 DEBUG wire:72 -  << "HTTP/1.1 200 OK[\r][\n]"
+2015-04-02 12:54:18 DEBUG wire:72 -  << "Server: Server[\r][\n]"
+2015-04-02 12:54:18 DEBUG wire:72 -  << "Date: Thu, 02 Apr 2015 09:54:18 GMT[\r][\n]"
+2015-04-02 12:54:18 DEBUG wire:72 -  << "Content-Type: text/xml[\r][\n]"
+2015-04-02 12:54:18 DEBUG wire:72 -  << "Content-Length: 240[\r][\n]"
+2015-04-02 12:54:18 DEBUG wire:72 -  << "Connection: keep-alive[\r][\n]"
+2015-04-02 12:54:18 DEBUG wire:72 -  << "x-amzn-RequestId: 92cd2748-3dfa-5df3-83e1-6adf2e0c25c2[\r][\n]"
+2015-04-02 12:54:18 DEBUG wire:72 -  << "[\r][\n]"
+2015-04-02 12:54:18 DEBUG DefaultClientConnection:253 - Receiving response: HTTP/1.1 200 OK
+2015-04-02 12:54:18 DEBUG headers:256 - << HTTP/1.1 200 OK
+2015-04-02 12:54:18 DEBUG headers:259 - << Server: Server
+2015-04-02 12:54:18 DEBUG headers:259 - << Date: Thu, 02 Apr 2015 09:54:18 GMT
+2015-04-02 12:54:18 DEBUG headers:259 - << Content-Type: text/xml
+2015-04-02 12:54:18 DEBUG headers:259 - << Content-Length: 240
+2015-04-02 12:54:18 DEBUG headers:259 - << Connection: keep-alive
+2015-04-02 12:54:18 DEBUG headers:259 - << x-amzn-RequestId: 92cd2748-3dfa-5df3-83e1-6adf2e0c25c2
+2015-04-02 12:54:18 DEBUG SdkHttpClient:510 - Connection can be kept alive indefinitely
+2015-04-02 12:54:18 DEBUG wire:86 -  << "<"
+2015-04-02 12:54:18 DEBUG wire:86 -  << "?"
+2015-04-02 12:54:18 DEBUG wire:86 -  << "x"
+2015-04-02 12:54:18 DEBUG wire:86 -  << "m"
+2015-04-02 12:54:18 DEBUG wire:86 -  << "l version="1.0"?><ReceiveMes"
+2015-04-02 12:54:18 DEBUG wire:86 -  << "sageResponse xmlns="http://queue.amazonaws.com/doc/2012-11-05/"><ReceiveMessageResult/><ResponseMetadata><RequestId>92cd2748-3dfa-5df3-83e1-6adf2e0c25c2</RequestId></ResponseMetadata></ReceiveMessageResponse>"
+2015-04-02 12:54:18 DEBUG PoolingClientConnectionManager:262 - Connection [id: 0][route: {s}->https://sqs.eu-west-1.amazonaws.com] can be kept alive indefinitely
+2015-04-02 12:54:18 DEBUG PoolingClientConnectionManager:269 - Connection released: [id: 0][route: {s}->https://sqs.eu-west-1.amazonaws.com][total kept alive: 1; route allocated: 1 of 50; total allocated: 1 of 50]
+2015-04-02 12:54:18 DEBUG request:992 - Received successful response: 200, AWS Request ID: 92cd2748-3dfa-5df3-83e1-6adf2e0c25c2
+2015-04-02 12:54:18 DEBUG request:642 - Sending Request: POST https://sqs.eu-west-1.amazonaws.com /655334590711/TestQueue Parameters: (Action: ReceiveMessage, Version: 2012-11-05, AttributeName.1: All, MessageAttributeName.1: All, MaxNumberOfMessages: 1, WaitTimeSeconds: 20, ) Headers: (User-Agent: aws-sdk-java/1.9.16 Linux/3.13.0-46-generic OpenJDK_64-Bit_Server_VM/24.75-b04/1.7.0_75/SQS Java Messaging Client v1.0, aws-sdk-java/1.9.16 Linux/3.13.0-46-generic OpenJDK_64-Bit_Server_VM/24.75-b04/1.7.0_75, ) 
+2015-04-02 12:54:18 DEBUG AWS4Signer:302 - AWS4 Canonical Request: '"POST
+/655334590711/TestQueue
+
+host:sqs.eu-west-1.amazonaws.com
+user-agent:aws-sdk-java/1.9.16 Linux/3.13.0-46-generic OpenJDK_64-Bit_Server_VM/24.75-b04/1.7.0_75/SQS Java Messaging Client v1.0, aws-sdk-java/1.9.16 Linux/3.13.0-46-generic OpenJDK_64-Bit_Server_VM/24.75-b04/1.7.0_75
+x-amz-date:20150402T095418Z
+
+host;user-agent;x-amz-date
+28761fa6362efd6a44905d1e6522bfc11503c52af65200f36ac56f501999c6ea"
+2015-04-02 12:54:18 DEBUG AWS4Signer:326 - AWS4 String to Sign: '"AWS4-HMAC-SHA256
+20150402T095418Z
+20150402/eu-west-1/sqs/aws4_request
+324c6845886d8e0d8e9d6208c1a26c63ef5b407d60d928e9e32cb2264e81663f"
+2015-04-02 12:54:18 DEBUG PoolingClientConnectionManager:182 - Connection request: [route: {s}->https://sqs.eu-west-1.amazonaws.com][total kept alive: 1; route allocated: 1 of 50; total allocated: 1 of 50]
+2015-04-02 12:54:18 DEBUG PoolingClientConnectionManager:214 - Connection leased: [id: 0][route: {s}->https://sqs.eu-west-1.amazonaws.com][total kept alive: 0; route allocated: 1 of 50; total allocated: 1 of 50]
+2015-04-02 12:54:18 DEBUG SdkHttpClient:432 - Stale connection check
+2015-04-02 12:54:18 DEBUG RequestAddCookies:122 - CookieSpec selected: best-match
+2015-04-02 12:54:18 DEBUG RequestAuthCache:75 - Auth cache not set in the context
+2015-04-02 12:54:18 DEBUG RequestProxyAuthentication:87 - Proxy auth state: UNCHALLENGED
+2015-04-02 12:54:18 DEBUG SdkHttpClient:683 - Attempt 1 to execute request
+2015-04-02 12:54:18 DEBUG DefaultClientConnection:268 - Sending request: POST /655334590711/TestQueue HTTP/1.1
+2015-04-02 12:54:18 DEBUG wire:72 -  >> "POST /655334590711/TestQueue HTTP/1.1[\r][\n]"
+2015-04-02 12:54:18 DEBUG wire:72 -  >> "Host: sqs.eu-west-1.amazonaws.com[\r][\n]"
+2015-04-02 12:54:18 DEBUG wire:72 -  >> "X-Amz-Date: 20150402T095418Z[\r][\n]"
+2015-04-02 12:54:18 DEBUG wire:72 -  >> "Authorization: AWS4-HMAC-SHA256 Credential=AKIAIQLO2VIW2QBPJ6LQ/20150402/eu-west-1/sqs/aws4_request, SignedHeaders=host;user-agent;x-amz-date, Signature=d254bdff03ffc3fbd90ee1801c5529cf03d00036e45e1e640c8aa4f4a8bae791[\r][\n]"
+2015-04-02 12:54:18 DEBUG wire:72 -  >> "User-Agent: aws-sdk-java/1.9.16 Linux/3.13.0-46-generic OpenJDK_64-Bit_Server_VM/24.75-b04/1.7.0_75/SQS Java Messaging Client v1.0, aws-sdk-java/1.9.16 Linux/3.13.0-46-generic OpenJDK_64-Bit_Server_VM/24.75-b04/1.7.0_75[\r][\n]"
+2015-04-02 12:54:18 DEBUG wire:72 -  >> "Content-Type: application/x-www-form-urlencoded; charset=utf-8[\r][\n]"
+2015-04-02 12:54:18 DEBUG wire:72 -  >> "Content-Length: 128[\r][\n]"
+2015-04-02 12:54:18 DEBUG wire:72 -  >> "Connection: Keep-Alive[\r][\n]"
+2015-04-02 12:54:18 DEBUG wire:72 -  >> "[\r][\n]"
+2015-04-02 12:54:18 DEBUG headers:272 - >> POST /655334590711/TestQueue HTTP/1.1
+2015-04-02 12:54:18 DEBUG headers:275 - >> Host: sqs.eu-west-1.amazonaws.com
+2015-04-02 12:54:18 DEBUG headers:275 - >> X-Amz-Date: 20150402T095418Z
+2015-04-02 12:54:18 DEBUG headers:275 - >> Authorization: AWS4-HMAC-SHA256 Credential=AKIAIQLO2VIW2QBPJ6LQ/20150402/eu-west-1/sqs/aws4_request, SignedHeaders=host;user-agent;x-amz-date, Signature=d254bdff03ffc3fbd90ee1801c5529cf03d00036e45e1e640c8aa4f4a8bae791
+2015-04-02 12:54:18 DEBUG headers:275 - >> User-Agent: aws-sdk-java/1.9.16 Linux/3.13.0-46-generic OpenJDK_64-Bit_Server_VM/24.75-b04/1.7.0_75/SQS Java Messaging Client v1.0, aws-sdk-java/1.9.16 Linux/3.13.0-46-generic OpenJDK_64-Bit_Server_VM/24.75-b04/1.7.0_75
+2015-04-02 12:54:18 DEBUG headers:275 - >> Content-Type: application/x-www-form-urlencoded; charset=utf-8
+2015-04-02 12:54:18 DEBUG headers:275 - >> Content-Length: 128
+2015-04-02 12:54:18 DEBUG headers:275 - >> Connection: Keep-Alive
+2015-04-02 12:54:18 DEBUG wire:86 -  >> "Action=ReceiveMessage&Version=2012-11-05&AttributeName.1=All&MessageAttributeName.1=All&MaxNumberOfMessages=1&WaitTimeSeconds=20"
+2015-04-02 12:54:35 DEBUG PoolingClientConnectionManager:286 - Closing connections idle longer than 60 SECONDS
+2015-04-02 12:54:35 DEBUG PoolingClientConnectionManager:286 - Closing connections idle longer than 60 SECONDS
+2015-04-02 12:54:35 DEBUG PoolingClientConnectionManager:286 - Closing connections idle longer than 60 SECONDS
+2015-04-02 12:54:35 DEBUG PoolingClientConnectionManager:286 - Closing connections idle longer than 60 SECONDS
+2015-04-02 12:54:38 DEBUG wire:72 -  << "HTTP/1.1 200 OK[\r][\n]"
+2015-04-02 12:54:38 DEBUG wire:72 -  << "Server: Server[\r][\n]"
+2015-04-02 12:54:38 DEBUG wire:72 -  << "Date: Thu, 02 Apr 2015 09:54:38 GMT[\r][\n]"
+2015-04-02 12:54:38 DEBUG wire:72 -  << "Content-Type: text/xml[\r][\n]"
+2015-04-02 12:54:38 DEBUG wire:72 -  << "Content-Length: 240[\r][\n]"
+2015-04-02 12:54:38 DEBUG wire:72 -  << "Connection: keep-alive[\r][\n]"
+2015-04-02 12:54:38 DEBUG wire:72 -  << "x-amzn-RequestId: 367c97eb-b186-59fb-b2f9-da7ca58c51ca[\r][\n]"
+2015-04-02 12:54:38 DEBUG wire:72 -  << "[\r][\n]"
+2015-04-02 12:54:38 DEBUG DefaultClientConnection:253 - Receiving response: HTTP/1.1 200 OK
+2015-04-02 12:54:38 DEBUG headers:256 - << HTTP/1.1 200 OK
+2015-04-02 12:54:38 DEBUG headers:259 - << Server: Server
+2015-04-02 12:54:38 DEBUG headers:259 - << Date: Thu, 02 Apr 2015 09:54:38 GMT
+2015-04-02 12:54:38 DEBUG headers:259 - << Content-Type: text/xml
+2015-04-02 12:54:38 DEBUG headers:259 - << Content-Length: 240
+2015-04-02 12:54:38 DEBUG headers:259 - << Connection: keep-alive
+2015-04-02 12:54:38 DEBUG headers:259 - << x-amzn-RequestId: 367c97eb-b186-59fb-b2f9-da7ca58c51ca
+2015-04-02 12:54:38 DEBUG SdkHttpClient:510 - Connection can be kept alive indefinitely
+2015-04-02 12:54:38 DEBUG wire:86 -  << "<"
+2015-04-02 12:54:38 DEBUG wire:86 -  << "?"
+2015-04-02 12:54:38 DEBUG wire:86 -  << "x"
+2015-04-02 12:54:38 DEBUG wire:86 -  << "m"
+2015-04-02 12:54:38 DEBUG wire:86 -  << "l version="1.0"?><ReceiveMes"
+2015-04-02 12:54:38 DEBUG wire:86 -  << "sageResponse xmlns="http://queue.amazonaws.com/doc/2012-11-05/"><ReceiveMessageResult/><ResponseMetadata><RequestId>367c97eb-b186-59fb-b2f9-da7ca58c51ca</RequestId></ResponseMetadata></ReceiveMessageResponse>"
+2015-04-02 12:54:38 DEBUG PoolingClientConnectionManager:262 - Connection [id: 0][route: {s}->https://sqs.eu-west-1.amazonaws.com] can be kept alive indefinitely
+2015-04-02 12:54:38 DEBUG PoolingClientConnectionManager:269 - Connection released: [id: 0][route: {s}->https://sqs.eu-west-1.amazonaws.com][total kept alive: 1; route allocated: 1 of 50; total allocated: 1 of 50]
+2015-04-02 12:54:38 DEBUG request:992 - Received successful response: 200, AWS Request ID: 367c97eb-b186-59fb-b2f9-da7ca58c51ca
+2015-04-02 12:54:38 DEBUG request:642 - Sending Request: POST https://sqs.eu-west-1.amazonaws.com /655334590711/TestQueue Parameters: (Action: ReceiveMessage, Version: 2012-11-05, AttributeName.1: All, MessageAttributeName.1: All, MaxNumberOfMessages: 1, WaitTimeSeconds: 20, ) Headers: (User-Agent: aws-sdk-java/1.9.16 Linux/3.13.0-46-generic OpenJDK_64-Bit_Server_VM/24.75-b04/1.7.0_75/SQS Java Messaging Client v1.0, aws-sdk-java/1.9.16 Linux/3.13.0-46-generic OpenJDK_64-Bit_Server_VM/24.75-b04/1.7.0_75, ) 
+2015-04-02 12:54:38 DEBUG AWS4Signer:302 - AWS4 Canonical Request: '"POST
+/655334590711/TestQueue
+
+host:sqs.eu-west-1.amazonaws.com
+user-agent:aws-sdk-java/1.9.16 Linux/3.13.0-46-generic OpenJDK_64-Bit_Server_VM/24.75-b04/1.7.0_75/SQS Java Messaging Client v1.0, aws-sdk-java/1.9.16 Linux/3.13.0-46-generic OpenJDK_64-Bit_Server_VM/24.75-b04/1.7.0_75
+x-amz-date:20150402T095438Z
+
+host;user-agent;x-amz-date
+28761fa6362efd6a44905d1e6522bfc11503c52af65200f36ac56f501999c6ea"
+2015-04-02 12:54:38 DEBUG AWS4Signer:326 - AWS4 String to Sign: '"AWS4-HMAC-SHA256
+20150402T095438Z
+20150402/eu-west-1/sqs/aws4_request
+4d6c348ffea132f3eb946d70f2abc667b286db7349e52c401f5ef701e16ae904"
+2015-04-02 12:54:38 DEBUG PoolingClientConnectionManager:182 - Connection request: [route: {s}->https://sqs.eu-west-1.amazonaws.com][total kept alive: 1; route allocated: 1 of 50; total allocated: 1 of 50]
+2015-04-02 12:54:38 DEBUG PoolingClientConnectionManager:214 - Connection leased: [id: 0][route: {s}->https://sqs.eu-west-1.amazonaws.com][total kept alive: 0; route allocated: 1 of 50; total allocated: 1 of 50]
+2015-04-02 12:54:38 DEBUG SdkHttpClient:432 - Stale connection check
+2015-04-02 12:54:38 DEBUG RequestAddCookies:122 - CookieSpec selected: best-match
+2015-04-02 12:54:38 DEBUG RequestAuthCache:75 - Auth cache not set in the context
+2015-04-02 12:54:38 DEBUG RequestProxyAuthentication:87 - Proxy auth state: UNCHALLENGED
+2015-04-02 12:54:38 DEBUG SdkHttpClient:683 - Attempt 1 to execute request
+2015-04-02 12:54:38 DEBUG DefaultClientConnection:268 - Sending request: POST /655334590711/TestQueue HTTP/1.1
+2015-04-02 12:54:38 DEBUG wire:72 -  >> "POST /655334590711/TestQueue HTTP/1.1[\r][\n]"
+2015-04-02 12:54:38 DEBUG wire:72 -  >> "Host: sqs.eu-west-1.amazonaws.com[\r][\n]"
+2015-04-02 12:54:38 DEBUG wire:72 -  >> "X-Amz-Date: 20150402T095438Z[\r][\n]"
+2015-04-02 12:54:38 DEBUG wire:72 -  >> "Authorization: AWS4-HMAC-SHA256 Credential=AKIAIQLO2VIW2QBPJ6LQ/20150402/eu-west-1/sqs/aws4_request, SignedHeaders=host;user-agent;x-amz-date, Signature=745de694a8f96c78fc498bf0050db64de3c8226fac918f5b19968b37d9388938[\r][\n]"
+2015-04-02 12:54:38 DEBUG wire:72 -  >> "User-Agent: aws-sdk-java/1.9.16 Linux/3.13.0-46-generic OpenJDK_64-Bit_Server_VM/24.75-b04/1.7.0_75/SQS Java Messaging Client v1.0, aws-sdk-java/1.9.16 Linux/3.13.0-46-generic OpenJDK_64-Bit_Server_VM/24.75-b04/1.7.0_75[\r][\n]"
+2015-04-02 12:54:38 DEBUG wire:72 -  >> "Content-Type: application/x-www-form-urlencoded; charset=utf-8[\r][\n]"
+2015-04-02 12:54:38 DEBUG wire:72 -  >> "Content-Length: 128[\r][\n]"
+2015-04-02 12:54:38 DEBUG wire:72 -  >> "Connection: Keep-Alive[\r][\n]"
+2015-04-02 12:54:38 DEBUG wire:72 -  >> "[\r][\n]"
+2015-04-02 12:54:38 DEBUG headers:272 - >> POST /655334590711/TestQueue HTTP/1.1
+2015-04-02 12:54:38 DEBUG headers:275 - >> Host: sqs.eu-west-1.amazonaws.com
+2015-04-02 12:54:38 DEBUG headers:275 - >> X-Amz-Date: 20150402T095438Z
+2015-04-02 12:54:38 DEBUG headers:275 - >> Authorization: AWS4-HMAC-SHA256 Credential=AKIAIQLO2VIW2QBPJ6LQ/20150402/eu-west-1/sqs/aws4_request, SignedHeaders=host;user-agent;x-amz-date, Signature=745de694a8f96c78fc498bf0050db64de3c8226fac918f5b19968b37d9388938
+2015-04-02 12:54:38 DEBUG headers:275 - >> User-Agent: aws-sdk-java/1.9.16 Linux/3.13.0-46-generic OpenJDK_64-Bit_Server_VM/24.75-b04/1.7.0_75/SQS Java Messaging Client v1.0, aws-sdk-java/1.9.16 Linux/3.13.0-46-generic OpenJDK_64-Bit_Server_VM/24.75-b04/1.7.0_75
+2015-04-02 12:54:38 DEBUG headers:275 - >> Content-Type: application/x-www-form-urlencoded; charset=utf-8
+2015-04-02 12:54:38 DEBUG headers:275 - >> Content-Length: 128
+2015-04-02 12:54:38 DEBUG headers:275 - >> Connection: Keep-Alive
+2015-04-02 12:54:38 DEBUG wire:86 -  >> "Action=ReceiveMessage&Version=2012-11-05&AttributeName.1=All&MessageAttributeName.1=All&MaxNumberOfMessages=1&WaitTimeSeconds=20"
+2015-04-02 12:54:58 DEBUG wire:72 -  << "HTTP/1.1 200 OK[\r][\n]"
+2015-04-02 12:54:58 DEBUG wire:72 -  << "Server: Server[\r][\n]"
+2015-04-02 12:54:58 DEBUG wire:72 -  << "Date: Thu, 02 Apr 2015 09:54:58 GMT[\r][\n]"
+2015-04-02 12:54:58 DEBUG wire:72 -  << "Content-Type: text/xml[\r][\n]"
+2015-04-02 12:54:58 DEBUG wire:72 -  << "Content-Length: 240[\r][\n]"
+2015-04-02 12:54:58 DEBUG wire:72 -  << "Connection: keep-alive[\r][\n]"
+2015-04-02 12:54:58 DEBUG wire:72 -  << "x-amzn-RequestId: 4db62bb5-6c19-5042-9977-662278076873[\r][\n]"
+2015-04-02 12:54:58 DEBUG wire:72 -  << "[\r][\n]"
+2015-04-02 12:54:58 DEBUG DefaultClientConnection:253 - Receiving response: HTTP/1.1 200 OK
+2015-04-02 12:54:58 DEBUG headers:256 - << HTTP/1.1 200 OK
+2015-04-02 12:54:58 DEBUG headers:259 - << Server: Server
+2015-04-02 12:54:58 DEBUG headers:259 - << Date: Thu, 02 Apr 2015 09:54:58 GMT
+2015-04-02 12:54:58 DEBUG headers:259 - << Content-Type: text/xml
+2015-04-02 12:54:58 DEBUG headers:259 - << Content-Length: 240
+2015-04-02 12:54:58 DEBUG headers:259 - << Connection: keep-alive
+2015-04-02 12:54:58 DEBUG headers:259 - << x-amzn-RequestId: 4db62bb5-6c19-5042-9977-662278076873
+2015-04-02 12:54:58 DEBUG SdkHttpClient:510 - Connection can be kept alive indefinitely
+2015-04-02 12:54:58 DEBUG wire:86 -  << "<"
+2015-04-02 12:54:58 DEBUG wire:86 -  << "?"
+2015-04-02 12:54:58 DEBUG wire:86 -  << "x"
+2015-04-02 12:54:58 DEBUG wire:86 -  << "m"
+2015-04-02 12:54:58 DEBUG wire:86 -  << "l version="1.0"?><ReceiveMes"
+2015-04-02 12:54:58 DEBUG wire:86 -  << "sageResponse xmlns="http://queue.amazonaws.com/doc/2012-11-05/"><ReceiveMessageResult/><ResponseMetadata><RequestId>4db62bb5-6c19-5042-9977-662278076873</RequestId></ResponseMetadata></ReceiveMessageResponse>"
+2015-04-02 12:54:58 DEBUG PoolingClientConnectionManager:262 - Connection [id: 0][route: {s}->https://sqs.eu-west-1.amazonaws.com] can be kept alive indefinitely
+2015-04-02 12:54:58 DEBUG PoolingClientConnectionManager:269 - Connection released: [id: 0][route: {s}->https://sqs.eu-west-1.amazonaws.com][total kept alive: 1; route allocated: 1 of 50; total allocated: 1 of 50]
+2015-04-02 12:54:58 DEBUG request:992 - Received successful response: 200, AWS Request ID: 4db62bb5-6c19-5042-9977-662278076873
+2015-04-02 12:54:58 DEBUG request:642 - Sending Request: POST https://sqs.eu-west-1.amazonaws.com /655334590711/TestQueue Parameters: (Action: ReceiveMessage, Version: 2012-11-05, AttributeName.1: All, MessageAttributeName.1: All, MaxNumberOfMessages: 1, WaitTimeSeconds: 20, ) Headers: (User-Agent: aws-sdk-java/1.9.16 Linux/3.13.0-46-generic OpenJDK_64-Bit_Server_VM/24.75-b04/1.7.0_75/SQS Java Messaging Client v1.0, aws-sdk-java/1.9.16 Linux/3.13.0-46-generic OpenJDK_64-Bit_Server_VM/24.75-b04/1.7.0_75, ) 
+2015-04-02 12:54:58 DEBUG AWS4Signer:302 - AWS4 Canonical Request: '"POST
+/655334590711/TestQueue
+
+host:sqs.eu-west-1.amazonaws.com
+user-agent:aws-sdk-java/1.9.16 Linux/3.13.0-46-generic OpenJDK_64-Bit_Server_VM/24.75-b04/1.7.0_75/SQS Java Messaging Client v1.0, aws-sdk-java/1.9.16 Linux/3.13.0-46-generic OpenJDK_64-Bit_Server_VM/24.75-b04/1.7.0_75
+x-amz-date:20150402T095458Z
+
+host;user-agent;x-amz-date
+28761fa6362efd6a44905d1e6522bfc11503c52af65200f36ac56f501999c6ea"
+2015-04-02 12:54:58 DEBUG AWS4Signer:326 - AWS4 String to Sign: '"AWS4-HMAC-SHA256
+20150402T095458Z
+20150402/eu-west-1/sqs/aws4_request
+b2233614a7b9acff2bde990a1a88146f9e9f84f8e445640e4f0b7b66103c4410"
+2015-04-02 12:54:58 DEBUG PoolingClientConnectionManager:182 - Connection request: [route: {s}->https://sqs.eu-west-1.amazonaws.com][total kept alive: 1; route allocated: 1 of 50; total allocated: 1 of 50]
+2015-04-02 12:54:58 DEBUG PoolingClientConnectionManager:214 - Connection leased: [id: 0][route: {s}->https://sqs.eu-west-1.amazonaws.com][total kept alive: 0; route allocated: 1 of 50; total allocated: 1 of 50]
+2015-04-02 12:54:58 DEBUG SdkHttpClient:432 - Stale connection check
+2015-04-02 12:54:58 DEBUG RequestAddCookies:122 - CookieSpec selected: best-match
+2015-04-02 12:54:58 DEBUG RequestAuthCache:75 - Auth cache not set in the context
+2015-04-02 12:54:58 DEBUG RequestProxyAuthentication:87 - Proxy auth state: UNCHALLENGED
+2015-04-02 12:54:58 DEBUG SdkHttpClient:683 - Attempt 1 to execute request
+2015-04-02 12:54:58 DEBUG DefaultClientConnection:268 - Sending request: POST /655334590711/TestQueue HTTP/1.1
+2015-04-02 12:54:58 DEBUG wire:72 -  >> "POST /655334590711/TestQueue HTTP/1.1[\r][\n]"
+2015-04-02 12:54:58 DEBUG wire:72 -  >> "Host: sqs.eu-west-1.amazonaws.com[\r][\n]"
+2015-04-02 12:54:58 DEBUG wire:72 -  >> "X-Amz-Date: 20150402T095458Z[\r][\n]"
+2015-04-02 12:54:58 DEBUG wire:72 -  >> "Authorization: AWS4-HMAC-SHA256 Credential=AKIAIQLO2VIW2QBPJ6LQ/20150402/eu-west-1/sqs/aws4_request, SignedHeaders=host;user-agent;x-amz-date, Signature=fda63abd97c505285754bda869261ac0003b8c9d830bc286b4ff065a67de134f[\r][\n]"
+2015-04-02 12:54:58 DEBUG wire:72 -  >> "User-Agent: aws-sdk-java/1.9.16 Linux/3.13.0-46-generic OpenJDK_64-Bit_Server_VM/24.75-b04/1.7.0_75/SQS Java Messaging Client v1.0, aws-sdk-java/1.9.16 Linux/3.13.0-46-generic OpenJDK_64-Bit_Server_VM/24.75-b04/1.7.0_75[\r][\n]"
+2015-04-02 12:54:58 DEBUG wire:72 -  >> "Content-Type: application/x-www-form-urlencoded; charset=utf-8[\r][\n]"
+2015-04-02 12:54:58 DEBUG wire:72 -  >> "Content-Length: 128[\r][\n]"
+2015-04-02 12:54:58 DEBUG wire:72 -  >> "Connection: Keep-Alive[\r][\n]"
+2015-04-02 12:54:58 DEBUG wire:72 -  >> "[\r][\n]"
+2015-04-02 12:54:58 DEBUG headers:272 - >> POST /655334590711/TestQueue HTTP/1.1
+2015-04-02 12:54:58 DEBUG headers:275 - >> Host: sqs.eu-west-1.amazonaws.com
+2015-04-02 12:54:58 DEBUG headers:275 - >> X-Amz-Date: 20150402T095458Z
+2015-04-02 12:54:58 DEBUG headers:275 - >> Authorization: AWS4-HMAC-SHA256 Credential=AKIAIQLO2VIW2QBPJ6LQ/20150402/eu-west-1/sqs/aws4_request, SignedHeaders=host;user-agent;x-amz-date, Signature=fda63abd97c505285754bda869261ac0003b8c9d830bc286b4ff065a67de134f
+2015-04-02 12:54:58 DEBUG headers:275 - >> User-Agent: aws-sdk-java/1.9.16 Linux/3.13.0-46-generic OpenJDK_64-Bit_Server_VM/24.75-b04/1.7.0_75/SQS Java Messaging Client v1.0, aws-sdk-java/1.9.16 Linux/3.13.0-46-generic OpenJDK_64-Bit_Server_VM/24.75-b04/1.7.0_75
+2015-04-02 12:54:58 DEBUG headers:275 - >> Content-Type: application/x-www-form-urlencoded; charset=utf-8
+2015-04-02 12:54:58 DEBUG headers:275 - >> Content-Length: 128
+2015-04-02 12:54:58 DEBUG headers:275 - >> Connection: Keep-Alive
+2015-04-02 12:54:58 DEBUG wire:86 -  >> "Action=ReceiveMessage&Version=2012-11-05&AttributeName.1=All&MessageAttributeName.1=All&MaxNumberOfMessages=1&WaitTimeSeconds=20"
+2015-04-02 12:55:18 DEBUG wire:72 -  << "HTTP/1.1 200 OK[\r][\n]"
+2015-04-02 12:55:18 DEBUG wire:72 -  << "Server: Server[\r][\n]"
+2015-04-02 12:55:18 DEBUG wire:72 -  << "Date: Thu, 02 Apr 2015 09:55:18 GMT[\r][\n]"
+2015-04-02 12:55:18 DEBUG wire:72 -  << "Content-Type: text/xml[\r][\n]"
+2015-04-02 12:55:18 DEBUG wire:72 -  << "Content-Length: 240[\r][\n]"
+2015-04-02 12:55:18 DEBUG wire:72 -  << "Connection: keep-alive[\r][\n]"
+2015-04-02 12:55:18 DEBUG wire:72 -  << "x-amzn-RequestId: 834cf79f-14d0-5f14-872a-ba0800e24725[\r][\n]"
+2015-04-02 12:55:18 DEBUG wire:72 -  << "[\r][\n]"
+2015-04-02 12:55:18 DEBUG DefaultClientConnection:253 - Receiving response: HTTP/1.1 200 OK
+2015-04-02 12:55:18 DEBUG headers:256 - << HTTP/1.1 200 OK
+2015-04-02 12:55:18 DEBUG headers:259 - << Server: Server
+2015-04-02 12:55:18 DEBUG headers:259 - << Date: Thu, 02 Apr 2015 09:55:18 GMT
+2015-04-02 12:55:18 DEBUG headers:259 - << Content-Type: text/xml
+2015-04-02 12:55:18 DEBUG headers:259 - << Content-Length: 240
+2015-04-02 12:55:18 DEBUG headers:259 - << Connection: keep-alive
+2015-04-02 12:55:18 DEBUG headers:259 - << x-amzn-RequestId: 834cf79f-14d0-5f14-872a-ba0800e24725
+2015-04-02 12:55:18 DEBUG SdkHttpClient:510 - Connection can be kept alive indefinitely
+2015-04-02 12:55:18 DEBUG wire:86 -  << "<"
+2015-04-02 12:55:18 DEBUG wire:86 -  << "?"
+2015-04-02 12:55:18 DEBUG wire:86 -  << "x"
+2015-04-02 12:55:18 DEBUG wire:86 -  << "m"
+2015-04-02 12:55:18 DEBUG wire:86 -  << "l version="1.0"?><ReceiveMes"
+2015-04-02 12:55:18 DEBUG wire:86 -  << "sageResponse xmlns="http://queue.amazonaws.com/doc/2012-11-05/"><ReceiveMessageResult/><ResponseMetadata><RequestId>834cf79f-14d0-5f14-872a-ba0800e24725</RequestId></ResponseMetadata></ReceiveMessageResponse>"
+2015-04-02 12:55:18 DEBUG PoolingClientConnectionManager:262 - Connection [id: 0][route: {s}->https://sqs.eu-west-1.amazonaws.com] can be kept alive indefinitely
+2015-04-02 12:55:18 DEBUG PoolingClientConnectionManager:269 - Connection released: [id: 0][route: {s}->https://sqs.eu-west-1.amazonaws.com][total kept alive: 1; route allocated: 1 of 50; total allocated: 1 of 50]
+2015-04-02 12:55:18 DEBUG request:992 - Received successful response: 200, AWS Request ID: 834cf79f-14d0-5f14-872a-ba0800e24725
+2015-04-02 12:55:18 DEBUG request:642 - Sending Request: POST https://sqs.eu-west-1.amazonaws.com /655334590711/TestQueue Parameters: (Action: ReceiveMessage, Version: 2012-11-05, AttributeName.1: All, MessageAttributeName.1: All, MaxNumberOfMessages: 1, WaitTimeSeconds: 20, ) Headers: (User-Agent: aws-sdk-java/1.9.16 Linux/3.13.0-46-generic OpenJDK_64-Bit_Server_VM/24.75-b04/1.7.0_75/SQS Java Messaging Client v1.0, aws-sdk-java/1.9.16 Linux/3.13.0-46-generic OpenJDK_64-Bit_Server_VM/24.75-b04/1.7.0_75, ) 
+2015-04-02 12:55:18 DEBUG AWS4Signer:302 - AWS4 Canonical Request: '"POST
+/655334590711/TestQueue
+
+host:sqs.eu-west-1.amazonaws.com
+user-agent:aws-sdk-java/1.9.16 Linux/3.13.0-46-generic OpenJDK_64-Bit_Server_VM/24.75-b04/1.7.0_75/SQS Java Messaging Client v1.0, aws-sdk-java/1.9.16 Linux/3.13.0-46-generic OpenJDK_64-Bit_Server_VM/24.75-b04/1.7.0_75
+x-amz-date:20150402T095518Z
+
+host;user-agent;x-amz-date
+28761fa6362efd6a44905d1e6522bfc11503c52af65200f36ac56f501999c6ea"
+2015-04-02 12:55:18 DEBUG AWS4Signer:326 - AWS4 String to Sign: '"AWS4-HMAC-SHA256
+20150402T095518Z
+20150402/eu-west-1/sqs/aws4_request
+6ba4b238e237b41f53b3c440a243435663fde84a83e1de8ee3eabcf65fbd10b1"
+2015-04-02 12:55:18 DEBUG PoolingClientConnectionManager:182 - Connection request: [route: {s}->https://sqs.eu-west-1.amazonaws.com][total kept alive: 1; route allocated: 1 of 50; total allocated: 1 of 50]
+2015-04-02 12:55:18 DEBUG PoolingClientConnectionManager:214 - Connection leased: [id: 0][route: {s}->https://sqs.eu-west-1.amazonaws.com][total kept alive: 0; route allocated: 1 of 50; total allocated: 1 of 50]
+2015-04-02 12:55:18 DEBUG SdkHttpClient:432 - Stale connection check
+2015-04-02 12:55:18 DEBUG RequestAddCookies:122 - CookieSpec selected: best-match
+2015-04-02 12:55:18 DEBUG RequestAuthCache:75 - Auth cache not set in the context
+2015-04-02 12:55:18 DEBUG RequestProxyAuthentication:87 - Proxy auth state: UNCHALLENGED
+2015-04-02 12:55:18 DEBUG SdkHttpClient:683 - Attempt 1 to execute request
+2015-04-02 12:55:18 DEBUG DefaultClientConnection:268 - Sending request: POST /655334590711/TestQueue HTTP/1.1
+2015-04-02 12:55:18 DEBUG wire:72 -  >> "POST /655334590711/TestQueue HTTP/1.1[\r][\n]"
+2015-04-02 12:55:18 DEBUG wire:72 -  >> "Host: sqs.eu-west-1.amazonaws.com[\r][\n]"
+2015-04-02 12:55:18 DEBUG wire:72 -  >> "X-Amz-Date: 20150402T095518Z[\r][\n]"
+2015-04-02 12:55:18 DEBUG wire:72 -  >> "Authorization: AWS4-HMAC-SHA256 Credential=AKIAIQLO2VIW2QBPJ6LQ/20150402/eu-west-1/sqs/aws4_request, SignedHeaders=host;user-agent;x-amz-date, Signature=0133189576ec1172a9143895fd2e8656025ab96cd2fa06b35f601b3fea95d474[\r][\n]"
+2015-04-02 12:55:18 DEBUG wire:72 -  >> "User-Agent: aws-sdk-java/1.9.16 Linux/3.13.0-46-generic OpenJDK_64-Bit_Server_VM/24.75-b04/1.7.0_75/SQS Java Messaging Client v1.0, aws-sdk-java/1.9.16 Linux/3.13.0-46-generic OpenJDK_64-Bit_Server_VM/24.75-b04/1.7.0_75[\r][\n]"
+2015-04-02 12:55:18 DEBUG wire:72 -  >> "Content-Type: application/x-www-form-urlencoded; charset=utf-8[\r][\n]"
+2015-04-02 12:55:18 DEBUG wire:72 -  >> "Content-Length: 128[\r][\n]"
+2015-04-02 12:55:18 DEBUG wire:72 -  >> "Connection: Keep-Alive[\r][\n]"
+2015-04-02 12:55:18 DEBUG wire:72 -  >> "[\r][\n]"
+2015-04-02 12:55:18 DEBUG headers:272 - >> POST /655334590711/TestQueue HTTP/1.1
+2015-04-02 12:55:18 DEBUG headers:275 - >> Host: sqs.eu-west-1.amazonaws.com
+2015-04-02 12:55:18 DEBUG headers:275 - >> X-Amz-Date: 20150402T095518Z
+2015-04-02 12:55:18 DEBUG headers:275 - >> Authorization: AWS4-HMAC-SHA256 Credential=AKIAIQLO2VIW2QBPJ6LQ/20150402/eu-west-1/sqs/aws4_request, SignedHeaders=host;user-agent;x-amz-date, Signature=0133189576ec1172a9143895fd2e8656025ab96cd2fa06b35f601b3fea95d474
+2015-04-02 12:55:18 DEBUG headers:275 - >> User-Agent: aws-sdk-java/1.9.16 Linux/3.13.0-46-generic OpenJDK_64-Bit_Server_VM/24.75-b04/1.7.0_75/SQS Java Messaging Client v1.0, aws-sdk-java/1.9.16 Linux/3.13.0-46-generic OpenJDK_64-Bit_Server_VM/24.75-b04/1.7.0_75
+2015-04-02 12:55:18 DEBUG headers:275 - >> Content-Type: application/x-www-form-urlencoded; charset=utf-8
+2015-04-02 12:55:18 DEBUG headers:275 - >> Content-Length: 128
+2015-04-02 12:55:18 DEBUG headers:275 - >> Connection: Keep-Alive
+2015-04-02 12:55:18 DEBUG wire:86 -  >> "Action=ReceiveMessage&Version=2012-11-05&AttributeName.1=All&MessageAttributeName.1=All&MaxNumberOfMessages=1&WaitTimeSeconds=20"
+2015-04-02 12:55:35 DEBUG PoolingClientConnectionManager:286 - Closing connections idle longer than 60 SECONDS
+2015-04-02 12:55:35 DEBUG PoolingClientConnectionManager:286 - Closing connections idle longer than 60 SECONDS
+2015-04-02 12:55:35 DEBUG PoolingClientConnectionManager:286 - Closing connections idle longer than 60 SECONDS
+2015-04-02 12:55:35 DEBUG PoolingClientConnectionManager:286 - Closing connections idle longer than 60 SECONDS
+2015-04-02 12:55:38 DEBUG wire:72 -  << "HTTP/1.1 200 OK[\r][\n]"
+2015-04-02 12:55:38 DEBUG wire:72 -  << "Server: Server[\r][\n]"
+2015-04-02 12:55:38 DEBUG wire:72 -  << "Date: Thu, 02 Apr 2015 09:55:38 GMT[\r][\n]"
+2015-04-02 12:55:38 DEBUG wire:72 -  << "Content-Type: text/xml[\r][\n]"
+2015-04-02 12:55:38 DEBUG wire:72 -  << "Content-Length: 240[\r][\n]"
+2015-04-02 12:55:38 DEBUG wire:72 -  << "Connection: keep-alive[\r][\n]"
+2015-04-02 12:55:38 DEBUG wire:72 -  << "x-amzn-RequestId: e8b59629-54dc-513a-9462-dbbe409ae90b[\r][\n]"
+2015-04-02 12:55:38 DEBUG wire:72 -  << "[\r][\n]"
+2015-04-02 12:55:38 DEBUG DefaultClientConnection:253 - Receiving response: HTTP/1.1 200 OK
+2015-04-02 12:55:38 DEBUG headers:256 - << HTTP/1.1 200 OK
+2015-04-02 12:55:38 DEBUG headers:259 - << Server: Server
+2015-04-02 12:55:38 DEBUG headers:259 - << Date: Thu, 02 Apr 2015 09:55:38 GMT
+2015-04-02 12:55:38 DEBUG headers:259 - << Content-Type: text/xml
+2015-04-02 12:55:38 DEBUG headers:259 - << Content-Length: 240
+2015-04-02 12:55:38 DEBUG headers:259 - << Connection: keep-alive
+2015-04-02 12:55:38 DEBUG headers:259 - << x-amzn-RequestId: e8b59629-54dc-513a-9462-dbbe409ae90b
+2015-04-02 12:55:38 DEBUG SdkHttpClient:510 - Connection can be kept alive indefinitely
+2015-04-02 12:55:38 DEBUG wire:86 -  << "<"
+2015-04-02 12:55:38 DEBUG wire:86 -  << "?"
+2015-04-02 12:55:38 DEBUG wire:86 -  << "x"
+2015-04-02 12:55:38 DEBUG wire:86 -  << "m"
+2015-04-02 12:55:38 DEBUG wire:86 -  << "l version="1.0"?><ReceiveMes"
+2015-04-02 12:55:38 DEBUG wire:86 -  << "sageResponse xmlns="http://queue.amazonaws.com/doc/2012-11-05/"><ReceiveMessageResult/><ResponseMetadata><RequestId>e8b59629-54dc-513a-9462-dbbe409ae90b</RequestId></ResponseMetadata></ReceiveMessageResponse>"
+2015-04-02 12:55:38 DEBUG PoolingClientConnectionManager:262 - Connection [id: 0][route: {s}->https://sqs.eu-west-1.amazonaws.com] can be kept alive indefinitely
+2015-04-02 12:55:38 DEBUG PoolingClientConnectionManager:269 - Connection released: [id: 0][route: {s}->https://sqs.eu-west-1.amazonaws.com][total kept alive: 1; route allocated: 1 of 50; total allocated: 1 of 50]
+2015-04-02 12:55:38 DEBUG request:992 - Received successful response: 200, AWS Request ID: e8b59629-54dc-513a-9462-dbbe409ae90b
+2015-04-02 12:55:38 DEBUG request:642 - Sending Request: POST https://sqs.eu-west-1.amazonaws.com /655334590711/TestQueue Parameters: (Action: ReceiveMessage, Version: 2012-11-05, AttributeName.1: All, MessageAttributeName.1: All, MaxNumberOfMessages: 1, WaitTimeSeconds: 20, ) Headers: (User-Agent: aws-sdk-java/1.9.16 Linux/3.13.0-46-generic OpenJDK_64-Bit_Server_VM/24.75-b04/1.7.0_75/SQS Java Messaging Client v1.0, aws-sdk-java/1.9.16 Linux/3.13.0-46-generic OpenJDK_64-Bit_Server_VM/24.75-b04/1.7.0_75, ) 
+2015-04-02 12:55:38 DEBUG AWS4Signer:302 - AWS4 Canonical Request: '"POST
+/655334590711/TestQueue
+
+host:sqs.eu-west-1.amazonaws.com
+user-agent:aws-sdk-java/1.9.16 Linux/3.13.0-46-generic OpenJDK_64-Bit_Server_VM/24.75-b04/1.7.0_75/SQS Java Messaging Client v1.0, aws-sdk-java/1.9.16 Linux/3.13.0-46-generic OpenJDK_64-Bit_Server_VM/24.75-b04/1.7.0_75
+x-amz-date:20150402T095538Z
+
+host;user-agent;x-amz-date
+28761fa6362efd6a44905d1e6522bfc11503c52af65200f36ac56f501999c6ea"
+2015-04-02 12:55:38 DEBUG AWS4Signer:326 - AWS4 String to Sign: '"AWS4-HMAC-SHA256
+20150402T095538Z
+20150402/eu-west-1/sqs/aws4_request
+a81ae4f97037a0720bf0fe010ccf25bcf5a11dd1f409478212c92bc153794c22"
+2015-04-02 12:55:38 DEBUG PoolingClientConnectionManager:182 - Connection request: [route: {s}->https://sqs.eu-west-1.amazonaws.com][total kept alive: 1; route allocated: 1 of 50; total allocated: 1 of 50]
+2015-04-02 12:55:38 DEBUG PoolingClientConnectionManager:214 - Connection leased: [id: 0][route: {s}->https://sqs.eu-west-1.amazonaws.com][total kept alive: 0; route allocated: 1 of 50; total allocated: 1 of 50]
+2015-04-02 12:55:38 DEBUG SdkHttpClient:432 - Stale connection check
+2015-04-02 12:55:38 DEBUG RequestAddCookies:122 - CookieSpec selected: best-match
+2015-04-02 12:55:38 DEBUG RequestAuthCache:75 - Auth cache not set in the context
+2015-04-02 12:55:38 DEBUG RequestProxyAuthentication:87 - Proxy auth state: UNCHALLENGED
+2015-04-02 12:55:38 DEBUG SdkHttpClient:683 - Attempt 1 to execute request
+2015-04-02 12:55:38 DEBUG DefaultClientConnection:268 - Sending request: POST /655334590711/TestQueue HTTP/1.1
+2015-04-02 12:55:38 DEBUG wire:72 -  >> "POST /655334590711/TestQueue HTTP/1.1[\r][\n]"
+2015-04-02 12:55:38 DEBUG wire:72 -  >> "Host: sqs.eu-west-1.amazonaws.com[\r][\n]"
+2015-04-02 12:55:38 DEBUG wire:72 -  >> "X-Amz-Date: 20150402T095538Z[\r][\n]"
+2015-04-02 12:55:38 DEBUG wire:72 -  >> "Authorization: AWS4-HMAC-SHA256 Credential=AKIAIQLO2VIW2QBPJ6LQ/20150402/eu-west-1/sqs/aws4_request, SignedHeaders=host;user-agent;x-amz-date, Signature=3ccdbc0adf2dcd173321e0275c233c5ec0a75050f35d12b4de5b16478d9888de[\r][\n]"
+2015-04-02 12:55:38 DEBUG wire:72 -  >> "User-Agent: aws-sdk-java/1.9.16 Linux/3.13.0-46-generic OpenJDK_64-Bit_Server_VM/24.75-b04/1.7.0_75/SQS Java Messaging Client v1.0, aws-sdk-java/1.9.16 Linux/3.13.0-46-generic OpenJDK_64-Bit_Server_VM/24.75-b04/1.7.0_75[\r][\n]"
+2015-04-02 12:55:38 DEBUG wire:72 -  >> "Content-Type: application/x-www-form-urlencoded; charset=utf-8[\r][\n]"
+2015-04-02 12:55:38 DEBUG wire:72 -  >> "Content-Length: 128[\r][\n]"
+2015-04-02 12:55:38 DEBUG wire:72 -  >> "Connection: Keep-Alive[\r][\n]"
+2015-04-02 12:55:38 DEBUG wire:72 -  >> "[\r][\n]"
+2015-04-02 12:55:38 DEBUG headers:272 - >> POST /655334590711/TestQueue HTTP/1.1
+2015-04-02 12:55:38 DEBUG headers:275 - >> Host: sqs.eu-west-1.amazonaws.com
+2015-04-02 12:55:38 DEBUG headers:275 - >> X-Amz-Date: 20150402T095538Z
+2015-04-02 12:55:38 DEBUG headers:275 - >> Authorization: AWS4-HMAC-SHA256 Credential=AKIAIQLO2VIW2QBPJ6LQ/20150402/eu-west-1/sqs/aws4_request, SignedHeaders=host;user-agent;x-amz-date, Signature=3ccdbc0adf2dcd173321e0275c233c5ec0a75050f35d12b4de5b16478d9888de
+2015-04-02 12:55:38 DEBUG headers:275 - >> User-Agent: aws-sdk-java/1.9.16 Linux/3.13.0-46-generic OpenJDK_64-Bit_Server_VM/24.75-b04/1.7.0_75/SQS Java Messaging Client v1.0, aws-sdk-java/1.9.16 Linux/3.13.0-46-generic OpenJDK_64-Bit_Server_VM/24.75-b04/1.7.0_75
+2015-04-02 12:55:38 DEBUG headers:275 - >> Content-Type: application/x-www-form-urlencoded; charset=utf-8
+2015-04-02 12:55:38 DEBUG headers:275 - >> Content-Length: 128
+2015-04-02 12:55:38 DEBUG headers:275 - >> Connection: Keep-Alive
+2015-04-02 12:55:38 DEBUG wire:86 -  >> "Action=ReceiveMessage&Version=2012-11-05&AttributeName.1=All&MessageAttributeName.1=All&MaxNumberOfMessages=1&WaitTimeSeconds=20"
+2015-04-02 12:55:58 DEBUG wire:72 -  << "HTTP/1.1 200 OK[\r][\n]"
+2015-04-02 12:55:58 DEBUG wire:72 -  << "Server: Server[\r][\n]"
+2015-04-02 12:55:58 DEBUG wire:72 -  << "Date: Thu, 02 Apr 2015 09:55:59 GMT[\r][\n]"
+2015-04-02 12:55:58 DEBUG wire:72 -  << "Content-Type: text/xml[\r][\n]"
+2015-04-02 12:55:58 DEBUG wire:72 -  << "Content-Length: 240[\r][\n]"
+2015-04-02 12:55:58 DEBUG wire:72 -  << "Connection: keep-alive[\r][\n]"
+2015-04-02 12:55:58 DEBUG wire:72 -  << "x-amzn-RequestId: fca39337-e89e-5a1d-9430-dea0fcc5622c[\r][\n]"
+2015-04-02 12:55:58 DEBUG wire:72 -  << "[\r][\n]"
+2015-04-02 12:55:58 DEBUG DefaultClientConnection:253 - Receiving response: HTTP/1.1 200 OK
+2015-04-02 12:55:58 DEBUG headers:256 - << HTTP/1.1 200 OK
+2015-04-02 12:55:58 DEBUG headers:259 - << Server: Server
+2015-04-02 12:55:58 DEBUG headers:259 - << Date: Thu, 02 Apr 2015 09:55:59 GMT
+2015-04-02 12:55:58 DEBUG headers:259 - << Content-Type: text/xml
+2015-04-02 12:55:58 DEBUG headers:259 - << Content-Length: 240
+2015-04-02 12:55:58 DEBUG headers:259 - << Connection: keep-alive
+2015-04-02 12:55:58 DEBUG headers:259 - << x-amzn-RequestId: fca39337-e89e-5a1d-9430-dea0fcc5622c
+2015-04-02 12:55:58 DEBUG SdkHttpClient:510 - Connection can be kept alive indefinitely
+2015-04-02 12:55:58 DEBUG wire:86 -  << "<"
+2015-04-02 12:55:58 DEBUG wire:86 -  << "?"
+2015-04-02 12:55:58 DEBUG wire:86 -  << "x"
+2015-04-02 12:55:58 DEBUG wire:86 -  << "m"
+2015-04-02 12:55:58 DEBUG wire:86 -  << "l version="1.0"?><ReceiveMes"
+2015-04-02 12:55:58 DEBUG wire:86 -  << "sageResponse xmlns="http://queue.amazonaws.com/doc/2012-11-05/"><ReceiveMessageResult/><ResponseMetadata><RequestId>fca39337-e89e-5a1d-9430-dea0fcc5622c</RequestId></ResponseMetadata></ReceiveMessageResponse>"
+2015-04-02 12:55:58 DEBUG PoolingClientConnectionManager:262 - Connection [id: 0][route: {s}->https://sqs.eu-west-1.amazonaws.com] can be kept alive indefinitely
+2015-04-02 12:55:58 DEBUG PoolingClientConnectionManager:269 - Connection released: [id: 0][route: {s}->https://sqs.eu-west-1.amazonaws.com][total kept alive: 1; route allocated: 1 of 50; total allocated: 1 of 50]
+2015-04-02 12:55:58 DEBUG request:992 - Received successful response: 200, AWS Request ID: fca39337-e89e-5a1d-9430-dea0fcc5622c
+2015-04-02 12:55:58 DEBUG request:642 - Sending Request: POST https://sqs.eu-west-1.amazonaws.com /655334590711/TestQueue Parameters: (Action: ReceiveMessage, Version: 2012-11-05, AttributeName.1: All, MessageAttributeName.1: All, MaxNumberOfMessages: 1, WaitTimeSeconds: 20, ) Headers: (User-Agent: aws-sdk-java/1.9.16 Linux/3.13.0-46-generic OpenJDK_64-Bit_Server_VM/24.75-b04/1.7.0_75/SQS Java Messaging Client v1.0, aws-sdk-java/1.9.16 Linux/3.13.0-46-generic OpenJDK_64-Bit_Server_VM/24.75-b04/1.7.0_75, ) 
+2015-04-02 12:55:58 DEBUG AWS4Signer:302 - AWS4 Canonical Request: '"POST
+/655334590711/TestQueue
+
+host:sqs.eu-west-1.amazonaws.com
+user-agent:aws-sdk-java/1.9.16 Linux/3.13.0-46-generic OpenJDK_64-Bit_Server_VM/24.75-b04/1.7.0_75/SQS Java Messaging Client v1.0, aws-sdk-java/1.9.16 Linux/3.13.0-46-generic OpenJDK_64-Bit_Server_VM/24.75-b04/1.7.0_75
+x-amz-date:20150402T095558Z
+
+host;user-agent;x-amz-date
+28761fa6362efd6a44905d1e6522bfc11503c52af65200f36ac56f501999c6ea"
+2015-04-02 12:55:58 DEBUG AWS4Signer:326 - AWS4 String to Sign: '"AWS4-HMAC-SHA256
+20150402T095558Z
+20150402/eu-west-1/sqs/aws4_request
+00b846ebf0fecce4b469b7fc30e4c8541d7dd9795490e6cb2c2007fc1fefc51a"
+2015-04-02 12:55:58 DEBUG PoolingClientConnectionManager:182 - Connection request: [route: {s}->https://sqs.eu-west-1.amazonaws.com][total kept alive: 1; route allocated: 1 of 50; total allocated: 1 of 50]
+2015-04-02 12:55:58 DEBUG PoolingClientConnectionManager:214 - Connection leased: [id: 0][route: {s}->https://sqs.eu-west-1.amazonaws.com][total kept alive: 0; route allocated: 1 of 50; total allocated: 1 of 50]
+2015-04-02 12:55:58 DEBUG SdkHttpClient:432 - Stale connection check
+2015-04-02 12:55:58 DEBUG RequestAddCookies:122 - CookieSpec selected: best-match
+2015-04-02 12:55:58 DEBUG RequestAuthCache:75 - Auth cache not set in the context
+2015-04-02 12:55:58 DEBUG RequestProxyAuthentication:87 - Proxy auth state: UNCHALLENGED
+2015-04-02 12:55:58 DEBUG SdkHttpClient:683 - Attempt 1 to execute request
+2015-04-02 12:55:58 DEBUG DefaultClientConnection:268 - Sending request: POST /655334590711/TestQueue HTTP/1.1
+2015-04-02 12:55:58 DEBUG wire:72 -  >> "POST /655334590711/TestQueue HTTP/1.1[\r][\n]"
+2015-04-02 12:55:58 DEBUG wire:72 -  >> "Host: sqs.eu-west-1.amazonaws.com[\r][\n]"
+2015-04-02 12:55:58 DEBUG wire:72 -  >> "X-Amz-Date: 20150402T095558Z[\r][\n]"
+2015-04-02 12:55:58 DEBUG wire:72 -  >> "Authorization: AWS4-HMAC-SHA256 Credential=AKIAIQLO2VIW2QBPJ6LQ/20150402/eu-west-1/sqs/aws4_request, SignedHeaders=host;user-agent;x-amz-date, Signature=c936a1978574e39e5eab8f937bc5ccae9dec7f0eb4a8d29816d838eddab510d1[\r][\n]"
+2015-04-02 12:55:58 DEBUG wire:72 -  >> "User-Agent: aws-sdk-java/1.9.16 Linux/3.13.0-46-generic OpenJDK_64-Bit_Server_VM/24.75-b04/1.7.0_75/SQS Java Messaging Client v1.0, aws-sdk-java/1.9.16 Linux/3.13.0-46-generic OpenJDK_64-Bit_Server_VM/24.75-b04/1.7.0_75[\r][\n]"
+2015-04-02 12:55:58 DEBUG wire:72 -  >> "Content-Type: application/x-www-form-urlencoded; charset=utf-8[\r][\n]"
+2015-04-02 12:55:58 DEBUG wire:72 -  >> "Content-Length: 128[\r][\n]"
+2015-04-02 12:55:58 DEBUG wire:72 -  >> "Connection: Keep-Alive[\r][\n]"
+2015-04-02 12:55:58 DEBUG wire:72 -  >> "[\r][\n]"
+2015-04-02 12:55:58 DEBUG headers:272 - >> POST /655334590711/TestQueue HTTP/1.1
+2015-04-02 12:55:58 DEBUG headers:275 - >> Host: sqs.eu-west-1.amazonaws.com
+2015-04-02 12:55:58 DEBUG headers:275 - >> X-Amz-Date: 20150402T095558Z
+2015-04-02 12:55:58 DEBUG headers:275 - >> Authorization: AWS4-HMAC-SHA256 Credential=AKIAIQLO2VIW2QBPJ6LQ/20150402/eu-west-1/sqs/aws4_request, SignedHeaders=host;user-agent;x-amz-date, Signature=c936a1978574e39e5eab8f937bc5ccae9dec7f0eb4a8d29816d838eddab510d1
+2015-04-02 12:55:58 DEBUG headers:275 - >> User-Agent: aws-sdk-java/1.9.16 Linux/3.13.0-46-generic OpenJDK_64-Bit_Server_VM/24.75-b04/1.7.0_75/SQS Java Messaging Client v1.0, aws-sdk-java/1.9.16 Linux/3.13.0-46-generic OpenJDK_64-Bit_Server_VM/24.75-b04/1.7.0_75
+2015-04-02 12:55:58 DEBUG headers:275 - >> Content-Type: application/x-www-form-urlencoded; charset=utf-8
+2015-04-02 12:55:58 DEBUG headers:275 - >> Content-Length: 128
+2015-04-02 12:55:59 DEBUG headers:275 - >> Connection: Keep-Alive
+2015-04-02 12:55:59 DEBUG wire:86 -  >> "Action=ReceiveMessage&Version=2012-11-05&AttributeName.1=All&MessageAttributeName.1=All&MaxNumberOfMessages=1&WaitTimeSeconds=20"
+2015-04-02 12:56:19 DEBUG wire:72 -  << "HTTP/1.1 200 OK[\r][\n]"
+2015-04-02 12:56:19 DEBUG wire:72 -  << "Server: Server[\r][\n]"
+2015-04-02 12:56:19 DEBUG wire:72 -  << "Date: Thu, 02 Apr 2015 09:56:19 GMT[\r][\n]"
+2015-04-02 12:56:19 DEBUG wire:72 -  << "Content-Type: text/xml[\r][\n]"
+2015-04-02 12:56:19 DEBUG wire:72 -  << "Content-Length: 240[\r][\n]"
+2015-04-02 12:56:19 DEBUG wire:72 -  << "Connection: keep-alive[\r][\n]"
+2015-04-02 12:56:19 DEBUG wire:72 -  << "x-amzn-RequestId: 845dbd8a-3a40-505a-8548-f01d2e2fe86b[\r][\n]"
+2015-04-02 12:56:19 DEBUG wire:72 -  << "[\r][\n]"
+2015-04-02 12:56:19 DEBUG DefaultClientConnection:253 - Receiving response: HTTP/1.1 200 OK
+2015-04-02 12:56:19 DEBUG headers:256 - << HTTP/1.1 200 OK
+2015-04-02 12:56:19 DEBUG headers:259 - << Server: Server
+2015-04-02 12:56:19 DEBUG headers:259 - << Date: Thu, 02 Apr 2015 09:56:19 GMT
+2015-04-02 12:56:19 DEBUG headers:259 - << Content-Type: text/xml
+2015-04-02 12:56:19 DEBUG headers:259 - << Content-Length: 240
+2015-04-02 12:56:19 DEBUG headers:259 - << Connection: keep-alive
+2015-04-02 12:56:19 DEBUG headers:259 - << x-amzn-RequestId: 845dbd8a-3a40-505a-8548-f01d2e2fe86b
+2015-04-02 12:56:19 DEBUG SdkHttpClient:510 - Connection can be kept alive indefinitely
+2015-04-02 12:56:19 DEBUG wire:86 -  << "<"
+2015-04-02 12:56:19 DEBUG wire:86 -  << "?"
+2015-04-02 12:56:19 DEBUG wire:86 -  << "x"
+2015-04-02 12:56:19 DEBUG wire:86 -  << "m"
+2015-04-02 12:56:19 DEBUG wire:86 -  << "l version="1.0"?><ReceiveMes"
+2015-04-02 12:56:19 DEBUG wire:86 -  << "sageResponse xmlns="http://queue.amazonaws.com/doc/2012-11-05/"><ReceiveMessageResult/><ResponseMetadata><RequestId>845dbd8a-3a40-505a-8548-f01d2e2fe86b</RequestId></ResponseMetadata></ReceiveMessageResponse>"
+2015-04-02 12:56:19 DEBUG PoolingClientConnectionManager:262 - Connection [id: 0][route: {s}->https://sqs.eu-west-1.amazonaws.com] can be kept alive indefinitely
+2015-04-02 12:56:19 DEBUG PoolingClientConnectionManager:269 - Connection released: [id: 0][route: {s}->https://sqs.eu-west-1.amazonaws.com][total kept alive: 1; route allocated: 1 of 50; total allocated: 1 of 50]
+2015-04-02 12:56:19 DEBUG request:992 - Received successful response: 200, AWS Request ID: 845dbd8a-3a40-505a-8548-f01d2e2fe86b
+2015-04-02 12:56:19 DEBUG request:642 - Sending Request: POST https://sqs.eu-west-1.amazonaws.com /655334590711/TestQueue Parameters: (Action: ReceiveMessage, Version: 2012-11-05, AttributeName.1: All, MessageAttributeName.1: All, MaxNumberOfMessages: 1, WaitTimeSeconds: 20, ) Headers: (User-Agent: aws-sdk-java/1.9.16 Linux/3.13.0-46-generic OpenJDK_64-Bit_Server_VM/24.75-b04/1.7.0_75/SQS Java Messaging Client v1.0, aws-sdk-java/1.9.16 Linux/3.13.0-46-generic OpenJDK_64-Bit_Server_VM/24.75-b04/1.7.0_75, ) 
+2015-04-02 12:56:19 DEBUG AWS4Signer:302 - AWS4 Canonical Request: '"POST
+/655334590711/TestQueue
+
+host:sqs.eu-west-1.amazonaws.com
+user-agent:aws-sdk-java/1.9.16 Linux/3.13.0-46-generic OpenJDK_64-Bit_Server_VM/24.75-b04/1.7.0_75/SQS Java Messaging Client v1.0, aws-sdk-java/1.9.16 Linux/3.13.0-46-generic OpenJDK_64-Bit_Server_VM/24.75-b04/1.7.0_75
+x-amz-date:20150402T095619Z
+
+host;user-agent;x-amz-date
+28761fa6362efd6a44905d1e6522bfc11503c52af65200f36ac56f501999c6ea"
+2015-04-02 12:56:19 DEBUG AWS4Signer:326 - AWS4 String to Sign: '"AWS4-HMAC-SHA256
+20150402T095619Z
+20150402/eu-west-1/sqs/aws4_request
+83494b77b80e582acc8779c51988ab9b99e075acd8231d1ed32129d081db007c"
+2015-04-02 12:56:19 DEBUG PoolingClientConnectionManager:182 - Connection request: [route: {s}->https://sqs.eu-west-1.amazonaws.com][total kept alive: 1; route allocated: 1 of 50; total allocated: 1 of 50]
+2015-04-02 12:56:19 DEBUG PoolingClientConnectionManager:214 - Connection leased: [id: 0][route: {s}->https://sqs.eu-west-1.amazonaws.com][total kept alive: 0; route allocated: 1 of 50; total allocated: 1 of 50]
+2015-04-02 12:56:19 DEBUG SdkHttpClient:432 - Stale connection check
+2015-04-02 12:56:19 DEBUG RequestAddCookies:122 - CookieSpec selected: best-match
+2015-04-02 12:56:19 DEBUG RequestAuthCache:75 - Auth cache not set in the context
+2015-04-02 12:56:19 DEBUG RequestProxyAuthentication:87 - Proxy auth state: UNCHALLENGED
+2015-04-02 12:56:19 DEBUG SdkHttpClient:683 - Attempt 1 to execute request
+2015-04-02 12:56:19 DEBUG DefaultClientConnection:268 - Sending request: POST /655334590711/TestQueue HTTP/1.1
+2015-04-02 12:56:19 DEBUG wire:72 -  >> "POST /655334590711/TestQueue HTTP/1.1[\r][\n]"
+2015-04-02 12:56:19 DEBUG wire:72 -  >> "Host: sqs.eu-west-1.amazonaws.com[\r][\n]"
+2015-04-02 12:56:19 DEBUG wire:72 -  >> "X-Amz-Date: 20150402T095619Z[\r][\n]"
+2015-04-02 12:56:19 DEBUG wire:72 -  >> "Authorization: AWS4-HMAC-SHA256 Credential=AKIAIQLO2VIW2QBPJ6LQ/20150402/eu-west-1/sqs/aws4_request, SignedHeaders=host;user-agent;x-amz-date, Signature=8017753c8a3e529f74f1f4ccfa543ffaea83574399f410c2fb2d3e9582eaf5e9[\r][\n]"
+2015-04-02 12:56:19 DEBUG wire:72 -  >> "User-Agent: aws-sdk-java/1.9.16 Linux/3.13.0-46-generic OpenJDK_64-Bit_Server_VM/24.75-b04/1.7.0_75/SQS Java Messaging Client v1.0, aws-sdk-java/1.9.16 Linux/3.13.0-46-generic OpenJDK_64-Bit_Server_VM/24.75-b04/1.7.0_75[\r][\n]"
+2015-04-02 12:56:19 DEBUG wire:72 -  >> "Content-Type: application/x-www-form-urlencoded; charset=utf-8[\r][\n]"
+2015-04-02 12:56:19 DEBUG wire:72 -  >> "Content-Length: 128[\r][\n]"
+2015-04-02 12:56:19 DEBUG wire:72 -  >> "Connection: Keep-Alive[\r][\n]"
+2015-04-02 12:56:19 DEBUG wire:72 -  >> "[\r][\n]"
+2015-04-02 12:56:19 DEBUG headers:272 - >> POST /655334590711/TestQueue HTTP/1.1
+2015-04-02 12:56:19 DEBUG headers:275 - >> Host: sqs.eu-west-1.amazonaws.com
+2015-04-02 12:56:19 DEBUG headers:275 - >> X-Amz-Date: 20150402T095619Z
+2015-04-02 12:56:19 DEBUG headers:275 - >> Authorization: AWS4-HMAC-SHA256 Credential=AKIAIQLO2VIW2QBPJ6LQ/20150402/eu-west-1/sqs/aws4_request, SignedHeaders=host;user-agent;x-amz-date, Signature=8017753c8a3e529f74f1f4ccfa543ffaea83574399f410c2fb2d3e9582eaf5e9
+2015-04-02 12:56:19 DEBUG headers:275 - >> User-Agent: aws-sdk-java/1.9.16 Linux/3.13.0-46-generic OpenJDK_64-Bit_Server_VM/24.75-b04/1.7.0_75/SQS Java Messaging Client v1.0, aws-sdk-java/1.9.16 Linux/3.13.0-46-generic OpenJDK_64-Bit_Server_VM/24.75-b04/1.7.0_75
+2015-04-02 12:56:19 DEBUG headers:275 - >> Content-Type: application/x-www-form-urlencoded; charset=utf-8
+2015-04-02 12:56:19 DEBUG headers:275 - >> Content-Length: 128
+2015-04-02 12:56:19 DEBUG headers:275 - >> Connection: Keep-Alive
+2015-04-02 12:56:19 DEBUG wire:86 -  >> "Action=ReceiveMessage&Version=2012-11-05&AttributeName.1=All&MessageAttributeName.1=All&MaxNumberOfMessages=1&WaitTimeSeconds=20"
+2015-04-02 13:26:53 DEBUG InternalConfig:258 - Configuration override awssdk_config_override.json not found.
+2015-04-02 13:26:54 INFO  RedshiftUtil:65 - 	 Redshift: Connection successfully created
+2015-04-02 13:27:20 INFO  RedshiftUtil:76 - 	 Redshift: Connection closed
+2015-04-02 14:51:43 DEBUG InternalConfig:258 - Configuration override awssdk_config_override.json not found.
+2015-04-02 14:51:44 INFO  RedshiftUtil:66 - 	 Redshift: Connection successfully created
+2015-04-02 14:52:13 INFO  RedshiftUtil:77 - 	 Redshift: Connection closed

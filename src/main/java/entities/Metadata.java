@@ -1,22 +1,41 @@
-package ec2.dynamodb;
+package entities;
 
+import com.amazonaws.services.s3.model.ObjectMetadata;
 
-public class Record {
+import java.util.Date;
+import java.util.Map;
+
+/**
+ * This is a simple POJO Object which uses to correct and comfortable transfering metadata into DynamoDB.
+ */
+public class Metadata {
     private String eventID;
     private long userId;
     private long machineId;
-    private long time;
+    private Date lastModified;
     private String eventType;
     private String value;
+    private boolean allFieldsNotNull;
 
-    public Record() {
+    public Metadata() {
     }
 
-    public Record(String eventID, long userId, long machineId, long time, String eventType, String value) {
+    public Metadata(ObjectMetadata om) {
+        Map<String, String> md = om.getUserMetadata();
+        eventID = md.get("eventid");
+        userId = Long.parseLong(md.get("userid"));
+        machineId = Long.parseLong(md.get("machineid"));
+        lastModified = om.getLastModified();
+        eventType = md.get("eventtype");
+        value = md.get("value");
+    }
+
+
+    public Metadata(String eventID, long userId, long machineId, Date lastModified, String eventType, String value) {
         this.eventID = eventID;
         this.userId = userId;
         this.machineId = machineId;
-        this.time = time;
+        this.lastModified = lastModified;
         this.eventType = eventType;
         this.value = value;
     }
@@ -45,12 +64,12 @@ public class Record {
         this.machineId = machineId;
     }
 
-    public long getTime() {
-        return time;
+    public Date getLastModified() {
+        return lastModified;
     }
 
-    public void setTime(long time) {
-        this.time = time;
+    public void setLastModified(Date lastModified) {
+        this.lastModified = lastModified;
     }
 
     public String getEventType() {
