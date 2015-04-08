@@ -1,4 +1,4 @@
-package configurations;
+package configurations.servicesconfigurators;
 
 import org.apache.log4j.PropertyConfigurator;
 
