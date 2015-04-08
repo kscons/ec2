@@ -1,5 +1,7 @@
 package configurations.servicesconfigurators;
 
+import java.util.Properties;
+
 /**
  * Created by serhii on 07.04.15.
  */
@@ -22,4 +24,9 @@ public class DynamoDBConfiGurator {
         METADATA_OUTPUT_TABLE = metadataOutputTable;
     }
 
+    public static void configure(Properties properties){
+     LOGS_DYNAMODB_OUTPUT_TABLE_NAME=   properties.getProperty("LOGS_DYNAMODB_OUTPUT_TABLE_NAME");
+       METADATA_OUTPUT_TABLE= properties.getProperty("METADATA_OUTPUT_TABLE");
+
+    }
 }

@@ -9,12 +9,11 @@ import entities.Metadata;
 import exceptions.ZIPFormatException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import receiver.synchronous.synchronouscommands.MetadataLogger;
-import configurations.MessageReceiversConfigurator;
-import configurations.LoggerConfigurator;
+import configurations.servicesconfigurators.MessageReceiversConfigurator;
+import configurations.servicesconfigurators.LoggerConfigurator;
 import utils.S3Util;
 import utils.archiever.Decompresser;
-import utils.dynamodb.DynamoDBUtil;
+
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;

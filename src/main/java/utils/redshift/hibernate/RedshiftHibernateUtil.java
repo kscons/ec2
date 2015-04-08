@@ -1,11 +1,11 @@
 package utils.redshift.hibernate;
 
+import configurations.servicesconfigurators.RedshiftConfigurator;
 import entities.Log;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.AnnotationConfiguration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import configurations.MessageReceiversConfigurator;
 
 import org.hibernate.Session;
 
@@ -20,7 +20,7 @@ public class RedshiftHibernateUtil {
     public static void insertLog(final Log log){
         Session session=sf.openSession();
         session.beginTransaction();
-        LOG.info("\t Redshift: " + log + " into Table " + MessageReceiversConfigurator.getMetadataOutputTable() + " successfully inserted");
+        LOG.info("\t Redshift: " + log + " into Table " + RedshiftConfigurator.getLogsRedshiftOutputTableName() + " successfully inserted");
         session.save(log);
         session.getTransaction().commit();
         session.close();
@@ -30,7 +30,7 @@ public class RedshiftHibernateUtil {
         Session session=sf.openSession();
         session.beginTransaction();
         for(Log log:logs){
-        LOG.info("\t Redshift: " + log + " into Table " + MessageReceiversConfigurator.getMetadataOutputTable() + " successfully inserted");
+        LOG.info("\t Redshift: " + log + " into Table " + RedshiftConfigurator.getLogsRedshiftOutputTableName() + " successfully inserted");
         session.save(log);}
         session.getTransaction().commit();
         session.close();

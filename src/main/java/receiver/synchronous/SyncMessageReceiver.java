@@ -1,8 +1,8 @@
 package receiver.synchronous;
 
 import receiver.synchronous.synchronouscommands.MainProcessor;
-import configurations.MessageReceiversConfigurator;
-import configurations.LoggerConfigurator;
+import configurations.servicesconfigurators.MessageReceiversConfigurator;
+import configurations.servicesconfigurators.LoggerConfigurator;
 import com.amazon.sqs.javamessaging.SQSConnection;
 import com.amazon.sqs.javamessaging.SQSConnectionFactory;
 import com.amazonaws.auth.profile.ProfileCredentialsProvider;

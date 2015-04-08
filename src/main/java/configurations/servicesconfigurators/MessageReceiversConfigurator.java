@@ -32,10 +32,10 @@ public class MessageReceiversConfigurator {
         return DEFAULT_REGION;
     }
 
-    static void configure(Properties properties) {
+   public static void configure(Properties properties) {
         DEFAULT_QUEUE_NAME = properties.getProperty("DEFAULT_QUEUE_NAME");
         DEFAULT_OUTPUT_BUCKET_NAME=properties.getProperty("DEFAULT_OUTPUT_BUCKET_NAME");
-       // DEFAULT_REGION=new Region((properties.getProperty("DEFAULT_REGION")));
+        DEFAULT_REGION=Region.getRegion(Regions.valueOf(properties.getProperty("DEFAULT_REGION")));
 
     }
 }

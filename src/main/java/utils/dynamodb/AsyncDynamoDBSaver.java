@@ -5,7 +5,7 @@ import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClient;
 import com.amazonaws.services.dynamodbv2.document.DynamoDB;
 import com.amazonaws.services.dynamodbv2.document.Item;
 import com.amazonaws.services.dynamodbv2.document.Table;
-import configurations.DynamoDBConfiGurator;
+import configurations.servicesconfigurators.DynamoDBConfiGurator;
 import entities.Log;
 import entities.Metadata;
 import org.slf4j.Logger;
@@ -25,8 +25,8 @@ public class AsyncDynamoDBSaver {
     private static ExecutorService executorService = Executors.newFixedThreadPool(100);
     private static AmazonDynamoDBClient addbcl = new AmazonDynamoDBClient(new ProfileCredentialsProvider());
     private static DynamoDB  dynamoDB = new DynamoDB(addbcl);
-    private static final  Table metadataTable=dynamoDB.getTable(DynamoDBConfiGurator.getOutputMetadataTableName());
-    private static final Table logsTable=dynamoDB.getTable(DynamoDBConfiGurator.getOutputLogsTableName());
+    private static final  Table metadataTable=dynamoDB.getTable(DynamoDBConfiGurator.getMetadataOutputTable());
+    private static final Table logsTable=dynamoDB.getTable(DynamoDBConfiGurator.getLogsDynamodbOutputTableName());
 
     static {
         //setting endpoint
@@ -45,7 +45,7 @@ public class AsyncDynamoDBSaver {
                         .withString("eventType", metadata.getEventType())
                         .withString("value", metadata.getValue());
                 metadataTable.putItem(item);
-                LOG.info("\tDynamoDB : metadata written into" + ENDPOINT + "\n\ttable name -" + DynamoDBConfiGurator.getOutputMetadataTableName());
+                LOG.info("\tDynamoDB : metadata written into" + ENDPOINT + "\n\ttable name -" + DynamoDBConfiGurator.getMetadataOutputTable());
             }
         });
 
@@ -62,7 +62,7 @@ public class AsyncDynamoDBSaver {
                         .withString("key", log.getKey())
                         .withString("value", log.getValue());
                 logsTable.putItem(item);
-                LOG.info("\tDynamoDB : log" + log + " written into" + ENDPOINT + "\n\ttable name -" + DynamoDBConfiGurator.getOutputLogsTableName());
+                LOG.info("\tDynamoDB : log" + log + " written into" + ENDPOINT + "\n\ttable name -" + DynamoDBConfiGurator.getLogsDynamodbOutputTableName());
             }
         });
 

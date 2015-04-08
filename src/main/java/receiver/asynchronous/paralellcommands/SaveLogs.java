@@ -1,10 +1,8 @@
 package receiver.asynchronous.paralellcommands;
 
 import entities.Log;
-import configurations.MessageReceiversConfigurator;
 import pools.threadpools.LogSavingPool;
 import utils.dynamodb.AsyncDynamoDBSaver;
-import utils.dynamodb.DynamoDBUtil;
 import utils.logparser.LogParser;
 import utils.redshift.hibernate.RedshiftHibernateUtil;
 

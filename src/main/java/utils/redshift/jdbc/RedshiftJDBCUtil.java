@@ -7,7 +7,7 @@ import entities.Log;
 import exceptions.NoConnectionException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import configurations.RedshiftConfigurator;
+import configurations.servicesconfigurators.RedshiftConfigurator;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -148,7 +148,7 @@ public class RedshiftJDBCUtil {
     }
 
     public static void insertLog(final Log log) {
-        insertLog(RedshiftConfigurator.getDefaultTable(), log);
+        insertLog(RedshiftConfigurator.getLogsRedshiftOutputTableName(), log);
     }
 
     /**

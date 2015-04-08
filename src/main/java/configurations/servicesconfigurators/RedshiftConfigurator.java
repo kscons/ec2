@@ -1,5 +1,10 @@
 package configurations.servicesconfigurators;
 
+import com.amazonaws.regions.Region;
+import com.amazonaws.regions.Regions;
+
+import java.util.Properties;
+
 /**
  * Created by serhii on 07.04.15.
  */
@@ -52,5 +57,14 @@ public class RedshiftConfigurator {
 
     public static String getLogsRedshiftOutputTableName() {
         return LOGS_REDSHIFT_OUTPUT_TABLE_NAME;
+    }
+
+    public static void configure(Properties properties) {
+       REDSHIFT_ENDPOINT= properties.getProperty("REDSHIFT_ENDPOINT");
+       masterUsername= properties.getProperty("masterUsername");
+      masterUserPassword = properties.getProperty("masterUserPassword");
+       dbURL =properties.getProperty("dbURL");
+        LOGS_REDSHIFT_OUTPUT_TABLE_NAME=properties.getProperty("LOGS_REDSHIFT_OUTPUT_TABLE_NAME");
+
     }
 }

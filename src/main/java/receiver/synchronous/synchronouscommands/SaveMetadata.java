@@ -1,6 +1,6 @@
 package receiver.synchronous.synchronouscommands;
 
-import configurations.MessageReceiversConfigurator;
+import configurations.servicesconfigurators.DynamoDBConfiGurator;
 import entities.Metadata;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,7 +15,7 @@ public class SaveMetadata {
     public static void save(final Metadata metadata){
 
         try {
-            DynamoDBUtil.insertMetadataRecord(MessageReceiversConfigurator.getMetadataOutputTable(), metadata);
+            DynamoDBUtil.insertMetadataRecord(DynamoDBConfiGurator.getMetadataOutputTable(), metadata);
         } catch (IllegalArgumentException iae) {
             LOG.info("SyncMessageReceiver: Metadata wasn't written. Some problems with Metadata.\n" + iae.toString());
         }
