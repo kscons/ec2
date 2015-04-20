@@ -24,6 +24,7 @@ public class PropertiesWriter {
             //messagereceiverconfig
             prop.setProperty("DEFAULT_QUEUE_NAME", "TestQueue");
             prop.setProperty("DEFAULT_OUTPUT_BUCKET_NAME", "logitech-analytics-ksolod-eu-west-1-sqsoutput");
+            prop.setProperty("DEFAULT_INPUT_BUCKET_NAME", "logitech-analytics-ksolod-eu-west-1-sqsinput");
             prop.setProperty("ALIVE_DAYS_COUNT", "100");
             prop.setProperty("DEFAULT_REGION", Regions.EU_WEST_1 + "");
             //dynamodbconfig

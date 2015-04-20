@@ -33,8 +33,8 @@ public class JDBCRunner {
         } catch (NoConnectionException nce) {
             nce.printStackTrace();
         }*/
-        //ru.deleteTable(tableName);
-        //  ru.createTableForLogs(tableName);
+        ru.deleteTable(tableName);
+          ru.createTableForLogs(tableName);
         //  ru.insertLog(tableName, new Log());
 
         listOfLogs = ru.getAllLogsFromTable(tableName);

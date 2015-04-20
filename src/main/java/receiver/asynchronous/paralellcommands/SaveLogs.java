@@ -1,28 +1,28 @@
 package receiver.asynchronous.paralellcommands;
 
+import configurations.servicesconfigurators.DynamoDBConfiGurator;
 import entities.Log;
 import pools.threadpools.LogSavingPool;
 import utils.dynamodb.AsyncDynamoDBSaver;
-import utils.logparser.LogParser;
+
+import utils.dynamodb.DynamoDBUtil;
+import utils.dynamodb.NewDynamoDBUtil;
+import utils.jsonprocessors.LogParser;
 import utils.redshift.hibernate.RedshiftHibernateUtil;
+import utils.redshift.jdbc.RedshiftJDBCUtil;
 
 import java.util.ArrayList;
 
 public class SaveLogs {
     public static void save(final String logs, final String id, final long userId) {
 
-        final ArrayList<Log> listLogs =LogParser.parseLog(logs, id, userId);
-        LogSavingPool.runProcess(new Runnable() {
-            @Override
-            public void run() {
-                RedshiftHibernateUtil.insertLogs(listLogs);
-            }
-        });
-        LogSavingPool.runProcess(new Runnable() {
-            @Override
-            public void run() {
-                AsyncDynamoDBSaver.insertLogRecords(listLogs);
-            }
-        });
+        LogParser.parseLog(logs, id, userId)
+                .parallelStream()
+                .unordered()
+                .forEach(log -> {
+                    RedshiftJDBCUtil.insertLog(log);
+                    NewDynamoDBUtil.insertRecord(log);});
+
     }
+
 }

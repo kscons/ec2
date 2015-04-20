@@ -13,11 +13,16 @@ import java.util.ArrayList;
 
 public class RedshiftHibernateUtil {
     private static final Logger LOG = LoggerFactory.getLogger(RedshiftHibernateUtil.class);
-    private static SessionFactory sf;
-    static {
-        sf= new AnnotationConfiguration().configure().buildSessionFactory();
+    private  SessionFactory sf;
+    private static RedshiftHibernateUtil instance=null;
+
+    private RedshiftHibernateUtil() {
+        sf=new AnnotationConfiguration().configure().buildSessionFactory();
     }
-    public static void insertLog(final Log log){
+
+
+
+    public  void insertLog(final Log log){
         Session session=sf.openSession();
         session.beginTransaction();
         LOG.info("\t Redshift: " + log + " into Table " + RedshiftConfigurator.getLogsRedshiftOutputTableName() + " successfully inserted");
@@ -26,7 +31,7 @@ public class RedshiftHibernateUtil {
         session.close();
 
     }
-    public static void insertLogs(final ArrayList<Log> logs){
+    public  void insertLogs(final ArrayList<Log> logs){
         Session session=sf.openSession();
         session.beginTransaction();
         for(Log log:logs){
@@ -37,10 +42,11 @@ public class RedshiftHibernateUtil {
 
     }
 
-
-    @Override
-    protected void finalize() throws Throwable {
-        super.finalize();
-        sf.close();
+    public static RedshiftHibernateUtil getInstance(){
+        if (instance==null){
+            instance=new RedshiftHibernateUtil();
+        }
+        return instance;
     }
+
 }

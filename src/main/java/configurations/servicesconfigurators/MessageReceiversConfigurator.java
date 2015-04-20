@@ -11,6 +11,7 @@ import java.util.Properties;
 public class MessageReceiversConfigurator {
     private static String DEFAULT_QUEUE_NAME = "TestQueue";
     private static String DEFAULT_OUTPUT_BUCKET_NAME = "logitech-analytics-ksolod-eu-west-1-sqsoutput";
+    private static String DEFAULT_INPUT_BUCKET_NAME = "logitech-analytics-ksolod-eu-west-1-sqsinput";
 
     private static long ALIVE_DAYS_COUNT = 100;
     private static Region DEFAULT_REGION = Region.getRegion(Regions.EU_WEST_1);
@@ -24,6 +25,7 @@ public class MessageReceiversConfigurator {
         return DEFAULT_OUTPUT_BUCKET_NAME;
     }
 
+
     public static long getAliveDaysCount() {
         return ALIVE_DAYS_COUNT;
     }
@@ -32,10 +34,14 @@ public class MessageReceiversConfigurator {
         return DEFAULT_REGION;
     }
 
-   public static void configure(Properties properties) {
+    public static String getDefaultInputBucketName() {
+        return DEFAULT_INPUT_BUCKET_NAME;
+    }
+
+    public static void configure(Properties properties) {
         DEFAULT_QUEUE_NAME = properties.getProperty("DEFAULT_QUEUE_NAME");
         DEFAULT_OUTPUT_BUCKET_NAME=properties.getProperty("DEFAULT_OUTPUT_BUCKET_NAME");
         DEFAULT_REGION=Region.getRegion(Regions.valueOf(properties.getProperty("DEFAULT_REGION")));
-
+        DEFAULT_INPUT_BUCKET_NAME=properties.getProperty("DEFAULT_INPUT_BUCKET_NAME");
     }
 }

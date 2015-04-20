@@ -4,7 +4,7 @@ import configurations.servicesconfigurators.DynamoDBConfiGurator;
 import configurations.servicesconfigurators.RedshiftConfigurator;
 import entities.Log;
 import utils.dynamodb.DynamoDBUtil;
-import utils.logparser.LogParser;
+import utils.jsonprocessors.LogParser;
 import utils.redshift.jdbc.RedshiftJDBCUtil;
 
 

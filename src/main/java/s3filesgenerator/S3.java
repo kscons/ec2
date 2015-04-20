@@ -10,8 +10,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Random;
@@ -34,7 +32,7 @@ public class S3 {
 
     public static void putRandomData() throws IOException {
 
-        InputStream report = S3.class.getClassLoader().getResourceAsStream("arshive_sample.gz");
+        InputStream report = S3.class.getClassLoader().getResourceAsStream("archive_sample.gz");
         String eventID = UUID.randomUUID().toString();
         ObjectMetadata metadata = new ObjectMetadata();
 
@@ -49,11 +47,31 @@ public class S3 {
         metadata.setContentType("application/json");
         metadata.setContentLength(report.available());
         metadata.setHeader("x-amz-meta-custom", String.valueOf(random.nextInt(1000000)));
-        String key = String.format("%s:%s%s", region.getName(), eventID, reportName + ".gz");
+        String key = String.format("%s:%s/%s", region.getName(), eventID, reportName + ".gz");
 
 
         metadata.setContentLength(report.available());
         LOG.info(key);
         s3.putObject(bucket, key, report, metadata);
+    }
+
+    public static void pushReportByClientID(String key) throws  IOException{
+        InputStream report = S3.class.getClassLoader().getResourceAsStream("archive_sample.gz");
+
+        ObjectMetadata metadata = new ObjectMetadata();
+
+        //adding user metadata
+        metadata.addUserMetadata("eventId", Math.abs(random.nextInt()) +"");
+        metadata.addUserMetadata("userId", random.nextInt() + "");
+        metadata.addUserMetadata("time", "" + random.nextInt());
+        metadata.addUserMetadata("eventType", "type" + random.nextInt());
+        metadata.addUserMetadata("value", "true");
+        metadata.addUserMetadata("machineId", "" + random.nextInt());
+
+        metadata.setContentType("application/json");
+        metadata.setContentLength(report.available());
+        metadata.setHeader("x-amz-meta-custom", String.valueOf(random.nextInt(1000000)));
+        String newKey = key+".json.gz";
+        s3.putObject(bucket, newKey, report, metadata);
     }
 }

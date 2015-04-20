@@ -93,4 +93,15 @@ public class S3Util {
         LOG.error("S3Util:All elements deleted from " + bucketName);
     }
 
+    public static List<S3ObjectSummary> getAllObjectSummaries(final String bucketName){
+        ObjectListing listing = s3.listObjects( bucketName );
+        List<S3ObjectSummary> summaries = listing.getObjectSummaries();
+
+        while (listing.isTruncated()) {
+            listing = s3.listNextBatchOfObjects (listing);
+            summaries.addAll (listing.getObjectSummaries());
+        }
+        return summaries;
+    }
+
 }

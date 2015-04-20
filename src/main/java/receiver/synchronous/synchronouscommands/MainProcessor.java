@@ -11,6 +11,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import configurations.servicesconfigurators.MessageReceiversConfigurator;
 import configurations.servicesconfigurators.LoggerConfigurator;
+import s3filesgenerator.S3Runner;
 import utils.S3Util;
 import utils.archiever.Decompresser;
 
@@ -28,7 +29,6 @@ public class MainProcessor {
     }
 
     public static void doProcess(final String message) {
-
         String bucketName = null;
         String key = null;
         try {

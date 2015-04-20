@@ -3,16 +3,21 @@ package utils.dynamodb;
 
 import com.amazonaws.auth.profile.ProfileCredentialsProvider;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClient;
-import com.amazonaws.services.dynamodbv2.document.DynamoDB;
-import com.amazonaws.services.dynamodbv2.document.Item;
-import com.amazonaws.services.dynamodbv2.document.Table;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBScanExpression;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTable;
+import com.amazonaws.services.dynamodbv2.datamodeling.PaginatedScanList;
+import com.amazonaws.services.dynamodbv2.document.*;
+import com.amazonaws.services.dynamodbv2.document.spec.DeleteItemSpec;
 import com.amazonaws.services.dynamodbv2.model.*;
+import configurations.servicesconfigurators.DynamoDBConfiGurator;
 import entities.Metadata;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import entities.Log;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 /**
  * This class is a tool that is used to insert records (in our case it is metadata) into DynamoDB.
@@ -20,15 +25,18 @@ import java.util.ArrayList;
  * This code creates connection with DynamoDB through AmazonDynamoDBClient.
  * When we need to write data from another class we should get instance of this object and call method insertMetadataRecord.
  */
+
 public class DynamoDBUtil {
 
     private static final Logger LOG = LoggerFactory.getLogger(DynamoDBUtil.class);
     private static String ENDPOINT = "https://dynamodb.eu-west-1.amazonaws.com";
     private static DynamoDB dynamoDB;
+    private static DynamoDBUtil instance;
+    static AmazonDynamoDBClient addbcl;
 
     static {
         //creating connection in default value of region which was set in ENDPOINT.
-        AmazonDynamoDBClient addbcl = new AmazonDynamoDBClient(new ProfileCredentialsProvider());
+        addbcl = new AmazonDynamoDBClient(new ProfileCredentialsProvider());
         addbcl.setEndpoint(ENDPOINT);
         dynamoDB = new DynamoDB(addbcl);
     }
@@ -39,7 +47,7 @@ public class DynamoDBUtil {
      *
      * @param metadata -the prepared POJO object that was formed out of metadata from S3Object.
      */
-    public static void insertMetadataRecord(final String tableName,final Metadata metadata) throws IllegalArgumentException {
+    public static void insertMetadataRecord(final String tableName, final Metadata metadata) throws IllegalArgumentException {
         Table table = dynamoDB.getTable(tableName);
         Item item = new Item().withPrimaryKey("eventID", metadata.getEventID())
                 .withNumber("userID", metadata.getUserId())
@@ -52,7 +60,7 @@ public class DynamoDBUtil {
     }
 
 
-    public static void insertLogRecord(final String tableName,final Log log) throws IllegalArgumentException {
+    public static void insertLogRecord(final String tableName, final Log log) throws IllegalArgumentException {
         Table table = dynamoDB.getTable(tableName);
         Item item = new Item().withPrimaryKey("id", log.getId())
                 .withNumber("userID", log.getUserId())
@@ -180,8 +188,93 @@ public class DynamoDBUtil {
         }
     }
 
-    @Override
-    protected void finalize() throws Throwable {
-        super.finalize();
+    public static ArrayList<Metadata> getAllMetadataItemsRecords(String tableName) {
+        ArrayList<Metadata> listItems = new ArrayList<>();
+        ScanRequest scanRequest = new ScanRequest()
+                .withTableName(tableName);
+
+        ScanResult result = addbcl.scan(scanRequest);
+        for (Map<String, AttributeValue> item : result.getItems()) {
+
+            Metadata metadata = new Metadata(item);
+            listItems.add(metadata);
+
+        }
+        return listItems;
     }
+
+
+    public static ArrayList<Log> getAllLogItemsRecords(String tableName) {
+        ArrayList<Log> listItems = new ArrayList<>();
+        ScanRequest scanRequest = new ScanRequest()
+                .withTableName(tableName);
+
+        ScanResult result = addbcl.scan(scanRequest);
+        for (Map<String, AttributeValue> item : result.getItems()) {
+
+            Log log = new Log();
+            log.setId(item.get("id").toString());
+            log.setUserId(Long.parseLong(item.get("userID").toString()));
+            log.setTime(item.get("time").toString());
+            log.setKey(item.get("key").toString());
+            log.setValue(item.get("value").toString());
+
+        }
+        return listItems;
+    }
+
+    public static void cleanLogsTable(String tableName) {
+        cleanTable(tableName, Entities.LOG);
+    }
+
+    public static void cleanMetadatasTable(String tableName) {
+        cleanTable(tableName, Entities.METADATA);
+    }
+
+    public static void cleanTable(String tableName, Entities entity) {
+        String hashKeyName="";
+        switch (entity) {
+            case LOG: {
+                hashKeyName = "id";
+                break;
+            }
+            case METADATA: {
+                hashKeyName = "eventID";
+                break;
+            }
+        }
+        DynamoDBMapper mapper = new DynamoDBMapper(addbcl);
+        DynamoDBScanExpression scanExpression = new DynamoDBScanExpression();
+        PaginatedScanList<Metadata> result = mapper.scan(Metadata.class,  scanExpression);
+        for (Metadata data : result) {
+            mapper.delete(data);
+        }
+
+      /*  ScanRequest scanRequest = new ScanRequest()
+                .withTableName(tableName);
+        Table table = dynamoDB.getTable(tableName);
+        ScanResult result = addbcl.scan(scanRequest);
+
+        for (Map<String, AttributeValue> item : result.getItems()) {
+            try {
+                DeleteItemOutcome outcome = table.deleteItem();
+
+            } catch (NullPointerException npe) {
+                npe.printStackTrace();
+            }
+
+        }*/
+    }
+
+
+    public static void main(String[] a) {
+        //createTable("l",5,5,"id","S");
+        cleanMetadatasTable(DynamoDBConfiGurator.getMetadataOutputTable());
+    }
+
+
+}
+
+enum Entities {
+    LOG, METADATA
 }

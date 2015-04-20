@@ -1,5 +1,9 @@
 package entities;
 
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBAttribute;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBHashKey;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTable;
+import com.amazonaws.services.dynamodbv2.model.AttributeValue;
 import com.amazonaws.services.s3.model.ObjectMetadata;
 
 import java.util.Date;
@@ -8,12 +12,19 @@ import java.util.Map;
 /**
  * This is a simple POJO Object which uses to correct and comfortable transfering metadata into DynamoDB.
  */
+@DynamoDBTable(tableName = "Logitech_test_eu-west-1")
 public class Metadata {
+    @DynamoDBHashKey
     private String eventID;
+    @DynamoDBAttribute
     private long userId;
+    @DynamoDBAttribute
     private long machineId;
+    @DynamoDBAttribute
     private Date lastModified;
+    @DynamoDBAttribute
     private String eventType;
+    @DynamoDBAttribute
     private String value;
     private boolean allFieldsNotNull;
 
@@ -28,6 +39,14 @@ public class Metadata {
         lastModified = om.getLastModified();
         eventType = md.get("eventtype");
         value = md.get("value");
+    }
+    public Metadata(Map<String,AttributeValue> md) {
+        eventID = md.get("eventid").toString();
+        userId = Long.parseLong(md.get("userid").toString());
+        machineId = Long.parseLong(md.get("machineid").toString());
+        lastModified = new Date(md.get("lastmodified").toString());
+        eventType = md.get("eventtype").toString();
+        value = md.get("value").toString();
     }
 
 
