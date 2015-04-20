@@ -88,7 +88,7 @@ public class RedshiftJDBCUtil {
     public static void createTableForLogs(final String tableName) {
         if (checkConnection()) {
             final String tableConstructor = " (" +
-                    "id integer CONSTRAINT key PRIMARY KEY," +
+                    "id varchar(100) CONSTRAINT key PRIMARY KEY," +
                     "time varchar(40)," +
                     "userid integer," +
                     "key varchar(70)," +
@@ -136,7 +136,7 @@ public class RedshiftJDBCUtil {
                 Statement stmt = conn.createStatement();
                 if (checkConnection()) {
                     stmt.executeUpdate("insert into " + tableName + " values" +
-                            " (" + log.getId() + ", '" + log.getTime() + "'," + log.getUserId() + " ,'" + log.getKey() + "', '" + log.getValue() + "');");
+                            " ('" + log.getId() + "', '" + log.getTime() + "'," + log.getUserId() + " ,'" + log.getKey() + "', '" + log.getValue() + "');");
                     LOG.info("\t Redshift: " + log + " into Table " + tableName + " successfully inserted");
                 }
             } catch (SQLException sqsle) {

@@ -106,4 +106,47 @@ public class Metadata {
     public void setValue(String value) {
         this.value = value;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Metadata metadata = (Metadata) o;
+
+        if (userId != metadata.userId) return false;
+        if (machineId != metadata.machineId) return false;
+        if (allFieldsNotNull != metadata.allFieldsNotNull) return false;
+        if (eventID != null ? !eventID.equals(metadata.eventID) : metadata.eventID != null) return false;
+        if (lastModified != null ? !lastModified.equals(metadata.lastModified) : metadata.lastModified != null)
+            return false;
+        if (eventType != null ? !eventType.equals(metadata.eventType) : metadata.eventType != null) return false;
+        return !(value != null ? !value.equals(metadata.value) : metadata.value != null);
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = eventID != null ? eventID.hashCode() : 0;
+        result = 31 * result + (int) (userId ^ (userId >>> 32));
+        result = 31 * result + (int) (machineId ^ (machineId >>> 32));
+        result = 31 * result + (lastModified != null ? lastModified.hashCode() : 0);
+        result = 31 * result + (eventType != null ? eventType.hashCode() : 0);
+        result = 31 * result + (value != null ? value.hashCode() : 0);
+        result = 31 * result + (allFieldsNotNull ? 1 : 0);
+        return result;
+    }
+
+    @Override
+    public String toString() {
+        return "Metadata{" +
+                "eventID='" + eventID + '\'' +
+                ", userId=" + userId +
+                ", machineId=" + machineId +
+                ", lastModified=" + lastModified +
+                ", eventType='" + eventType + '\'' +
+                ", value='" + value + '\'' +
+                ", allFieldsNotNull=" + allFieldsNotNull +
+                '}';
+    }
 }

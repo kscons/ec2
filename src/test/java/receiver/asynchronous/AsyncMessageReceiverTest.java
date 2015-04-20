@@ -37,8 +37,8 @@ public class AsyncMessageReceiverTest {
     private static boolean setUp = false;
     private static InputStream report;
     private static int countOfLogsInReport=50;
-    private static int reportCount=5;
-    private static int time=150;
+    private static int reportCount=40;
+    private static int time=50;
 
     @Before
     public void init() {

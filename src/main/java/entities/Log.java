@@ -82,6 +82,31 @@ public class Log {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Log log = (Log) o;
+
+        if (userId != log.userId) return false;
+        if (id != null ? !id.equals(log.id) : log.id != null) return false;
+        if (time != null ? !time.equals(log.time) : log.time != null) return false;
+        if (key != null ? !key.equals(log.key) : log.key != null) return false;
+        return !(value != null ? !value.equals(log.value) : log.value != null);
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = id != null ? id.hashCode() : 0;
+        result = 31 * result + (time != null ? time.hashCode() : 0);
+        result = 31 * result + (int) (userId ^ (userId >>> 32));
+        result = 31 * result + (key != null ? key.hashCode() : 0);
+        result = 31 * result + (value != null ? value.hashCode() : 0);
+        return result;
+    }
+
+    @Override
     public String toString() {
         return "Log:  id =" + id + "\ttime =" + time.toString() + "\tuserid =" + userId + "\tkey =" + key + "\tvalue =" + value.toString();
     }

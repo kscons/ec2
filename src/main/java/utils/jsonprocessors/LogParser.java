@@ -7,6 +7,7 @@ import org.slf4j.LoggerFactory;
 import entities.Log;
 
 import java.util.ArrayList;
+import java.util.UUID;
 
 
 public class LogParser {
@@ -22,7 +23,7 @@ public class LogParser {
                 log.setKey(jsonArray.getJSONObject(i).get("key").toString());
                 log.setValue(jsonArray.getJSONObject(i).get("value").toString());
                 log.setUserId(userId);
-                log.setId(Math.abs((int)(Math.random()*10000))+"");
+                log.setId( UUID.randomUUID().toString());
                 logsList.add(log);
 
             }
