@@ -77,21 +77,7 @@ public class MainProcessor {
                         LOG.error("ASyncMessageReceiver:  Decompression failed \n" + npe.toString());
                     }
                     S3Util.putFileOnBucket(MessageReceiversConfigurator.getDefaultOutputBucketName(), newKey, (InputStream) new ByteArrayInputStream(objectToBucket.getBytes(StandardCharsets.UTF_8)));
-
-                    // insert logs into redshift and dynamo
-                    //SaveLogs.save(objectToBucket, metadata.getEventID(), metadata.getUserId());
-                    //receiver.synchronous.synchronouscommands.SaveLogs();
-                    receiver.asynchronous.paralellcommands.SaveLogs.save(objectToBucket, metadata.getEventID(), metadata.getUserId());
-                   // RedshiftHibernateUtil.getInstance().insertLogs(LogParser.parseLog(objectToBucket, metadata.getEventID(), metadata.getUserId()));
-              /*  LogParser.parseLog(objectToBucket, metadata.getEventID(), metadata.getUserId())
-                        .stream()
-                        .parallel()
-                        .unordered()
-                        .forEach(log -> {
-                            RedshiftHibernateUtil.getInstance().insertLog(log);
-                            DynamoDBUtil.insertLogRecord(DynamoDBConfiGurator.getLogsDynamodbOutputTableName(), log);
-                        });*/
-
+                     receiver.asynchronous.paralellcommands.SaveLogs.save(objectToBucket, metadata.getEventID(), metadata.getUserId());
                     S3Util.deleteFileFromBucket(bucketName, key);
                 } catch (AmazonS3Exception as3e) {
                     LOG.error(" ASyncMessageReceiver: No such key in s3 " + as3e);

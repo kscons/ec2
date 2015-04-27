@@ -3,7 +3,9 @@ package utils.redshift.hibernate;
 import configurations.servicesconfigurators.RedshiftConfigurator;
 import entities.Log;
 import org.hibernate.SessionFactory;
+import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.AnnotationConfiguration;
+import org.hibernate.cfg.Configuration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -17,7 +19,11 @@ public class RedshiftHibernateUtil {
     private static RedshiftHibernateUtil instance=null;
 
     private RedshiftHibernateUtil() {
-        sf=new AnnotationConfiguration().configure().buildSessionFactory();
+        Configuration configuration = new Configuration().configure();
+
+        StandardServiceRegistryBuilder builder = new StandardServiceRegistryBuilder().applySettings(configuration.getProperties());
+        sf = configuration.buildSessionFactory(builder.build());
+
     }
 
 

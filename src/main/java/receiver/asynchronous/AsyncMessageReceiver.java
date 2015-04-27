@@ -11,11 +11,13 @@ import receiver.asynchronous.paralellcommands.MainProcessor;
 import utils.redshift.hibernate.RedshiftHibernateUtil;
 
 import javax.jms.*;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
 public class AsyncMessageReceiver {
     private static final Logger LOG = LoggerFactory.getLogger(AsyncMessageReceiver.class);
-    private static final  long autoCloseTime=60;
+    private static final long autoCloseTime = 1;
 
     public static void main(String args[]) throws JMSException, InterruptedException {
         // ExampleConfiguration config = ExampleConfiguration.parseConfig("AsyncMessageReceiver", args);
@@ -46,6 +48,7 @@ public class AsyncMessageReceiver {
             connection.start();
 
             callback.waitForOneMinuteOfSilence();
+
             System.out.println("Returning after one minute of silence");
 
             // Close the connection. This will close the session automatically
@@ -53,8 +56,9 @@ public class AsyncMessageReceiver {
             System.out.println("Connection closed");
             LOG.info(" ASyncMessageReceiver: Connection close");
         } catch (JMSException jmse) {
-            LOG.error(" ASyncMessageReceiver: Can't create connection");
+            LOG.error(" ASyncMessageReceiver: Can't create connection " + jmse.toString());
         }
+
     }
 
 
@@ -66,11 +70,11 @@ public class AsyncMessageReceiver {
             for (; ; ) {
                 long timeSinceLastMessage = System.nanoTime() - timeOfLastMessage;
                 long remainingTillOneMinuteOfSilence =
-                        TimeUnit.MINUTES.toNanos(autoCloseTime) - timeSinceLastMessage;
+                        TimeUnit.MILLISECONDS.toNanos(100000) - timeSinceLastMessage;
                 if (remainingTillOneMinuteOfSilence < 0) {
-                    break;
+                 //   break;
                 }
-                TimeUnit.NANOSECONDS.sleep(remainingTillOneMinuteOfSilence);
+              //  TimeUnit.NANOSECONDS.sleep(remainingTillOneMinuteOfSilence);
             }
         }
 
@@ -80,13 +84,13 @@ public class AsyncMessageReceiver {
             try {
                 MainProcessor.doProcess(((TextMessage) message).getText());
                 message.acknowledge();
-                System.out.println("Acknowledged message " + message.getJMSMessageID());
-                timeOfLastMessage = System.nanoTime();
-            } catch (JMSException e) {
-                System.err.println("Error processing message: " + e.getMessage());
-                e.printStackTrace();
-            }
+            // System.out.println("Acknowledged message " + message.getJMSMessageID());
+            timeOfLastMessage = System.nanoTime();
+        }catch(JMSException e){
+            System.err.println("Error processing message: " + e.getMessage());
+            e.printStackTrace();
         }
     }
+}
 }
 
