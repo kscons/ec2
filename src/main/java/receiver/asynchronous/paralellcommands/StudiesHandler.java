@@ -4,9 +4,9 @@ import com.amazonaws.services.s3.model.S3Object;
 import configurations.servicesconfigurators.MessageReceiversConfigurator;
 import entities.datacollectionmap.DataCollectionMap;
 import s3filesgenerator.S3;
+import entities.DataSource;
 import studies.Studies;
-import studies.dmccreator.DCMGenerator;
-import utils.S3Util;
+import utils.s3.S3Util;
 import utils.jsonprocessors.DCMJSONProcessor;
 import utils.jsonprocessors.ClientInfoProcessor;
 
@@ -20,8 +20,8 @@ public class StudiesHandler {
         S3Object s3Object = S3Util.getFileFromBucket(bucket, key);
         try {
 
-            Studies studies = ClientInfoProcessor.parseJSON(getStringFromInputStream(s3Object.getObjectContent()));
-         DataCollectionMap dataCollectionMap= DCMGenerator.generate(studies);
+            DataSource studies = ClientInfoProcessor.parseJSON(getStringFromInputStream(s3Object.getObjectContent()));
+         DataCollectionMap dataCollectionMap= Studies.generate(studies);
         sendDcmIntoS3(dataCollectionMap,key);
             //generate client behaviour
           String  newKey=key.replace("clientinfo.json","report.gz");

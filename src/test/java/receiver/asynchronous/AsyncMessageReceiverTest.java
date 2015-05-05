@@ -1,8 +1,5 @@
 package receiver.asynchronous;
 
-import com.amazonaws.services.dynamodbv2.document.DynamoDB;
-import configurations.Configurator;
-import configurations.servicesconfigurators.DynamoDBConfiGurator;
 import configurations.servicesconfigurators.MessageReceiversConfigurator;
 import configurations.servicesconfigurators.RedshiftConfigurator;
 import entities.Log;
@@ -14,9 +11,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import s3filesgenerator.S3Runner;
 
-import utils.S3Util;
+import utils.s3.S3Util;
 import utils.archiever.Decompresser;
-import utils.dynamodb.DynamoDBUtil;
 import utils.dynamodb.NewDynamoDBUtil;
 import utils.jsonprocessors.LogParser;
 import utils.redshift.jdbc.RedshiftJDBCUtil;
@@ -47,14 +43,7 @@ public class AsyncMessageReceiverTest {
         if (!setUp) {
             S3Runner.REPORT_COUNT=reportCount;
             report = AsyncMessageReceiver.class.getClassLoader().getResourceAsStream("archive_sample.gz");
-            Configurator.configureAll("config.properties");
-            NewDynamoDBUtil.<Log>cleanTable(Log.class);
-            NewDynamoDBUtil.<Metadata>cleanTable(Metadata.class);
-            RedshiftJDBCUtil.deleteTable(RedshiftConfigurator.getLogsRedshiftOutputTableName());
-            RedshiftJDBCUtil.createTableForLogs(RedshiftConfigurator.getLogsRedshiftOutputTableName());
-            S3Util.cleanBucket(MessageReceiversConfigurator.getDefaultOutputBucketName());
-            S3Util.cleanBucket(MessageReceiversConfigurator.getDefaultInputBucketName());
-            //System.exit(13);
+            Cleaner.clean();//System.exit(13);
             new Thread(new Runnable() {
                 @Override
                 public void run() {
@@ -116,7 +105,7 @@ public class AsyncMessageReceiverTest {
 
     @Test
     public void testLogParser() {
-        assertEquals(LogParser.parseLog(Mock.report, "test", 1).size(), countOfLogsInReport);
+        assertEquals(LogParser.parseLog(Mock.report, 1).size(), countOfLogsInReport);
     }
 
     @Test

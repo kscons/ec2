@@ -2,7 +2,7 @@ package s3filesgenerator;
 
 
 import configurations.servicesconfigurators.MessageReceiversConfigurator;
-import utils.S3Util;
+import utils.s3.S3Util;
 
 import java.io.IOException;
 

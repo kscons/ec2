@@ -6,7 +6,7 @@ import entities.datacollectionmap.DCC;
 import entities.datacollectionmap.DCM;
 import entities.datacollectionmap.DataCollectionMap;
 import entities.datacollectionmap.Source;
-import utils.S3Util;
+import utils.s3.S3Util;
 
 import java.io.*;
 import java.util.ArrayList;

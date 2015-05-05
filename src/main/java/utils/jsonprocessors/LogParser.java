@@ -13,7 +13,7 @@ import java.util.UUID;
 public class LogParser {
     private static final Logger LOG = LoggerFactory.getLogger(LogParser.class);
 
-    public static ArrayList<Log> parseLog( final String logs, final String id,final long userId){
+    public static ArrayList<Log> parseLog( final String logs,final long userId){
         ArrayList<Log> logsList=new ArrayList<Log>();
         try{
         JSONArray jsonArray=new JSONArray(logs);

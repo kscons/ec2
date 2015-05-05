@@ -1,6 +1,5 @@
 package receiver.asynchronous;
 
-import configurations.Configurator;
 import configurations.servicesconfigurators.MessageReceiversConfigurator;
 import configurations.servicesconfigurators.RedshiftConfigurator;
 import entities.Log;
@@ -10,9 +9,8 @@ import org.junit.Before;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import s3filesgenerator.S3Runner;
-import studies.studiesgenerator.S3StudiesGenerator;
-import utils.S3Util;
+import studies.s3datasourcegenerator.S3DataSourceGenerator;
+import utils.s3.S3Util;
 import utils.archiever.Decompresser;
 import utils.dynamodb.NewDynamoDBUtil;
 import utils.jsonprocessors.LogParser;
@@ -41,13 +39,7 @@ public class AsyncMessageReceiverWithClientInfo {
     public void init() {
         if (!setUp) {
             report = AsyncMessageReceiver.class.getClassLoader().getResourceAsStream("archive_sample.gz");
-            Configurator.configureAll("config.properties");
-            NewDynamoDBUtil.<Log>cleanTable(Log.class);
-            NewDynamoDBUtil.<Metadata>cleanTable(Metadata.class);
-            RedshiftJDBCUtil.deleteTable(RedshiftConfigurator.getLogsRedshiftOutputTableName());
-            RedshiftJDBCUtil.createTableForLogs(RedshiftConfigurator.getLogsRedshiftOutputTableName());
-            S3Util.cleanBucket(MessageReceiversConfigurator.getDefaultOutputBucketName());
-            S3Util.cleanBucket(MessageReceiversConfigurator.getDefaultInputBucketName());
+            Cleaner.clean();
             new Thread(new Runnable() {
                 @Override
                 public void run() {
@@ -65,7 +57,7 @@ public class AsyncMessageReceiverWithClientInfo {
             new Thread(new Runnable() {
                 @Override
                 public void run() {
-                    S3StudiesGenerator.main(new String[0]);
+                    S3DataSourceGenerator.main(new String[0]);
                 }
 
             }).start();
@@ -109,7 +101,7 @@ public class AsyncMessageReceiverWithClientInfo {
 
     @Test
     public void testLogParser() {
-        assertEquals(LogParser.parseLog(Mock.report, "test", 1).size(), countOfLogsInReport);
+        assertEquals(LogParser.parseLog(Mock.report, 1).size(), countOfLogsInReport);
     }
 
     @Test

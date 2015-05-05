@@ -14,14 +14,15 @@ import utils.redshift.jdbc.RedshiftJDBCUtil;
 import java.util.ArrayList;
 
 public class SaveLogs {
-    public static void save(final String logs, final String id, final long userId) {
+    public static void save(final String logs, final long userId) {
 
-        LogParser.parseLog(logs, id, userId)
+        LogParser.parseLog(logs, userId)
                 .parallelStream()
                 .unordered()
                 .forEach(log -> {
                     RedshiftJDBCUtil.insertLog(log);
-                    NewDynamoDBUtil.insertRecord(log);});
+                    NewDynamoDBUtil.insertRecord(log);
+                });
 
     }
 

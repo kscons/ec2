@@ -28,9 +28,6 @@ public class NewDynamoDBUtil {
     static AmazonDynamoDBClient addbcl;
     static private DynamoDBMapper mapper;
 
-
-
-
     static {
         //creating connection in default value of region which was set in ENDPOINT.
         addbcl = new AmazonDynamoDBClient(new ProfileCredentialsProvider());
@@ -54,11 +51,9 @@ public class NewDynamoDBUtil {
     }
 
     public static <T> void cleanTable(final Class clazz) {
-
         DynamoDBMapper mapper = new DynamoDBMapper(addbcl);
         DynamoDBScanExpression scanExpression = new DynamoDBScanExpression();
         PaginatedParallelScanList<T> result = mapper.parallelScan(clazz, scanExpression,10);
-
         result.stream().
                 unordered().
                 parallel().
@@ -69,15 +64,7 @@ public class NewDynamoDBUtil {
     }
 
 
-    public static void main(String[] a) {
-        //createTable("l",5,5,"id","S");
-        for (int i = 1; i < 10000000; i++) {
-            try {
-                cleanTable(Log.class);
-            } catch (Exception ex) {
-            }
-        }
-    }
+
 
 
 }

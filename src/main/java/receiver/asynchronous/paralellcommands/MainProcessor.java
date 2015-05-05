@@ -5,29 +5,18 @@ import com.amazonaws.services.s3.model.S3Object;
 import com.amazonaws.util.json.JSONArray;
 import com.amazonaws.util.json.JSONException;
 import com.amazonaws.util.json.JSONObject;
-import configurations.servicesconfigurators.DynamoDBConfiGurator;
-import entities.Log;
-import entities.Metadata;
 import exceptions.ZIPFormatException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import configurations.servicesconfigurators.MessageReceiversConfigurator;
 import configurations.servicesconfigurators.LoggerConfigurator;
-import pools.threadpools.LogSavingPool;
-import receiver.synchronous.synchronouscommands.*;
-import receiver.synchronous.synchronouscommands.SaveLogs;
-import utils.S3Util;
+import utils.s3.S3Util;
 import utils.archiever.Decompresser;
-import utils.dynamodb.AsyncDynamoDBSaver;
-import utils.dynamodb.DynamoDBUtil;
-import utils.jsonprocessors.LogParser;
-import utils.redshift.hibernate.RedshiftHibernateUtil;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
 
 
 public class MainProcessor {
@@ -63,8 +52,10 @@ public class MainProcessor {
 
                     //MetadataLogger.outputAllMetadata(s3Object);
                     //insertion metadata on ec2
-                    final Metadata metadata = new Metadata(s3Object.getObjectMetadata());
-                    SaveMetadata.save(metadata);
+
+
+//                    final Metadata metadata = new Metadata(s3Object.getObjectMetadata());
+//                    SaveMetadata.save(metadata);
                     //Add object to output bucket
                     final String newKey = key.replace(".gz", "");
                     String objectToBucket = "";
@@ -77,7 +68,9 @@ public class MainProcessor {
                         LOG.error("ASyncMessageReceiver:  Decompression failed \n" + npe.toString());
                     }
                     S3Util.putFileOnBucket(MessageReceiversConfigurator.getDefaultOutputBucketName(), newKey, (InputStream) new ByteArrayInputStream(objectToBucket.getBytes(StandardCharsets.UTF_8)));
-                     receiver.asynchronous.paralellcommands.SaveLogs.save(objectToBucket, metadata.getEventID(), metadata.getUserId());
+           // receiver.asynchronous.paralellcommands.SaveLogs.save(objectToBucket, metadata.getEventID(), metadata.getUserId());
+           receiver.asynchronous.paralellcommands.SaveLogs.save(objectToBucket,3);
+
                     S3Util.deleteFileFromBucket(bucketName, key);
                 } catch (AmazonS3Exception as3e) {
                     LOG.error(" ASyncMessageReceiver: No such key in s3 " + as3e);

@@ -11,7 +11,7 @@ import utils.redshift.jdbc.RedshiftJDBCUtil;
 public class SaveLogs {
 
     public static void save(final String logs, final String id, final long userId) {
-        for (Log log : LogParser.parseLog(logs, id, userId)){
+        for (Log log : LogParser.parseLog(logs,  userId)){
             RedshiftJDBCUtil.insertLog(RedshiftConfigurator.getLogsRedshiftOutputTableName(), log );
             DynamoDBUtil.insertLogRecord(DynamoDBConfiGurator.getLogsDynamodbOutputTableName(),log );
         }

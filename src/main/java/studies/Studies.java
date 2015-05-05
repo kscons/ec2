@@ -1,52 +1,41 @@
 package studies;
 
+import entities.datacollectionmap.DCC;
+import entities.datacollectionmap.DCM;
+import entities.datacollectionmap.DataCollectionMap;
+import entities.datacollectionmap.Source;
+import entities.DataSource;
+
+import java.util.ArrayList;
+
 /**
  * Created by Logitech on 15.04.15.
  */
 public class Studies {
-    private String id;
-    private String deviceType;
-    private String os;
-    private String region;
+    public static DataCollectionMap generate(DataSource studies){
+        ArrayList<Source> sources=new ArrayList<>();
+        sources.add(new Source("com.logitech.get_basic_caps","1.0.0"));
+        DCC dcc=new DCC(sources);
+        DCM dcm1=new DCM("client_version","com.logitech.get_basic_caps","0:0:1");
+        String somerule="";
+        if (studies.getRegion().equals("eu-west-1")){
+            dcm1.setSamplingPeriod("sampling for region eu-west-1");
+            somerule="region1 rule";
 
-
-    public Studies(String id, String deviceType, String os, String region) {
-        this.id = id;
-        this.deviceType = deviceType;
-        this.os = os;
-        this.region = region;
-    }
-    public  Studies(){}
-
-    public String getRegion() {
-        return region;
-    }
-
-    public void setRegion(String region) {
-        this.region = region;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public String getDeviceType() {
-        return deviceType;
-    }
-
-    public void setDeviceType(String deviceType) {
-        this.deviceType = deviceType;
-    }
-
-    public String getOs() {
-        return os;
-    }
-
-    public void setOs(String os) {
-        this.os = os;
+        }
+        if (studies.getRegion().equals("eu-west-2")){
+            dcm1.setSamplingPeriod("sampling for region eu-west-2");
+            somerule="region2 rule";
+        }
+        DCM dcm2=new DCM("client_name",studies.getDeviceType(),"0:0:0:1");
+        DCM dcm3=new DCM("os_type",studies.getOs(),somerule);
+        DCM dcm4=new DCM("os_version",somerule,"0:0:0:0:0:0:200");
+        ArrayList<DCM> dcm =new ArrayList<>();
+        dcm.add(dcm1);
+        dcm.add(dcm2);
+        dcm.add(dcm3);
+        dcm.add(dcm4);
+        DataCollectionMap dataCollectionMap=new DataCollectionMap(dcc,dcm);
+        return dataCollectionMap;
     }
 }
