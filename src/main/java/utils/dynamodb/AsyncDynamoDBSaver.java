@@ -24,9 +24,9 @@ public class AsyncDynamoDBSaver {
 
     private static ExecutorService executorService = Executors.newFixedThreadPool(100);
     private static AmazonDynamoDBClient addbcl = new AmazonDynamoDBClient(new ProfileCredentialsProvider());
-    private static DynamoDB  dynamoDB = new DynamoDB(addbcl);
-    private static final  Table metadataTable=dynamoDB.getTable(DynamoDBConfiGurator.getMetadataOutputTable());
-    private static final Table logsTable=dynamoDB.getTable(DynamoDBConfiGurator.getLogsDynamodbOutputTableName());
+    private static DynamoDB dynamoDB = new DynamoDB(addbcl);
+    private static final Table metadataTable = dynamoDB.getTable(DynamoDBConfiGurator.getMetadataOutputTable());
+    private static final Table logsTable = dynamoDB.getTable(DynamoDBConfiGurator.getLogsDynamodbOutputTableName());
 
     static {
         //setting endpoint
@@ -38,7 +38,7 @@ public class AsyncDynamoDBSaver {
         executorService.execute(new Runnable() {
             @Override
             public void run() {
-                     Item item = new Item().withPrimaryKey("eventID", metadata.getEventID())
+                Item item = new Item().withPrimaryKey("eventID", metadata.getEventID())
                         .withNumber("userID", metadata.getUserId())
                         .withNumber("machineID", metadata.getMachineId())
                         .withString("lastmodified", metadata.getLastModified() + "")
@@ -67,11 +67,12 @@ public class AsyncDynamoDBSaver {
         });
 
     }
-    public static synchronized void  insertLogRecords(final ArrayList<Log> logs) throws IllegalArgumentException {
-     for(Log log :logs){
-         insertLogRecord(log);
 
-     }
+    public static synchronized void insertLogRecords(final ArrayList<Log> logs) throws IllegalArgumentException {
+        for (Log log : logs) {
+            insertLogRecord(log);
+
+        }
     }
 /*
     public static synchronized void  insertMetadataRecords(final ArrayList<Metadata> metadatas) throws IllegalArgumentException {

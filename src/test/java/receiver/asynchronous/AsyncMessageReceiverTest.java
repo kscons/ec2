@@ -33,16 +33,16 @@ public class AsyncMessageReceiverTest {
 
     private static boolean setUp = false;
     private static InputStream report;
-    private static int countOfLogsInReport=50;
-    private static int reportCount=5;
-    private static int time=30;
-    private static int checkStatetime=3000;
-    private static int chechStateFrequency=30;
+    private static int countOfLogsInReport = 50;
+    private static int reportCount = 5;
+    private static int time = 30;
+    private static int checkStatetime = 3000;
+    private static int chechStateFrequency = 30;
 
     @Before
     public void init() {
         if (!setUp) {
-            S3Runner.REPORT_COUNT=reportCount;
+            S3Runner.REPORT_COUNT = reportCount;
             report = AsyncMessageReceiver.class.getClassLoader().getResourceAsStream("archive_sample.gz");
             Cleaner.clean();//System.exit(13);
             new Thread(new Runnable() {
@@ -68,22 +68,21 @@ public class AsyncMessageReceiverTest {
             }).start();
 
             try {
-                for(int i=1;i<time*reportCount;i++){
+                for (int i = 1; i < time * reportCount; i++) {
                     Thread.sleep(1000);
-                    LOG.info("[Test] ====== "+((time*reportCount)-i+(time*reportCount%chechStateFrequency*checkStatetime/1000)) +"  seconds remaining."+" Server is  working");
-                    if (i%chechStateFrequency==0){
-                        LOG.info("\t [TEST]  Objects(files) in INPUT BUCKET = "+S3Util.getAllObjectSummaries(MessageReceiversConfigurator.getDefaultInputBucketName()).size());
-                        LOG.info("\t [TEST]  Objects(files) in OUTPUT BUCKET = "+S3Util.getAllObjectSummaries(MessageReceiversConfigurator.getDefaultOutputBucketName()).size());
+                    LOG.info("[Test] ====== " + ((time * reportCount) - i + (time * reportCount % chechStateFrequency * checkStatetime / 1000)) + "  seconds remaining." + " Server is  working");
+                    if (i % chechStateFrequency == 0) {
+                        LOG.info("\t [TEST]  Objects(files) in INPUT BUCKET = " + S3Util.getAllObjectSummaries(MessageReceiversConfigurator.getDefaultInputBucketName()).size());
+                        LOG.info("\t [TEST]  Objects(files) in OUTPUT BUCKET = " + S3Util.getAllObjectSummaries(MessageReceiversConfigurator.getDefaultOutputBucketName()).size());
                         LOG.info("\t [TEST]  Objects(metadata) in DYNAMODB  = " + NewDynamoDBUtil.getAllRecords(Metadata.class).size());
                         LOG.info("\t [TEST]  Objects(logs) in DYNAMODB  = " + NewDynamoDBUtil.<Log>getAllRecords(Log.class).size());
                         LOG.info("\t [TEST]  Objects(logs) in REDSHIFT  = " + RedshiftJDBCUtil.getAllLogsFromTable(RedshiftConfigurator.getLogsRedshiftOutputTableName()).size());
-                       // Thread.sleep(checkStatetime);
-
+                        // Thread.sleep(checkStatetime);
 
 
                     }
                 }
-              //  Thread.sleep(30000 * S3Runner.REPORT_COUNT);
+                //  Thread.sleep(30000 * S3Runner.REPORT_COUNT);
             } catch (InterruptedException ite) {
                 ite.printStackTrace();
             }
@@ -123,9 +122,10 @@ public class AsyncMessageReceiverTest {
 
     @Test
     public void testDynamoDBMetadataRecordsCount() {
-        assertEquals(NewDynamoDBUtil.<Metadata>getAllRecords(Metadata.class).size(),  S3Runner.REPORT_COUNT);
+        assertEquals(NewDynamoDBUtil.<Metadata>getAllRecords(Metadata.class).size(), S3Runner.REPORT_COUNT);
 
     }
+
     @Test
     public void testDynamoDBLogRecordsCount() {
         assertEquals(NewDynamoDBUtil.<Log>getAllRecords(Log.class).size(), countOfLogsInReport * S3Runner.REPORT_COUNT);
@@ -135,7 +135,6 @@ public class AsyncMessageReceiverTest {
     public void testRedshiftLogRecordsCount() {
         assertEquals(RedshiftJDBCUtil.getAllLogsFromTable(RedshiftConfigurator.getLogsRedshiftOutputTableName()).size(), countOfLogsInReport * S3Runner.REPORT_COUNT);
     }
-
 
 
 }

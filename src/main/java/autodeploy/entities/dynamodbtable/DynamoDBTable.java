@@ -9,8 +9,9 @@ import utils.s3.S3Util;
  */
 public abstract class DynamoDBTable implements Item {
     private String name;
+
     public DynamoDBTable(String name) {
-        this.name=name;
+        this.name = name;
     }
 
     @Override
@@ -23,7 +24,6 @@ public abstract class DynamoDBTable implements Item {
     public boolean isCreated() {
         return true;
     }
-
 
 
     public String getName() {

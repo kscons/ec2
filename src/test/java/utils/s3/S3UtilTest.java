@@ -36,7 +36,7 @@ public class S3UtilTest {
 
     @AfterClass
     public static void testDeleteBucket() throws Exception {
-      S3Util.cleanBucket(TEST_BUCKET_NAME);
+        S3Util.cleanBucket(TEST_BUCKET_NAME);
         S3Util.deleteBucket(TEST_BUCKET_NAME);
         S3Util.isExist(TEST_BUCKET_NAME);
     }
@@ -46,7 +46,7 @@ public class S3UtilTest {
     public void testPutFileOnBucket() throws Exception {
         S3Util.cleanBucket(TEST_BUCKET_NAME);
         S3Util.putFileOnBucket(TEST_BUCKET_NAME, TEST_OBJECT_KEY, TEST_OBJECT);
-        assertTrue(S3Util.isFileExist(TEST_BUCKET_NAME,TEST_OBJECT_KEY));
+        assertTrue(S3Util.isFileExist(TEST_BUCKET_NAME, TEST_OBJECT_KEY));
     }
 
 
@@ -68,14 +68,14 @@ public class S3UtilTest {
 
     @Test
     public void testGetAllObjectSummaries() throws Exception {
-       S3Util.cleanBucket(TEST_BUCKET_NAME);
+        S3Util.cleanBucket(TEST_BUCKET_NAME);
         final int count = 10;
         for (int i = 0; i < count; i++) {
             S3Util.putFileOnBucket(TEST_BUCKET_NAME, TEST_OBJECT_KEY + i, TEST_OBJECT);
         }
         List summariesList = S3Util.getAllObjectSummaries(TEST_BUCKET_NAME);
-        assertEquals(count,summariesList.size());
-       //TODO
+        assertEquals(count, summariesList.size());
+        //TODO
         for (int i = 0; i < 10; i++) {
 
         }

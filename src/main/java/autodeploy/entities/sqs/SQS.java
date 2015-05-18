@@ -8,8 +8,9 @@ import utils.sqs.SQSUtil;
  */
 public class SQS implements Item {
     private String name;
+
     public SQS(String name) {
-        this.name=name;
+        this.name = name;
     }
 
     @Override
@@ -24,7 +25,7 @@ public class SQS implements Item {
 
     @Override
     public boolean isCreated() {
-       return  SQSUtil.isExist(name);
+        return SQSUtil.isExist(name);
     }
 
 

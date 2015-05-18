@@ -20,13 +20,15 @@ public class DynamoDBUtilTest {
     private static final Metadata TEST_METADATA_OBJECT=new Metadata("eventID", 1234, 1234,new Date(), "eventtime", "value");
 
 
-    @Test
-    public void testCreateAndDeleteTable() throws Exception {
-        DynamoDBUtil.createTable(TEST_TABLE_NAME,1,1,"ID","S");
+    @BeforeClass
+    public static void  testCreateTable() throws Exception {
+        DynamoDBUtil.createTable(TEST_TABLE_NAME, 1, 1, "ID", "S");
         assertTrue(DynamoDBUtil.isTableExist(TEST_TABLE_NAME));
+    }
+    @BeforeClass
+    public static void testDeleteTable(){
         DynamoDBUtil.deleteTable(TEST_TABLE_NAME);
         assertFalse(DynamoDBUtil.isTableExist(TEST_TABLE_NAME));
-
     }
 
     @Test

@@ -9,9 +9,10 @@ import utils.s3.S3Util;
 public abstract class Bucket implements Item {
     private String name;
     private boolean isCreated;
+
     public Bucket(String name) {
         // Output Bucket can't contains uppercase letters
-        this.name=name.toLowerCase();
+        this.name = name.toLowerCase();
     }
 
     @Override
@@ -26,7 +27,7 @@ public abstract class Bucket implements Item {
 
     @Override
     public boolean isCreated() {
-    return  isCreated= S3Util.isExist(name);
+        return isCreated = S3Util.isExist(name);
     }
 
 

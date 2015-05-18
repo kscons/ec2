@@ -18,11 +18,12 @@ public class Configurator {
             MessageReceiversConfigurator.configure(properties);
             DynamoDBConfiGurator.configure(properties);
             RedshiftConfigurator.configure(properties);
-        }catch (NoPropertyException nop){
+        } catch (NoPropertyException nop) {
             nop.printStackTrace();
         }
     }
-    public static void main (String [] ar){
+
+    public static void main(String[] ar) {
         configureAll("config.properties");
     }
 }

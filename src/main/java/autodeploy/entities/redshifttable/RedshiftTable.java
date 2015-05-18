@@ -9,8 +9,9 @@ import utils.sqs.SQSUtil;
  */
 public class RedshiftTable implements Item {
     private String name;
+
     public RedshiftTable(String name) {
-        this.name=name;
+        this.name = name;
     }
 
     @Override
@@ -20,12 +21,12 @@ public class RedshiftTable implements Item {
 
     @Override
     public void delete() {
-       RedshiftJDBCUtil.deleteTable(name);
+        RedshiftJDBCUtil.deleteTable(name);
     }
 
     @Override
     public boolean isCreated() {
-      return true;
+        return true;
     }
 
 

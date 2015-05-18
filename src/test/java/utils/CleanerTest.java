@@ -11,7 +11,7 @@ public class CleanerTest {
 
     @Test
     public void testClean() throws Exception {
-    Cleaner.clean();
+        Cleaner.clean();
 
     }
 }

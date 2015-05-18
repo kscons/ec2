@@ -16,19 +16,19 @@ import static org.junit.Assert.*;
 public class NewDynamoDBUtilTest {
     @Test
     public void testInsertMetadataRecord() throws Exception {
-       Metadata metadata=TestDataGenerator.getTestMetadata();
+        Metadata metadata = TestDataGenerator.getTestMetadata();
         NewDynamoDBUtil.insertRecord(metadata);
         assertTrue(NewDynamoDBUtil.isRecordExist(metadata));
     }
 
     @Test
     public void testGetAllMetadataRecords() throws Exception {
-        ArrayList<Metadata> arrayList= TestDataGenerator.getMetadatasTesList();
+        ArrayList<Metadata> arrayList = TestDataGenerator.getMetadatasTesList();
         arrayList.stream()
                 .forEach(NewDynamoDBUtil::insertRecord);
 
         NewDynamoDBUtil.getAllRecords(Metadata.class).stream()
-                .forEach(current-> {
+                .forEach(current -> {
                     assertTrue(
                             arrayList.stream()
                                     .filter(metadata -> current.equals(metadata))
@@ -40,25 +40,25 @@ public class NewDynamoDBUtilTest {
     @Test
     public void testCleanMetadataTable() throws Exception {
         NewDynamoDBUtil.cleanTable(Log.class);
-       assertFalse( NewDynamoDBUtil.isRecordExist(Log.class));
+        assertFalse(NewDynamoDBUtil.isRecordExist(Log.class));
     }
 
 
     @Test
     public void testInsertLogRecord() throws Exception {
-        Log log=TestDataGenerator.getTestLog();
+        Log log = TestDataGenerator.getTestLog();
         NewDynamoDBUtil.insertRecord(log);
         assertTrue(NewDynamoDBUtil.isRecordExist(log));
     }
 
     @Test
     public void testGetAllLogRecords() throws Exception {
-        ArrayList<Log> arrayList= TestDataGenerator.getLogTesList();
+        ArrayList<Log> arrayList = TestDataGenerator.getLogTesList();
         arrayList.stream()
                 .forEach(NewDynamoDBUtil::insertRecord);
 
         NewDynamoDBUtil.getAllRecords(Log.class).stream()
-                .forEach(current-> {
+                .forEach(current -> {
                     assertTrue(
                             arrayList.stream()
                                     .filter(log -> current.equals(log))

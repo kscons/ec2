@@ -65,9 +65,9 @@ public class DynamoDBUtil {
             table.putItem(item);
             LOG.info("\tDynamoDB : metadata written into" + ENDPOINT + "\n\ttable name -" + tableName);
         } catch (IllegalArgumentException | NullPointerException iae) {
-            throw new MetadataFieldNullException("Some field of object is null"+ iae.toString());
+            throw new MetadataFieldNullException("Some field of object is null" + iae.toString());
         } catch (ResourceNotFoundException ex) {
-            throw new NonExistTableException("the table" + tableName + "is not exist."+ex.toString());
+            throw new NonExistTableException("the table" + tableName + "is not exist." + ex.toString());
         }
     }
 
@@ -207,65 +207,68 @@ public class DynamoDBUtil {
             final String tableName, final long readCapacityUnits, final long writeCapacityUnits,
             final String hashKeyName, final String hashKeyType,
             final String rangeKeyName, final String rangeKeyType) {
-    if (!isTableExist(tableName)){
-        try {
+        if (!isTableExist(tableName)) {
+            try {
 
-            ArrayList<KeySchemaElement> keySchema = new ArrayList<KeySchemaElement>();
-            keySchema.add(new KeySchemaElement()
-                    .withAttributeName(hashKeyName)
-                    .withKeyType(KeyType.HASH));
-
-            ArrayList<AttributeDefinition> attributeDefinitions = new ArrayList<AttributeDefinition>();
-            attributeDefinitions.add(new AttributeDefinition()
-                    .withAttributeName(hashKeyName)
-                    .withAttributeType(hashKeyType));
-
-            if (rangeKeyName != null) {
+                ArrayList<KeySchemaElement> keySchema = new ArrayList<KeySchemaElement>();
                 keySchema.add(new KeySchemaElement()
-                        .withAttributeName(rangeKeyName)
-                        .withKeyType(KeyType.RANGE));
+                        .withAttributeName(hashKeyName)
+                        .withKeyType(KeyType.HASH));
+
+                ArrayList<AttributeDefinition> attributeDefinitions = new ArrayList<AttributeDefinition>();
                 attributeDefinitions.add(new AttributeDefinition()
-                        .withAttributeName(rangeKeyName)
-                        .withAttributeType(rangeKeyType));
+                        .withAttributeName(hashKeyName)
+                        .withAttributeType(hashKeyType));
+
+                if (rangeKeyName != null) {
+                    keySchema.add(new KeySchemaElement()
+                            .withAttributeName(rangeKeyName)
+                            .withKeyType(KeyType.RANGE));
+                    attributeDefinitions.add(new AttributeDefinition()
+                            .withAttributeName(rangeKeyName)
+                            .withAttributeType(rangeKeyType));
+                }
+
+                CreateTableRequest request = new CreateTableRequest()
+                        .withTableName(tableName)
+                        .withKeySchema(keySchema)
+                        .withProvisionedThroughput(new ProvisionedThroughput()
+                                .withReadCapacityUnits(readCapacityUnits)
+                                .withWriteCapacityUnits(writeCapacityUnits));
+
+                // If this is the Reply table, define a local secondary index
+                if (rangeKeyName != null && rangeKeyType != null) {
+
+                    attributeDefinitions.add(new AttributeDefinition()
+                            .withAttributeName("PostedBy")
+                            .withAttributeType("S"));
+
+                    ArrayList<LocalSecondaryIndex> localSecondaryIndexes = new ArrayList<LocalSecondaryIndex>();
+                    localSecondaryIndexes.add(new LocalSecondaryIndex()
+                            .withIndexName("PostedBy-Index")
+                            .withKeySchema(
+                                    new KeySchemaElement().withAttributeName(hashKeyName).withKeyType(KeyType.HASH),
+                                    new KeySchemaElement().withAttributeName("PostedBy").withKeyType(KeyType.RANGE))
+                            .withProjection(new Projection().withProjectionType(ProjectionType.KEYS_ONLY)));
+
+                    request.setLocalSecondaryIndexes(localSecondaryIndexes);
+                }
+
+                request.setAttributeDefinitions(attributeDefinitions);
+
+                System.out.println("Issuing CreateTable request for " + tableName);
+                Table table = dynamoDB.createTable(request);
+                System.out.println("Waiting for " + tableName
+                        + " to be created...this may take a while...");
+                table.waitForActive();
+
+            } catch (Exception e) {
+                System.err.println("CreateTable request failed for " + tableName);
+                System.err.println(e.getMessage());
             }
-
-            CreateTableRequest request = new CreateTableRequest()
-                    .withTableName(tableName)
-                    .withKeySchema(keySchema)
-                    .withProvisionedThroughput(new ProvisionedThroughput()
-                            .withReadCapacityUnits(readCapacityUnits)
-                            .withWriteCapacityUnits(writeCapacityUnits));
-
-            // If this is the Reply table, define a local secondary index
-            if (rangeKeyName != null && rangeKeyType != null) {
-
-                attributeDefinitions.add(new AttributeDefinition()
-                        .withAttributeName("PostedBy")
-                        .withAttributeType("S"));
-
-                ArrayList<LocalSecondaryIndex> localSecondaryIndexes = new ArrayList<LocalSecondaryIndex>();
-                localSecondaryIndexes.add(new LocalSecondaryIndex()
-                        .withIndexName("PostedBy-Index")
-                        .withKeySchema(
-                                new KeySchemaElement().withAttributeName(hashKeyName).withKeyType(KeyType.HASH),
-                                new KeySchemaElement().withAttributeName("PostedBy").withKeyType(KeyType.RANGE))
-                        .withProjection(new Projection().withProjectionType(ProjectionType.KEYS_ONLY)));
-
-                request.setLocalSecondaryIndexes(localSecondaryIndexes);
-            }
-
-            request.setAttributeDefinitions(attributeDefinitions);
-
-            System.out.println("Issuing CreateTable request for " + tableName);
-            Table table = dynamoDB.createTable(request);
-            System.out.println("Waiting for " + tableName
-                    + " to be created...this may take a while...");
-            table.waitForActive();
-
-        } catch (Exception e) {
-            System.err.println("CreateTable request failed for " + tableName);
-            System.err.println(e.getMessage());
-        }}else {LOG.error("Table is exist already");}
+        } else {
+            LOG.error("Table is exist already");
+        }
     }
 
     public static void createTableForLogs(final String tableName, int readUnits, int writeUnits) {
@@ -285,7 +288,7 @@ public class DynamoDBUtil {
         createTableForLogs(tableName, DEFAULT_READ_UNITS_COUNT, DEFAULT_WRITE_UNITS_COUNT);
     }
 
-    public static ArrayList<Table> getTablesList() {
+    public static ArrayList<Table> getTableList() {
         DynamoDB dynamoDB = new DynamoDB(new AmazonDynamoDBClient(
                 new ProfileCredentialsProvider()));
         TableCollection<ListTablesResult> tables = dynamoDB.listTables();
@@ -293,14 +296,15 @@ public class DynamoDBUtil {
         tables.forEach(listOfTables::add);
         return listOfTables;
     }
-    public static boolean isMetadataObjectExist(final String tableName,final Metadata metadata){
+
+    public static boolean isMetadataObjectExist(final String tableName, final Metadata metadata) {
         return getAllMetadataItemsRecords(tableName).stream()
-                .filter(object->object.equals(metadata))
+                .filter(object -> object.equals(metadata))
                 .findAny()
                 .isPresent();
     }
 
-    public static boolean isLogObjectExist(final String tableName,final Log log){
+    public static boolean isLogObjectExist(final String tableName, final Log log) {
         return getAllMetadataItemsRecords(tableName).stream()
                 .filter(object -> object.equals(log))
                 .findAny()
@@ -312,16 +316,22 @@ public class DynamoDBUtil {
                 .findAny()
                 .isPresent();
     }
+
     public static boolean isLogExist(final String tableName) {
         return getAllLogItemsRecords(tableName).stream()
                 .findAny()
                 .isPresent();
     }
+
     public static boolean isTableExist(final String tableName) {
-        return getTablesList().stream()
+        return getTableList().stream()
                 .filter(t -> t.getTableName() == tableName)
                 .findAny()
                 .isPresent();
+    }
+
+    public static void main(String[] f) {
+        System.out.print(getTableList().get(1).getTableName());
     }
 
 }

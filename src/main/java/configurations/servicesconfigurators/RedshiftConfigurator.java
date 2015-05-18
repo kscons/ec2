@@ -65,6 +65,5 @@ public class RedshiftConfigurator {
       masterUserPassword = properties.getProperty("masterUserPassword");
        dbURL =properties.getProperty("dbURL");
         LOGS_REDSHIFT_OUTPUT_TABLE_NAME=properties.getProperty("LOGS_REDSHIFT_OUTPUT_TABLE_NAME");
-
     }
 }

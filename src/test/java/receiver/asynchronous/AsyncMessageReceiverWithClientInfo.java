@@ -31,10 +31,10 @@ public class AsyncMessageReceiverWithClientInfo {
 
     private static boolean setUp = false;
     private static InputStream report;
-    private static int countOfLogsInReport=50;
-    private static int reportCount=4;
-    private static int time=30;
-    private int chechStateFrequency=20;
+    private static int countOfLogsInReport = 50;
+    private static int reportCount = 4;
+    private static int time = 30;
+    private int chechStateFrequency = 20;
 
     @Before
     public void init() {
@@ -64,17 +64,15 @@ public class AsyncMessageReceiverWithClientInfo {
             }).start();
 
             try {
-                for(int i=1;i<time*reportCount;i++){
+                for (int i = 1; i < time * reportCount; i++) {
                     Thread.sleep(1000);
-                    LOG.info("[Test] ====== "+((time*reportCount)-i) +"  seconds remaining."+" Server is  working");
-                    if (i%chechStateFrequency==0){
-                        LOG.info("\t [TEST]  Objects(files) in INPUT BUCKET = "+S3Util.getAllObjectSummaries(MessageReceiversConfigurator.getDefaultInputBucketName()).size());
-                        LOG.info("\t [TEST]  Objects(files) in OUTPUT BUCKET = "+S3Util.getAllObjectSummaries(MessageReceiversConfigurator.getDefaultOutputBucketName()).size());
+                    LOG.info("[Test] ====== " + ((time * reportCount) - i) + "  seconds remaining." + " Server is  working");
+                    if (i % chechStateFrequency == 0) {
+                        LOG.info("\t [TEST]  Objects(files) in INPUT BUCKET = " + S3Util.getAllObjectSummaries(MessageReceiversConfigurator.getDefaultInputBucketName()).size());
+                        LOG.info("\t [TEST]  Objects(files) in OUTPUT BUCKET = " + S3Util.getAllObjectSummaries(MessageReceiversConfigurator.getDefaultOutputBucketName()).size());
                         LOG.info("\t [TEST]  Objects(metadata) in DYNAMODB  = " + NewDynamoDBUtil.getAllRecords(Metadata.class).size());
                         LOG.info("\t [TEST]  Objects(logs) in DYNAMODB  = " + NewDynamoDBUtil.<Log>getAllRecords(Log.class).size());
                         LOG.info("\t [TEST]  Objects(logs) in REDSHIFT  = " + RedshiftJDBCUtil.getAllLogsFromTable(RedshiftConfigurator.getLogsRedshiftOutputTableName()).size());
-
-
 
 
                     }
@@ -114,14 +112,15 @@ public class AsyncMessageReceiverWithClientInfo {
     @Test
     public void testOutputBucketCount() {
         int countOfObjects = S3Util.getAllObjectSummaries(MessageReceiversConfigurator.getDefaultOutputBucketName()).size();
-        assertEquals(reportCount*2, countOfObjects);
+        assertEquals(reportCount * 2, countOfObjects);
     }
 
     @Test
     public void testDynamoDBMetadataRecordsCount() {
-        assertEquals(NewDynamoDBUtil.<Metadata>getAllRecords(Metadata.class).size(),  reportCount);
+        assertEquals(NewDynamoDBUtil.<Metadata>getAllRecords(Metadata.class).size(), reportCount);
 
     }
+
     @Test
     public void testDynamoDBLogRecordsCount() {
         assertEquals(NewDynamoDBUtil.<Log>getAllRecords(Log.class).size(), countOfLogsInReport * reportCount);

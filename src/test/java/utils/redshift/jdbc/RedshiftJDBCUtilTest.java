@@ -10,7 +10,7 @@ import static org.junit.Assert.*;
  * Created by Logitech on 08.05.15.
  */
 public class RedshiftJDBCUtilTest {
-    private static final String TEST_LOGS_TABLE_NAME="testlogs";
+    private static final String TEST_LOGS_TABLE_NAME = "testlogs";
 
     @BeforeClass
     public static void testCreateConnection() throws Exception {

@@ -40,8 +40,8 @@ public class MessageReceiversConfigurator {
 
     public static void configure(Properties properties) {
         DEFAULT_QUEUE_NAME = properties.getProperty("DEFAULT_QUEUE_NAME");
-        DEFAULT_OUTPUT_BUCKET_NAME=properties.getProperty("DEFAULT_OUTPUT_BUCKET_NAME");
-        DEFAULT_REGION=Region.getRegion(Regions.valueOf(properties.getProperty("DEFAULT_REGION")));
-        DEFAULT_INPUT_BUCKET_NAME=properties.getProperty("DEFAULT_INPUT_BUCKET_NAME");
+        DEFAULT_OUTPUT_BUCKET_NAME = properties.getProperty("DEFAULT_OUTPUT_BUCKET_NAME");
+        DEFAULT_REGION = Region.getRegion(Regions.valueOf(properties.getProperty("DEFAULT_REGION")));
+        DEFAULT_INPUT_BUCKET_NAME = properties.getProperty("DEFAULT_INPUT_BUCKET_NAME");
     }
 }
