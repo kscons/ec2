@@ -37,7 +37,7 @@ public class AsyncMessageReceiver {
             // Create the connection
             SQSConnection connection = connectionFactory.createConnection();
 
-            // Create the sessiяon
+            // Create the session
             Session session = connection.createSession(false, Session.CLIENT_ACKNOWLEDGE);
             MessageConsumer consumer = session.createConsumer(session.createQueue(MessageReceiversConfigurator.getDefaultQueueName()));
 

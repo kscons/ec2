@@ -5,6 +5,7 @@ import com.amazonaws.services.s3.model.S3Object;
 import com.amazonaws.util.json.JSONArray;
 import com.amazonaws.util.json.JSONException;
 import com.amazonaws.util.json.JSONObject;
+import entities.Metadata;
 import exceptions.ZIPFormatException;
 import exceptions.s3.NoFileInBucketException;
 import org.slf4j.Logger;
@@ -55,8 +56,8 @@ public class MainProcessor {
                     //insertion metadata on ec2
 
 
-//                    final Metadata metadata = new Metadata(s3Object.getObjectMetadata());
-//                    SaveMetadata.save(metadata);
+                    final Metadata metadata = new Metadata(s3Object.getObjectMetadata());
+                  SaveMetadata.save(metadata);
                     //Add object to output bucket
                     final String newKey = key.replace(".gz", "");
                     String objectToBucket = "";

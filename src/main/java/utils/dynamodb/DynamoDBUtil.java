@@ -207,7 +207,7 @@ public class DynamoDBUtil {
             final String tableName, final long readCapacityUnits, final long writeCapacityUnits,
             final String hashKeyName, final String hashKeyType,
             final String rangeKeyName, final String rangeKeyType) {
-    if (isTableExist(tableName)){
+    if (!isTableExist(tableName)){
         try {
 
             ArrayList<KeySchemaElement> keySchema = new ArrayList<KeySchemaElement>();
