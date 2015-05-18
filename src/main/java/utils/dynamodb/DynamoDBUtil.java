@@ -2,6 +2,7 @@ package utils.dynamodb;
 
 
 import com.amazonaws.auth.profile.ProfileCredentialsProvider;
+import com.amazonaws.regions.Regions;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClient;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBScanExpression;
@@ -42,7 +43,8 @@ public class DynamoDBUtil {
     static {
         //creating connection in default value of region which was set in ENDPOINT.
         addbcl = new AmazonDynamoDBClient(new ProfileCredentialsProvider());
-        addbcl.setEndpoint(ENDPOINT);
+        addbcl.setRegion(Regions.EU_WEST_1);
+          addbcl.setEndpoint(ENDPOINT);
         dynamoDB = new DynamoDB(addbcl);
     }
 
@@ -84,7 +86,7 @@ public class DynamoDBUtil {
     }
 
 
-    public static ArrayList<Metadata> getAllMetadataItemsRecords(String tableName) {
+    public static ArrayList<Metadata> getAllMetadataItemsRecords(final String tableName) {
         ArrayList<Metadata> listItems = new ArrayList<>();
         ScanRequest scanRequest = new ScanRequest()
                 .withTableName(tableName);
@@ -119,15 +121,15 @@ public class DynamoDBUtil {
         return listItems;
     }
 
-    public static void cleanLogsTable(String tableName) {
+    public static void cleanLogsTable(final String tableName) {
         cleanTable(tableName, Entities.LOG);
     }
 
-    public static void cleanMetadatasTable(String tableName) {
+    public static void cleanMetadatasTable(final String tableName) {
         cleanTable(tableName, Entities.METADATA);
     }
 
-    public static void cleanTable(String tableName, Entities entity) {
+    public static void cleanTable(final String tableName,final Entities entity) {
         String hashKeyName = "";
         switch (entity) {
             case LOG: {
@@ -289,8 +291,6 @@ public class DynamoDBUtil {
     }
 
     public static ArrayList<Table> getTableList() {
-        DynamoDB dynamoDB = new DynamoDB(new AmazonDynamoDBClient(
-                new ProfileCredentialsProvider()));
         TableCollection<ListTablesResult> tables = dynamoDB.listTables();
         final ArrayList<Table> listOfTables = new ArrayList<>();
         tables.forEach(listOfTables::add);
@@ -325,14 +325,9 @@ public class DynamoDBUtil {
 
     public static boolean isTableExist(final String tableName) {
         return getTableList().stream()
-                .filter(t -> t.getTableName() == tableName)
-                .findAny()
+                .filter(t -> t.getTableName().equals(tableName))
+                .findFirst()
                 .isPresent();
     }
-
-    public static void main(String[] f) {
-        System.out.print(getTableList().get(1).getTableName());
-    }
-
 }
 

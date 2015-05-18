@@ -3,6 +3,7 @@ package utils.dynamodb;
 import entities.Metadata;
 import exceptions.dynamodb.MetadataFieldNullException;
 import exceptions.dynamodb.NonExistTableException;
+import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -14,27 +15,34 @@ import static org.junit.Assert.*;
  * Created by Logitech on 08.05.15.
  */
 public class DynamoDBUtilTest {
-    private static final String TEST_TABLE_NAME="testtable";
-    private static final String TEST_TABLE_LOGS_NAME="testtablelogs";
-    private static final String TEST_TABLE_METADATAS="testtablemetadatas";
-    private static final Metadata TEST_METADATA_OBJECT=new Metadata("eventID", 1234, 1234,new Date(), "eventtime", "value");
+    private static final String TEST_TABLE_NAME = "testtable";
+    private static final String TEST_TABLE_LOGS_NAME = "testtablelogs";
+    private static final String TEST_TABLE_METADATAS = "testtablemetadatas";
+    private static final Metadata TEST_METADATA_OBJECT = new Metadata("eventID", 1234, 1234, new Date(), "eventtime", "value");
 
 
-    @BeforeClass
-    public static void  testCreateTable() throws Exception {
+    @Test
+    public void testCreateTable() throws Exception {
         DynamoDBUtil.createTable(TEST_TABLE_NAME, 1, 1, "ID", "S");
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException ex) {
+        }
         assertTrue(DynamoDBUtil.isTableExist(TEST_TABLE_NAME));
-    }
-    @BeforeClass
-    public static void testDeleteTable(){
         DynamoDBUtil.deleteTable(TEST_TABLE_NAME);
+        try {
+            Thread.sleep(6000);
+        } catch (InterruptedException ex) {
+        }
+
         assertFalse(DynamoDBUtil.isTableExist(TEST_TABLE_NAME));
     }
 
+
     @Test
     public void testInsertMetadataRecord() throws Exception {
-    DynamoDBUtil.createTableForMetadata(TEST_TABLE_METADATAS);
-       // DynamoDBUtil.insertMetadataRecord(TEST_TABLE_METADATAS, TEST_METADATA_OBJECT);
+        DynamoDBUtil.createTableForMetadata(TEST_TABLE_METADATAS);
+        // DynamoDBUtil.insertMetadataRecord(TEST_TABLE_METADATAS, TEST_METADATA_OBJECT);
         DynamoDBUtil.deleteTable(TEST_TABLE_METADATAS);
 
     }
@@ -46,6 +54,7 @@ public class DynamoDBUtilTest {
         DynamoDBUtil.deleteTable(TEST_TABLE_METADATAS);
 
     }
+
     @Test(expected = NonExistTableException.class)
     public void testInsertintoNonExistTable() throws Exception {
         DynamoDBUtil.createTableForMetadata(TEST_TABLE_METADATAS);
@@ -104,10 +113,12 @@ public class DynamoDBUtilTest {
     public void testCreateTableForMetadata1() throws Exception {
 
     }
+
     @Test
     public void testGetListTables() throws Exception {
 
     }
+
     @Test
     public void isTableExist() throws Exception {
 

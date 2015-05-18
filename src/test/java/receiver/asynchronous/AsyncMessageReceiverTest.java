@@ -98,7 +98,7 @@ public class AsyncMessageReceiverTest {
         try {
             assertEquals(new String(Decompresser.decompress(report).toByteArray(), "UTF-8"), Mock.report);
         } catch (ZIPFormatException | UnsupportedEncodingException z) {
-
+            z.printStackTrace();
         }
     }
 
