@@ -100,7 +100,7 @@ public class DynamoDBUtil {
     }
 
 
-    public static ArrayList<Log> getAllLogItemsRecords(String tableName) {
+    public static ArrayList<Log> getAllLogItemsRecords(final String tableName) {
         ArrayList<Log> listItems = new ArrayList<>();
         ScanRequest scanRequest = new ScanRequest()
                 .withTableName(tableName);
@@ -292,6 +292,19 @@ public class DynamoDBUtil {
         final ArrayList<Table> listOfTables = new ArrayList<>();
         tables.forEach(listOfTables::add);
         return listOfTables;
+    }
+    public static boolean isMetadataObjectExist(final String tableName,final Metadata metadata){
+        return getAllMetadataItemsRecords(tableName).stream()
+                .filter(object->object.equals(metadata))
+                .findAny()
+                .isPresent();
+    }
+
+    public static boolean isLogObjectExist(final String tableName,final Log log){
+        return getAllMetadataItemsRecords(tableName).stream()
+                .filter(object -> object.equals(log))
+                .findAny()
+                .isPresent();
     }
 
     public static boolean isMetadataExist(final String tableName) {

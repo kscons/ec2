@@ -24,7 +24,6 @@ public class NewDynamoDBUtil {
     private static final Logger LOG = LoggerFactory.getLogger(DynamoDBUtil.class);
     private static String ENDPOINT = "https://dynamodb.eu-west-1.amazonaws.com";
     private static DynamoDB dynamoDB;
-    private static DynamoDBUtil instance;
     static AmazonDynamoDBClient addbcl;
     static private DynamoDBMapper mapper;
 
@@ -63,7 +62,19 @@ public class NewDynamoDBUtil {
 
     }
 
-
+    public static <T> boolean isRecordExist(Class<T> clazz) {
+       return  getAllRecords(clazz)
+                .stream()
+                .findAny()
+                .isPresent();
+    }
+    public static <T> boolean isRecordExist(Class<T> clazz,Object object) {
+        return  getAllRecords(clazz)
+                .stream()
+                .filter(current->object.equals(current))
+                .findAny()
+                .isPresent();
+    }
 
 
 
