@@ -22,5 +22,8 @@ public class Cleaner {
         S3Util.cleanBucket(MessageReceiversConfigurator.getDefaultOutputBucketName());
         S3Util.cleanBucket(MessageReceiversConfigurator.getDefaultInputBucketName());
     }
+    public static void main(String[] ar){
+        clean();
+    }
 
 }

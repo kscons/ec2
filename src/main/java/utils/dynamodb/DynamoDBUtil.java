@@ -64,10 +64,10 @@ public class DynamoDBUtil {
                     .withString("value", metadata.getValue());
             table.putItem(item);
             LOG.info("\tDynamoDB : metadata written into" + ENDPOINT + "\n\ttable name -" + tableName);
-        } catch (IllegalArgumentException iae) {
-            throw new MetadataFieldNullException("Some field of object is null");
-        } catch (Exception ex) {
-            throw new NonExistTableException("the table" + tableName + "is not exist");
+        } catch (IllegalArgumentException | NullPointerException iae) {
+            throw new MetadataFieldNullException("Some field of object is null"+ iae.toString());
+        } catch (ResourceNotFoundException ex) {
+            throw new NonExistTableException("the table" + tableName + "is not exist."+ex.toString());
         }
     }
 
@@ -294,6 +294,16 @@ public class DynamoDBUtil {
         return listOfTables;
     }
 
+    public static boolean isMetadataExist(final String tableName) {
+        return getAllMetadataItemsRecords(tableName).stream()
+                .findAny()
+                .isPresent();
+    }
+    public static boolean isLogExist(final String tableName) {
+        return getAllLogItemsRecords(tableName).stream()
+                .findAny()
+                .isPresent();
+    }
     public static boolean isTableExist(final String tableName) {
         return getTablesList().stream()
                 .filter(t -> t.getTableName() == tableName)
