@@ -10,6 +10,7 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import studies.s3datasourcegenerator.S3DataSourceGenerator;
+import utils.Cleaner;
 import utils.s3.S3Util;
 import utils.archiever.Decompresser;
 import utils.dynamodb.NewDynamoDBUtil;
@@ -72,7 +73,7 @@ public class AsyncMessageReceiverWithClientInfo {
                         LOG.info("\t [TEST]  Objects(metadata) in DYNAMODB  = " + NewDynamoDBUtil.getAllRecords(Metadata.class).size());
                         LOG.info("\t [TEST]  Objects(logs) in DYNAMODB  = " + NewDynamoDBUtil.<Log>getAllRecords(Log.class).size());
                         LOG.info("\t [TEST]  Objects(logs) in REDSHIFT  = " + RedshiftJDBCUtil.getAllLogsFromTable(RedshiftConfigurator.getLogsRedshiftOutputTableName()).size());
-                        // Thread.sleep(checkStatetime);
+
 
 
 

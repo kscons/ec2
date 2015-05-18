@@ -11,6 +11,7 @@ import com.amazonaws.regions.Regions;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3Client;
 import com.amazonaws.services.s3.model.*;
+import exceptions.s3.NoFileInBucketException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import utils.sqs.SQSUtil;
@@ -48,16 +49,36 @@ public class S3Util {
      * @param bucketName - bucket from which we want get object
      * @param key-key    that enables us to get this object
      * @return S3Object which include data and metadata
+     * @throws NoFileInBucketException - throws when there is no object with specified key in this bucket
      */
-    public static S3Object getFileFromBucket(final String bucketName, final String key) {
+    public static boolean isFileExist(final String bucketName, final String key) {
+        boolean exist=false;
+        try {
+           exist=getAllObjectSummaries(bucketName)
+                   .stream()
+                   .filter(s3ObjectSummary -> s3ObjectSummary.getKey().equals(key))
+                   .collect(Collectors.toList()).size() == 1;
+       } catch(AmazonS3Exception as3e){as3e.printStackTrace();
+        }
+        return exist;
+    }
 
-        S3Object s3object = s3.getObject(new GetObjectRequest(
-                bucketName, key));
-        LOG.info("EC2--  Object from " + bucketName + " " + key + "  got");
-        return s3object;
+
+
+
+    public static S3Object getFileFromBucket(final String bucketName, final String key) throws NoFileInBucketException {
+        try {
+            S3Object s3object = s3.getObject(new GetObjectRequest(
+                    bucketName, key));
+            LOG.info("EC2--  Object from " + bucketName + " " + key + "  got");
+            return s3object;
+        } catch (AmazonS3Exception as3e) {
+            throw new NoFileInBucketException("  key " + key + " in bucket" + bucketName + " does not exist");
+        }
 
 
     }
+
 
     /**
      * This method uses to save decompressed JSON in another bucket.
@@ -127,13 +148,15 @@ public class S3Util {
     }
 
     public static void deleteBucket(final String bucketName) {
+        cleanBucket(bucketName);
         s3.deleteBucket(new DeleteBucketRequest(bucketName));
     }
 
-    public static boolean isExist(final String bucketName) {
+    public static boolean isExist(final String bucketName) throws AmazonS3Exception {
+
         return getBuckettsList()
                 .stream()
-                .filter(bucket -> bucket.getName() == bucketName)
+                .filter(bucket -> bucket.getName().equals(bucketName))
                 .collect(Collectors.toList())
                 .size() == 1;
     }
@@ -168,8 +191,6 @@ public class S3Util {
                 new SetBucketNotificationConfigurationRequest(bucketName, notificationConfiguration);
         s3.setBucketNotificationConfiguration(request);
     }
-
-
 
 
 }

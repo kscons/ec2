@@ -12,7 +12,7 @@ import org.slf4j.LoggerFactory;
 import org.hibernate.Session;
 
 import java.util.ArrayList;
-
+@Deprecated
 public class RedshiftHibernateUtil {
     private static final Logger LOG = LoggerFactory.getLogger(RedshiftHibernateUtil.class);
     private  SessionFactory sf;

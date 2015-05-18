@@ -6,6 +6,7 @@ import com.amazonaws.util.json.JSONArray;
 import com.amazonaws.util.json.JSONException;
 import com.amazonaws.util.json.JSONObject;
 import exceptions.ZIPFormatException;
+import exceptions.s3.NoFileInBucketException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import configurations.servicesconfigurators.MessageReceiversConfigurator;
@@ -78,7 +79,7 @@ public class MainProcessor {
             }
         } catch (JSONException jse) {
             LOG.error(jse.toString());
-        }
+        }catch (NoFileInBucketException nfibe){nfibe.printStackTrace();}
     }
 
 }

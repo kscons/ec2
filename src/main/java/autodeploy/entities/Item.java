@@ -6,5 +6,5 @@ package autodeploy.entities;
 public interface Item {
     public void create();
     public void delete();
-    public void isCreated();
+    public boolean isCreated();
 }

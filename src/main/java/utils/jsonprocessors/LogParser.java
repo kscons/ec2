@@ -19,7 +19,7 @@ public class LogParser {
         JSONArray jsonArray=new JSONArray(logs);
             for(int i=0;i<jsonArray.length();i++){
                  Log log=new Log();
-               log.setTime( jsonArray.getJSONObject(i).get("timestamp").toString());
+               log.setTimestamp(jsonArray.getJSONObject(i).get("timestamp").toString());
                 log.setKey(jsonArray.getJSONObject(i).get("key").toString());
                 log.setValue(jsonArray.getJSONObject(i).get("value").toString());
                 log.setUserId(userId);

@@ -1,9 +1,12 @@
 package autodeploy.itemfactory;
 
 import autodeploy.entities.Item;
+import autodeploy.entities.dynamodbtable.DynamoDBLogsTable;
+import autodeploy.entities.dynamodbtable.DynamoDBMetadataTable;
+import autodeploy.entities.redshifttable.RedshiftTable;
 import autodeploy.entities.s3buckets.InputBucket;
 import autodeploy.entities.s3buckets.OutputBucket;
-import autodeploy.entities.s3buckets.sqs.SQS;
+import autodeploy.entities.sqs.SQS;
 import utils.s3.S3Util;
 import utils.sqs.SQSUtil;
 
@@ -27,6 +30,15 @@ public class ItemFactory {
             case SQS:
                 item = new SQS(itemName);
                 break;
+            case DYNAMODB_LOG_TABLE:
+                item = new DynamoDBLogsTable(itemName);
+                break;
+            case DYNAMODB_METADATA_TABLE:
+                item = new DynamoDBMetadataTable(itemName);
+                break;
+            case REDSHIFT_TABLE:
+                item = new RedshiftTable(itemName);
+                break;
         }
         itemsList.add(item);
         return item;
@@ -38,14 +50,7 @@ public class ItemFactory {
 
 
     public static void main(String[] a) {
-       // System.out.println("test"+SQSUtil.getQueueUrl("sqs"));
-        System.out.println("test"+SQSUtil.getQueueArn("sqs"));
 
-        ItemFactory.createItem("ainput", ItemType.INPUT_BUCKET);
-        //ItemFactory.createItem("aoutput", ItemType.OUTPUT_BUCKET);
-        //ItemFactory.createItem("sqs", ItemType.SQS);
-        //createAll();
-        S3Util.setNotificationConfiguration("aoutput", "sqs");
     }
 
 }

@@ -58,7 +58,7 @@ public class AsyncDynamoDBSaver {
             public void run() {
                 Item item = new Item().withPrimaryKey("id", log.getId())
                         .withNumber("userID", log.getUserId())
-                        .withString("time", log.getTime())
+                        .withString("time", log.getTimestamp())
                         .withString("key", log.getKey())
                         .withString("value", log.getValue());
                 logsTable.putItem(item);

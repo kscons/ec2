@@ -3,6 +3,7 @@ package receiver.asynchronous.paralellcommands;
 import com.amazonaws.services.s3.model.S3Object;
 import configurations.servicesconfigurators.MessageReceiversConfigurator;
 import entities.datacollectionmap.DataCollectionMap;
+import exceptions.s3.NoFileInBucketException;
 import s3filesgenerator.S3;
 import entities.DataSource;
 import studies.Studies;
@@ -17,9 +18,9 @@ import java.io.*;
  */
 public class StudiesHandler {
     public static void process(String bucket, String key) {
-        S3Object s3Object = S3Util.getFileFromBucket(bucket, key);
-        try {
 
+        try {
+            S3Object s3Object = S3Util.getFileFromBucket(bucket, key);
             DataSource studies = ClientInfoProcessor.parseJSON(getStringFromInputStream(s3Object.getObjectContent()));
          DataCollectionMap dataCollectionMap= Studies.generate(studies);
         sendDcmIntoS3(dataCollectionMap,key);
@@ -28,6 +29,8 @@ public class StudiesHandler {
             S3.pushReportByClientID(newKey);
         } catch (IOException io) {
             io.printStackTrace();
+        }catch (NoFileInBucketException nfbe){
+            nfbe.printStackTrace();
         }
     }
 

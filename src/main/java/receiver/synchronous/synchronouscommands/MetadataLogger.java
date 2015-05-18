@@ -10,6 +10,7 @@ import java.util.Map;
 /**
  * Created by serhii on 07.04.15.
  */
+@Deprecated
 public class MetadataLogger {
     private static final Logger LOG = LoggerFactory.getLogger(MainProcessor.class);
 

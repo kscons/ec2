@@ -15,7 +15,7 @@ import java.util.concurrent.TimeUnit;
 /**
  * These class is the main class in project that listen the updates in SQS queue.
  */
-
+@Deprecated
 public class SyncMessageReceiver {
     private static final Logger LOG = LoggerFactory.getLogger(SyncMessageReceiver.class);
 

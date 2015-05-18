@@ -136,7 +136,7 @@ public class RedshiftJDBCUtil {
                 Statement stmt = conn.createStatement();
                 if (checkConnection()) {
                     stmt.executeUpdate("insert into " + tableName + " values" +
-                            " ('" + log.getId() + "', '" + log.getTime() + "'," + log.getUserId() + " ,'" + log.getKey() + "', '" + log.getValue() + "');");
+                            " ('" + log.getId() + "', '" + log.getTimestamp() + "'," + log.getUserId() + " ,'" + log.getKey() + "', '" + log.getValue() + "');");
                     LOG.info("\t Redshift: " + log + " into Table " + tableName + " successfully inserted");
                 }
             } catch (SQLException sqsle) {
@@ -231,7 +231,7 @@ public class RedshiftJDBCUtil {
                 //Retrieve two columns.
                 final Log log = new Log();
                 log.setId(rs.getString("id"));
-                log.setTime(rs.getString("time"));
+                log.setTimestamp(rs.getString("time"));
                 log.setUserId(Integer.parseInt(rs.getString("userid")));
                 log.setKey(rs.getString("key"));
                 log.setValue(rs.getString("value"));

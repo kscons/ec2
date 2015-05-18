@@ -5,16 +5,18 @@ import com.amazonaws.auth.profile.ProfileCredentialsProvider;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClient;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBScanExpression;
-import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTable;
 import com.amazonaws.services.dynamodbv2.datamodeling.PaginatedScanList;
-import com.amazonaws.services.dynamodbv2.document.*;
-import com.amazonaws.services.dynamodbv2.document.spec.DeleteItemSpec;
+import com.amazonaws.services.dynamodbv2.document.DynamoDB;
+import com.amazonaws.services.dynamodbv2.document.Item;
+import com.amazonaws.services.dynamodbv2.document.Table;
+import com.amazonaws.services.dynamodbv2.document.TableCollection;
 import com.amazonaws.services.dynamodbv2.model.*;
-import configurations.servicesconfigurators.DynamoDBConfiGurator;
+import entities.Log;
 import entities.Metadata;
+import exceptions.dynamodb.MetadataFieldNullException;
+import exceptions.dynamodb.NonExistTableException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import entities.Log;
 
 import java.util.ArrayList;
 import java.util.Map;
@@ -28,10 +30,13 @@ import java.util.Map;
 
 public class DynamoDBUtil {
 
+    private static final int DEFAULT_READ_UNITS_COUNT = 5;
+    private static final int DEFAULT_WRITE_UNITS_COUNT = 5;
+
+
     private static final Logger LOG = LoggerFactory.getLogger(DynamoDBUtil.class);
     private static String ENDPOINT = "https://dynamodb.eu-west-1.amazonaws.com";
     private static DynamoDB dynamoDB;
-    private static DynamoDBUtil instance;
     static AmazonDynamoDBClient addbcl;
 
     static {
@@ -47,16 +52,23 @@ public class DynamoDBUtil {
      *
      * @param metadata -the prepared POJO object that was formed out of metadata from S3Object.
      */
-    public static void insertMetadataRecord(final String tableName, final Metadata metadata) throws IllegalArgumentException {
-        Table table = dynamoDB.getTable(tableName);
-        Item item = new Item().withPrimaryKey("eventID", metadata.getEventID())
-                .withNumber("userID", metadata.getUserId())
-                .withNumber("machineID", metadata.getMachineId())
-                .withString("lastmodified", metadata.getLastModified() + "")
-                .withString("eventType", metadata.getEventType())
-                .withString("value", metadata.getValue());
-        table.putItem(item);
-        LOG.info("\tDynamoDB : metadata written into" + ENDPOINT + "\n\ttable name -" + tableName);
+    public static void insertMetadataRecord(final String tableName, final Metadata metadata)
+            throws MetadataFieldNullException, NonExistTableException {
+        try {
+            Table table = dynamoDB.getTable(tableName);
+            Item item = new Item().withPrimaryKey("eventID", metadata.getEventID())
+                    .withNumber("userID", metadata.getUserId())
+                    .withNumber("machineID", metadata.getMachineId())
+                    .withString("lastmodified", metadata.getLastModified() + "")
+                    .withString("eventType", metadata.getEventType())
+                    .withString("value", metadata.getValue());
+            table.putItem(item);
+            LOG.info("\tDynamoDB : metadata written into" + ENDPOINT + "\n\ttable name -" + tableName);
+        } catch (IllegalArgumentException iae) {
+            throw new MetadataFieldNullException("Some field of object is null");
+        } catch (Exception ex) {
+            throw new NonExistTableException("the table" + tableName + "is not exist");
+        }
     }
 
 
@@ -64,7 +76,7 @@ public class DynamoDBUtil {
         Table table = dynamoDB.getTable(tableName);
         Item item = new Item().withPrimaryKey("id", log.getId())
                 .withNumber("userID", log.getUserId())
-                .withString("time", log.getTime())
+                .withString("time", log.getTimestamp())
                 .withString("key", log.getKey())
                 .withString("value", log.getValue());
         table.putItem(item);
@@ -72,9 +84,78 @@ public class DynamoDBUtil {
     }
 
 
+    public static ArrayList<Metadata> getAllMetadataItemsRecords(String tableName) {
+        ArrayList<Metadata> listItems = new ArrayList<>();
+        ScanRequest scanRequest = new ScanRequest()
+                .withTableName(tableName);
+
+        ScanResult result = addbcl.scan(scanRequest);
+        for (Map<String, AttributeValue> item : result.getItems()) {
+
+            Metadata metadata = new Metadata(item);
+            listItems.add(metadata);
+
+        }
+        return listItems;
+    }
+
+
+    public static ArrayList<Log> getAllLogItemsRecords(String tableName) {
+        ArrayList<Log> listItems = new ArrayList<>();
+        ScanRequest scanRequest = new ScanRequest()
+                .withTableName(tableName);
+
+        ScanResult result = addbcl.scan(scanRequest);
+        for (Map<String, AttributeValue> item : result.getItems()) {
+
+            Log log = new Log();
+            log.setId(item.get("id").toString());
+            log.setUserId(Long.parseLong(item.get("userID").toString()));
+            log.setTimestamp(item.get("time").toString());
+            log.setKey(item.get("key").toString());
+            log.setValue(item.get("value").toString());
+
+        }
+        return listItems;
+    }
+
+    public static void cleanLogsTable(String tableName) {
+        cleanTable(tableName, Entities.LOG);
+    }
+
+    public static void cleanMetadatasTable(String tableName) {
+        cleanTable(tableName, Entities.METADATA);
+    }
+
+    public static void cleanTable(String tableName, Entities entity) {
+        String hashKeyName = "";
+        switch (entity) {
+            case LOG: {
+                hashKeyName = "id";
+                break;
+            }
+            case METADATA: {
+                hashKeyName = "eventID";
+                break;
+            }
+        }
+        DynamoDBMapper mapper = new DynamoDBMapper(addbcl);
+        DynamoDBScanExpression scanExpression = new DynamoDBScanExpression();
+        PaginatedScanList<Metadata> result = mapper.scan(Metadata.class, scanExpression);
+        for (Metadata data : result) {
+            mapper.delete(data);
+        }
+
+    }
+
+
+/**
+ * Operations with tables
+ */
     /**
      * This method is used to create new table with one hashkey.
      * To create table it calls another basic method
+     * Example of use :   createTable("lo", 10L, 5L, "Id", "N");
      *
      * @param tableName          - name of table that is created
      * @param readCapacityUnits  - count of read capacity units
@@ -85,7 +166,6 @@ public class DynamoDBUtil {
     public static void createTable(
             final String tableName, final long readCapacityUnits, final long writeCapacityUnits,
             final String hashKeyName, final String hashKeyType) {
-
         createTable(tableName, readCapacityUnits, writeCapacityUnits,
                 hashKeyName, hashKeyType, null, null);
     }
@@ -96,7 +176,7 @@ public class DynamoDBUtil {
      *
      * @param tableName - name of table that will be deleted
      */
-    private static void deleteTable(final String tableName) {
+    public static void deleteTable(final String tableName) {
         Table table = dynamoDB.getTable(tableName);
         try {
             System.out.println("Issuing DeleteTable request for " + tableName);
@@ -127,7 +207,7 @@ public class DynamoDBUtil {
             final String tableName, final long readCapacityUnits, final long writeCapacityUnits,
             final String hashKeyName, final String hashKeyType,
             final String rangeKeyName, final String rangeKeyType) {
-
+    if (isTableExist(tableName)){
         try {
 
             ArrayList<KeySchemaElement> keySchema = new ArrayList<KeySchemaElement>();
@@ -157,7 +237,7 @@ public class DynamoDBUtil {
                             .withWriteCapacityUnits(writeCapacityUnits));
 
             // If this is the Reply table, define a local secondary index
-            if (rangeKeyName == null || rangeKeyType != null) {
+            if (rangeKeyName != null && rangeKeyType != null) {
 
                 attributeDefinitions.add(new AttributeDefinition()
                         .withAttributeName("PostedBy")
@@ -185,96 +265,41 @@ public class DynamoDBUtil {
         } catch (Exception e) {
             System.err.println("CreateTable request failed for " + tableName);
             System.err.println(e.getMessage());
-        }
+        }}else {LOG.error("Table is exist already");}
     }
 
-    public static ArrayList<Metadata> getAllMetadataItemsRecords(String tableName) {
-        ArrayList<Metadata> listItems = new ArrayList<>();
-        ScanRequest scanRequest = new ScanRequest()
-                .withTableName(tableName);
-
-        ScanResult result = addbcl.scan(scanRequest);
-        for (Map<String, AttributeValue> item : result.getItems()) {
-
-            Metadata metadata = new Metadata(item);
-            listItems.add(metadata);
-
-        }
-        return listItems;
+    public static void createTableForLogs(final String tableName, int readUnits, int writeUnits) {
+        createTable(tableName, readUnits, writeUnits, "Id", "S");
     }
 
 
-    public static ArrayList<Log> getAllLogItemsRecords(String tableName) {
-        ArrayList<Log> listItems = new ArrayList<>();
-        ScanRequest scanRequest = new ScanRequest()
-                .withTableName(tableName);
-
-        ScanResult result = addbcl.scan(scanRequest);
-        for (Map<String, AttributeValue> item : result.getItems()) {
-
-            Log log = new Log();
-            log.setId(item.get("id").toString());
-            log.setUserId(Long.parseLong(item.get("userID").toString()));
-            log.setTime(item.get("time").toString());
-            log.setKey(item.get("key").toString());
-            log.setValue(item.get("value").toString());
-
-        }
-        return listItems;
+    public static void createTableForMetadata(final String tableName, int readUnits, int writeUnits) {
+        createTable(tableName, readUnits, writeUnits, "eventID", "S");
     }
 
-    public static void cleanLogsTable(String tableName) {
-        cleanTable(tableName, Entities.LOG);
+    public static void createTableForLogs(final String tableName) {
+        createTableForLogs(tableName, DEFAULT_READ_UNITS_COUNT, DEFAULT_WRITE_UNITS_COUNT);
     }
 
-    public static void cleanMetadatasTable(String tableName) {
-        cleanTable(tableName, Entities.METADATA);
+    public static void createTableForMetadata(final String tableName) {
+        createTableForLogs(tableName, DEFAULT_READ_UNITS_COUNT, DEFAULT_WRITE_UNITS_COUNT);
     }
 
-    public static void cleanTable(String tableName, Entities entity) {
-        String hashKeyName="";
-        switch (entity) {
-            case LOG: {
-                hashKeyName = "id";
-                break;
-            }
-            case METADATA: {
-                hashKeyName = "eventID";
-                break;
-            }
-        }
-        DynamoDBMapper mapper = new DynamoDBMapper(addbcl);
-        DynamoDBScanExpression scanExpression = new DynamoDBScanExpression();
-        PaginatedScanList<Metadata> result = mapper.scan(Metadata.class,  scanExpression);
-        for (Metadata data : result) {
-            mapper.delete(data);
-        }
-
-      /*  ScanRequest scanRequest = new ScanRequest()
-                .withTableName(tableName);
-        Table table = dynamoDB.getTable(tableName);
-        ScanResult result = addbcl.scan(scanRequest);
-
-        for (Map<String, AttributeValue> item : result.getItems()) {
-            try {
-                DeleteItemOutcome outcome = table.deleteItem();
-
-            } catch (NullPointerException npe) {
-                npe.printStackTrace();
-            }
-
-        }*/
+    public static ArrayList<Table> getTablesList() {
+        DynamoDB dynamoDB = new DynamoDB(new AmazonDynamoDBClient(
+                new ProfileCredentialsProvider()));
+        TableCollection<ListTablesResult> tables = dynamoDB.listTables();
+        final ArrayList<Table> listOfTables = new ArrayList<>();
+        tables.forEach(listOfTables::add);
+        return listOfTables;
     }
 
-
-    public static void main(String[] a) {
-        //createTable("l",5,5,"id","S");
-        cleanMetadatasTable(DynamoDBConfiGurator.getMetadataOutputTable());
+    public static boolean isTableExist(final String tableName) {
+        return getTablesList().stream()
+                .filter(t -> t.getTableName() == tableName)
+                .findAny()
+                .isPresent();
     }
-
 
 }
 
-enum Entities {
-    LOG, METADATA
-}

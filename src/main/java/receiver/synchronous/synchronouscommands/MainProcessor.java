@@ -7,6 +7,7 @@ import com.amazonaws.util.json.JSONException;
 import com.amazonaws.util.json.JSONObject;
 import entities.Metadata;
 import exceptions.ZIPFormatException;
+import exceptions.s3.NoFileInBucketException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import configurations.servicesconfigurators.MessageReceiversConfigurator;
@@ -19,7 +20,7 @@ import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
 
-
+@Deprecated
 public class MainProcessor {
     private static final Logger LOG = LoggerFactory.getLogger(MainProcessor.class);
 
@@ -69,6 +70,8 @@ public class MainProcessor {
 
         } catch (JSONException jse) {
             LOG.error(jse.toString());
+        }catch (NoFileInBucketException nfibe){
+            LOG.error(nfibe.toString());
         }
     }
 

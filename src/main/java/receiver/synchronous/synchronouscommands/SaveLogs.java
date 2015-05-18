@@ -8,6 +8,7 @@ import utils.jsonprocessors.LogParser;
 import utils.redshift.jdbc.RedshiftJDBCUtil;
 
 
+@Deprecated
 public class SaveLogs {
 
     public static void save(final String logs, final String id, final long userId) {

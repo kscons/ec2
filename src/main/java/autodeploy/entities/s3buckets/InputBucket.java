@@ -6,7 +6,8 @@ import utils.s3.S3Util;
 /**
  * Created by Logitech on 05.05.15.
  */
-public class InputBucket extends OutputBucket implements Bucket {
+public class InputBucket extends Bucket {
+
     public InputBucket(String name) {
         super(name);
     }
@@ -14,9 +15,10 @@ public class InputBucket extends OutputBucket implements Bucket {
     @Override
     public void create() {
         super.create();
-
+        addPermissions();
     }
-    public void addPermissions(){
+
+    public void addPermissions() {
         S3Util.setPublicPermissions(super.getName());
     }
 }
