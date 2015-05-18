@@ -16,7 +16,7 @@ public class NewDynamoDBUtilTest {
     @Test
     public void testInsertRecord() throws Exception {
         NewDynamoDBUtil.insertRecord(TEST_METADATA_OBJECT);
-        DynamoDBUtil.isMetadataObjectExist(METADATA_TABLE_NAME,TEST_METADATA_OBJECT);
+        assertTrue(NewDynamoDBUtil.isRecordExist(TEST_METADATA_OBJECT));
     }
 
     @Test

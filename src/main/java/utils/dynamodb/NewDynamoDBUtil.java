@@ -3,18 +3,14 @@ package utils.dynamodb;
 
 import com.amazonaws.auth.profile.ProfileCredentialsProvider;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClient;
-import com.amazonaws.services.dynamodbv2.datamodeling.*;
-import com.amazonaws.services.dynamodbv2.document.*;
-import com.amazonaws.services.dynamodbv2.document.spec.DeleteItemSpec;
-import com.amazonaws.services.dynamodbv2.model.*;
-import configurations.servicesconfigurators.DynamoDBConfiGurator;
-import entities.Metadata;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBScanExpression;
+import com.amazonaws.services.dynamodbv2.datamodeling.PaginatedParallelScanList;
+import com.amazonaws.services.dynamodbv2.document.DynamoDB;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import entities.Log;
 
 import java.util.ArrayList;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
@@ -43,7 +39,7 @@ public class NewDynamoDBUtil {
     public static <T> ArrayList<T> getAllRecords(Class<T> clazz) {
         DynamoDBMapper mapper = new DynamoDBMapper(addbcl);
         DynamoDBScanExpression scanExpression = new DynamoDBScanExpression();
-        PaginatedParallelScanList<T> result = mapper.parallelScan(clazz, scanExpression,10);
+        PaginatedParallelScanList<T> result = mapper.parallelScan(clazz, scanExpression, 10);
         return result
                 .parallelStream()
                 .collect(Collectors.toCollection(ArrayList<T>::new));
@@ -52,7 +48,7 @@ public class NewDynamoDBUtil {
     public static <T> void cleanTable(final Class clazz) {
         DynamoDBMapper mapper = new DynamoDBMapper(addbcl);
         DynamoDBScanExpression scanExpression = new DynamoDBScanExpression();
-        PaginatedParallelScanList<T> result = mapper.parallelScan(clazz, scanExpression,10);
+        PaginatedParallelScanList<T> result = mapper.parallelScan(clazz, scanExpression, 10);
         result.stream().
                 unordered().
                 parallel().
@@ -63,19 +59,19 @@ public class NewDynamoDBUtil {
     }
 
     public static <T> boolean isRecordExist(Class<T> clazz) {
-       return  getAllRecords(clazz)
+        return getAllRecords(clazz)
                 .stream()
-                .findAny()
-                .isPresent();
-    }
-    public static <T> boolean isRecordExist(Class<T> clazz,Object object) {
-        return  getAllRecords(clazz)
-                .stream()
-                .filter(current->object.equals(current))
                 .findAny()
                 .isPresent();
     }
 
+    public static <T> boolean isRecordExist(Object object) {
+        return getAllRecords(object.getClass())
+                .stream()
+                .filter(current -> object.equals(current))
+                .findAny()
+                .isPresent();
+    }
 
 
 }
