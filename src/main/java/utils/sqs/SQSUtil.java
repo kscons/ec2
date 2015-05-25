@@ -62,7 +62,7 @@ public class SQSUtil {
         final String queueUrl=getQueueUrl(sqsName);
       return   sqs.listQueues().getQueueUrls()
               .stream()
-              .filter(url-> url==queueUrl)
+              .filter(url-> url.equals(queueUrl))
               .collect(Collectors.toList())
               .size()==1;
 

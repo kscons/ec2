@@ -12,7 +12,7 @@ import utils.redshift.jdbc.RedshiftJDBCUtil;
 /**
  * Created by Logitech on 29.04.15.
  */
-public class Cleaner {
+public class    Cleaner {
     public static void clean() {
         Configurator.configureAll("config.properties");
         NewDynamoDBUtil.<Log>cleanTable(Log.class);

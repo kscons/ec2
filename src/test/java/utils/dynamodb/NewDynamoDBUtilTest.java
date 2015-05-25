@@ -66,7 +66,6 @@ public class NewDynamoDBUtilTest {
                                     .isPresent());
                 });
     }
-
     @Test
     public void testCleanLogTable() throws Exception {
         NewDynamoDBUtil.cleanTable(Log.class);

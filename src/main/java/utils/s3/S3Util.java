@@ -1,5 +1,6 @@
 package utils.s3;
 
+import com.amazonaws.ClientConfiguration;
 import com.amazonaws.auth.policy.Policy;
 import com.amazonaws.auth.policy.Principal;
 import com.amazonaws.auth.policy.Statement;
@@ -33,12 +34,16 @@ public class S3Util {
 
     private static final Logger LOG = LoggerFactory.getLogger(S3Util.class);
     private static final Regions region = Regions.EU_WEST_1;
+    private static final ClientConfiguration clientConfig;
     private static final AmazonS3 s3;
 
     /**
      * The initialization of AmazonS3client.
      */
     static {
+        clientConfig = new ClientConfiguration();
+        clientConfig.setMaxConnections(100);
+        clientConfig.setConnectionTimeout(0);
         s3 = new AmazonS3Client(new ProfileCredentialsProvider());
         s3.setRegion(Region.getRegion(region));
     }
@@ -52,18 +57,17 @@ public class S3Util {
      * @throws NoFileInBucketException - throws when there is no object with specified key in this bucket
      */
     public static boolean isFileExist(final String bucketName, final String key) {
-        boolean exist=false;
+        boolean exist = false;
         try {
-           exist=getAllObjectSummaries(bucketName)
-                   .stream()
-                   .filter(s3ObjectSummary -> s3ObjectSummary.getKey().equals(key))
-                   .collect(Collectors.toList()).size() == 1;
-       } catch(AmazonS3Exception as3e){as3e.printStackTrace();
+            exist = getAllObjectSummaries(bucketName)
+                    .stream()
+                    .filter(s3ObjectSummary -> s3ObjectSummary.getKey().equals(key))
+                    .collect(Collectors.toList()).size() == 1;
+        } catch (AmazonS3Exception as3e) {
+            as3e.printStackTrace();
         }
         return exist;
     }
-
-
 
 
     public static S3Object getFileFromBucket(final String bucketName, final String key) throws NoFileInBucketException {
@@ -75,8 +79,6 @@ public class S3Util {
         } catch (AmazonS3Exception as3e) {
             throw new NoFileInBucketException("  key " + key + " in bucket" + bucketName + " does not exist");
         }
-
-
     }
 
 
@@ -115,15 +117,8 @@ public class S3Util {
      * @param bucketName -bucket which will be cleaned
      */
     public static void cleanBucket(final String bucketName) {
-        ObjectListing listing = s3.listObjects(bucketName);
-        List<S3ObjectSummary> summaries = listing.getObjectSummaries();
-        while (listing.isTruncated()) {
-            listing = s3.listNextBatchOfObjects(listing);
-            summaries.addAll(listing.getObjectSummaries());
-        }
-        for (S3ObjectSummary objectSummary : listing.getObjectSummaries()) {
-            deleteFileFromBucket(objectSummary.getBucketName(), objectSummary.getKey());
-        }
+
+        getAllObjectSummaries(bucketName).stream().forEach(s3ObjectSummary -> deleteFileFromBucket(bucketName, s3ObjectSummary.getKey()));
         LOG.error("S3Util:All elements deleted from " + bucketName);
     }
 

@@ -61,12 +61,12 @@ public class S3 {
         ObjectMetadata metadata = new ObjectMetadata();
 
         //adding user metadata
-        metadata.addUserMetadata("eventId", Math.abs(random.nextInt()) +"");
-        metadata.addUserMetadata("userId", random.nextInt() + "");
+        metadata.addUserMetadata("eventid", Math.abs(random.nextInt()) +"");
+        metadata.addUserMetadata("userid", random.nextInt() + "");
         metadata.addUserMetadata("time", "" + random.nextInt());
         metadata.addUserMetadata("eventType", "type" + random.nextInt());
         metadata.addUserMetadata("value", "true");
-        metadata.addUserMetadata("machineId", "" + random.nextInt());
+        metadata.addUserMetadata("machineid", "" + random.nextInt());
 
         metadata.setContentType("application/json");
         metadata.setContentLength(report.available());

@@ -1,5 +1,6 @@
 package receiver.synchronous;
 
+import receiver.Receiver;
 import receiver.synchronous.synchronouscommands.MainProcessor;
 import configurations.servicesconfigurators.MessageReceiversConfigurator;
 import configurations.servicesconfigurators.LoggerConfigurator;
@@ -16,11 +17,11 @@ import java.util.concurrent.TimeUnit;
  * These class is the main class in project that listen the updates in SQS queue.
  */
 @Deprecated
-public class SyncMessageReceiver {
+public class SyncMessageReceiver implements Receiver{
     private static final Logger LOG = LoggerFactory.getLogger(SyncMessageReceiver.class);
 
 
-    public static void main(String args[]) {
+    public void start() {
         // Create the connection factory based on the config
         LoggerConfigurator.initLogger();
         // Create connection with SQS

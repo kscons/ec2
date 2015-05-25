@@ -1,12 +1,15 @@
 package utils.dynamodb;
 
+import entities.Log;
 import entities.Metadata;
 import exceptions.dynamodb.MetadataFieldNullException;
 import exceptions.dynamodb.NonExistTableException;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import utils.TestDataGenerator;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 import static org.junit.Assert.*;
@@ -18,23 +21,13 @@ public class DynamoDBUtilTest {
     private static final String TEST_TABLE_NAME = "testtable";
     private static final String TEST_TABLE_LOGS_NAME = "testtablelogs";
     private static final String TEST_TABLE_METADATAS = "testtablemetadatas";
-    private static final Metadata TEST_METADATA_OBJECT = new Metadata("eventID", 1234, 1234, new Date(), "eventtime", "value");
 
 
     @Test
     public void testCreateTable() throws Exception {
         DynamoDBUtil.createTable(TEST_TABLE_NAME, 1, 1, "ID", "S");
-        try {
-            Thread.sleep(5000);
-        } catch (InterruptedException ex) {
-        }
         assertTrue(DynamoDBUtil.isTableExist(TEST_TABLE_NAME));
         DynamoDBUtil.deleteTable(TEST_TABLE_NAME);
-        try {
-            Thread.sleep(6000);
-        } catch (InterruptedException ex) {
-        }
-
         assertFalse(DynamoDBUtil.isTableExist(TEST_TABLE_NAME));
     }
 
@@ -58,24 +51,48 @@ public class DynamoDBUtilTest {
     @Test(expected = NonExistTableException.class)
     public void testInsertintoNonExistTable() throws Exception {
         DynamoDBUtil.createTableForMetadata(TEST_TABLE_METADATAS);
-        DynamoDBUtil.insertMetadataRecord("incorrectName", TEST_METADATA_OBJECT);
+        DynamoDBUtil.insertMetadataRecord("incorrectName", TestDataGenerator.getTestMetadata());
         DynamoDBUtil.deleteTable(TEST_TABLE_METADATAS);
 
     }
 
     @Test
     public void testInsertLogRecord() throws Exception {
-
+        final Log log = TestDataGenerator.getTestLog();
+        DynamoDBUtil.createTableForLogs(TEST_TABLE_LOGS_NAME);
+        DynamoDBUtil.insertLogRecord(TEST_TABLE_LOGS_NAME, log);
+        assertTrue(DynamoDBUtil.isLogObjectExist(TEST_TABLE_LOGS_NAME, log));
+        DynamoDBUtil.deleteTable(TEST_TABLE_LOGS_NAME);
     }
 
     @Test
     public void testGetAllMetadataItemsRecords() throws Exception {
+        final ArrayList<Metadata> metadataList = TestDataGenerator.getMetadatasTesList();
 
+        DynamoDBUtil.createTableForMetadata(TEST_TABLE_METADATAS);
+        metadataList.stream().forEach(m -> {
+            try {
+                DynamoDBUtil.insertMetadataRecord(TEST_TABLE_METADATAS, m);
+            } catch (NonExistTableException | MetadataFieldNullException ne) {
+            }
+        });
+        metadataList.stream().forEach(m -> {
+            DynamoDBUtil.isMetadataObjectExist(TEST_TABLE_METADATAS, m);
+        });
+        DynamoDBUtil.deleteTable(TEST_TABLE_METADATAS);
     }
 
     @Test
     public void testGetAllLogItemsRecords() throws Exception {
-
+        final ArrayList<Log> logList = TestDataGenerator.getLogTesList();
+        DynamoDBUtil.createTableForLogs(TEST_TABLE_LOGS_NAME);
+        logList.stream().forEach(l -> {
+            DynamoDBUtil.insertLogRecord(TEST_TABLE_LOGS_NAME, l);
+        });
+        logList.stream().forEach(l -> {
+            DynamoDBUtil.isLogObjectExist(TEST_TABLE_LOGS_NAME, l);
+        });
+        DynamoDBUtil.deleteTable(TEST_TABLE_LOGS_NAME);
     }
 
     @Test

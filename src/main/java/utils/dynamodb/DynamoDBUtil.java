@@ -58,11 +58,11 @@ public class DynamoDBUtil {
             throws MetadataFieldNullException, NonExistTableException {
         try {
             Table table = dynamoDB.getTable(tableName);
-            Item item = new Item().withPrimaryKey("eventID", metadata.getEventID())
-                    .withNumber("userID", metadata.getUserId())
-                    .withNumber("machineID", metadata.getMachineId())
+            Item item = new Item().withPrimaryKey("eventid", metadata.getEventID())
+                    .withNumber("userid", metadata.getUserId())
+                    .withNumber("machineid", metadata.getMachineId())
                     .withString("lastmodified", metadata.getLastModified() + "")
-                    .withString("eventType", metadata.getEventType())
+                    .withString("eventtype", metadata.getEventType())
                     .withString("value", metadata.getValue());
             table.putItem(item);
             LOG.info("\tDynamoDB : metadata written into" + ENDPOINT + "\n\ttable name -" + tableName);
@@ -77,7 +77,7 @@ public class DynamoDBUtil {
     public static void insertLogRecord(final String tableName, final Log log) throws IllegalArgumentException {
         Table table = dynamoDB.getTable(tableName);
         Item item = new Item().withPrimaryKey("id", log.getId())
-                .withNumber("userID", log.getUserId())
+                .withNumber("userid", log.getUserId())
                 .withString("time", log.getTimestamp())
                 .withString("key", log.getKey())
                 .withString("value", log.getValue());
@@ -112,7 +112,7 @@ public class DynamoDBUtil {
 
             Log log = new Log();
             log.setId(item.get("id").toString());
-            log.setUserId(Long.parseLong(item.get("userID").toString()));
+            log.setUserId(Long.parseLong(item.get("userid").getN().toString()));
             log.setTimestamp(item.get("time").toString());
             log.setKey(item.get("key").toString());
             log.setValue(item.get("value").toString());
@@ -137,7 +137,7 @@ public class DynamoDBUtil {
                 break;
             }
             case METADATA: {
-                hashKeyName = "eventID";
+                hashKeyName = "eventid";
                 break;
             }
         }
@@ -274,12 +274,12 @@ public class DynamoDBUtil {
     }
 
     public static void createTableForLogs(final String tableName, int readUnits, int writeUnits) {
-        createTable(tableName, readUnits, writeUnits, "Id", "S");
+        createTable(tableName, readUnits, writeUnits, "id", "S");
     }
 
 
     public static void createTableForMetadata(final String tableName, int readUnits, int writeUnits) {
-        createTable(tableName, readUnits, writeUnits, "eventID", "S");
+        createTable(tableName, readUnits, writeUnits, "eventid", "S");
     }
 
     public static void createTableForLogs(final String tableName) {
@@ -287,7 +287,7 @@ public class DynamoDBUtil {
     }
 
     public static void createTableForMetadata(final String tableName) {
-        createTableForLogs(tableName, DEFAULT_READ_UNITS_COUNT, DEFAULT_WRITE_UNITS_COUNT);
+        createTableForMetadata(tableName, DEFAULT_READ_UNITS_COUNT, DEFAULT_WRITE_UNITS_COUNT);
     }
 
     public static ArrayList<Table> getTableList() {
@@ -305,8 +305,8 @@ public class DynamoDBUtil {
     }
 
     public static boolean isLogObjectExist(final String tableName, final Log log) {
-        return getAllMetadataItemsRecords(tableName).stream()
-                .filter(object -> object.equals(log))
+        return getAllLogItemsRecords(tableName).stream()
+                .filter(object->object.equals(log))
                 .findAny()
                 .isPresent();
     }

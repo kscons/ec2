@@ -7,19 +7,16 @@ import configurations.Configurator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import configurations.servicesconfigurators.MessageReceiversConfigurator;
+import receiver.Receiver;
 import receiver.asynchronous.paralellcommands.MainProcessor;
-import utils.redshift.hibernate.RedshiftHibernateUtil;
-
 import javax.jms.*;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
-public class AsyncMessageReceiver {
+public class AsyncMessageReceiver implements Receiver {
     private static final Logger LOG = LoggerFactory.getLogger(AsyncMessageReceiver.class);
     private static final long autoCloseTime = 1;
 
-    public static void main(String args[]) throws JMSException, InterruptedException {
+    public void start() throws JMSException, InterruptedException {
         // ExampleConfiguration config = ExampleConfiguration.parseConfig("AsyncMessageReceiver", args);
         Configurator.configureAll("config.properties");
         //RedshiftHibernateUtil redshiftHibernateUtil=RedshiftHibernateUtil.getInstance();

@@ -21,7 +21,7 @@ public class Metadata {
     @DynamoDBAttribute
     private long machineId;
     @DynamoDBAttribute
-    private Date lastModified;
+    private long lastModified;
     @DynamoDBAttribute
     private String eventType;
     @DynamoDBAttribute
@@ -36,21 +36,21 @@ public class Metadata {
         eventID = md.get("eventid");
         userId = Long.parseLong(md.get("userid"));
         machineId = Long.parseLong(md.get("machineid"));
-        lastModified = om.getLastModified();
+        lastModified = om.getLastModified().getTime();
         eventType = md.get("eventtype");
         value = md.get("value");
     }
     public Metadata(Map<String,AttributeValue> md) {
-        eventID = md.get("eventid").toString();
-        userId = Long.parseLong(md.get("userid").toString());
-        machineId = Long.parseLong(md.get("machineid").toString());
-        lastModified = new Date(md.get("lastmodified").toString());
-        eventType = md.get("eventtype").toString();
-        value = md.get("value").toString();
+        eventID = md.get("eventid").getS();
+        userId = Long.parseLong(md.get("userid").getN());
+        machineId = Long.parseLong(md.get("machineid").getN());
+        lastModified = Long.parseLong(md.get("lastmodified").getS());
+        eventType = md.get("eventtype").getS();
+        value = md.get("value").getS();
     }
 
 
-    public Metadata(String eventID, long userId, long machineId, Date lastModified, String eventType, String value) {
+    public Metadata(String eventID, long userId, long machineId, long lastModified, String eventType, String value) {
         this.eventID = eventID;
         this.userId = userId;
         this.machineId = machineId;
@@ -83,11 +83,11 @@ public class Metadata {
         this.machineId = machineId;
     }
 
-    public Date getLastModified() {
+    public long getLastModified() {
         return lastModified;
     }
 
-    public void setLastModified(Date lastModified) {
+    public void setLastModified(long lastModified) {
         this.lastModified = lastModified;
     }
 
@@ -116,10 +116,9 @@ public class Metadata {
 
         if (userId != metadata.userId) return false;
         if (machineId != metadata.machineId) return false;
+        if (lastModified != metadata.lastModified) return false;
         if (allFieldsNotNull != metadata.allFieldsNotNull) return false;
         if (eventID != null ? !eventID.equals(metadata.eventID) : metadata.eventID != null) return false;
-        if (lastModified != null ? !lastModified.equals(metadata.lastModified) : metadata.lastModified != null)
-            return false;
         if (eventType != null ? !eventType.equals(metadata.eventType) : metadata.eventType != null) return false;
         return !(value != null ? !value.equals(metadata.value) : metadata.value != null);
 
@@ -130,7 +129,7 @@ public class Metadata {
         int result = eventID != null ? eventID.hashCode() : 0;
         result = 31 * result + (int) (userId ^ (userId >>> 32));
         result = 31 * result + (int) (machineId ^ (machineId >>> 32));
-        result = 31 * result + (lastModified != null ? lastModified.hashCode() : 0);
+        result = 31 * result + (int) (lastModified ^ (lastModified >>> 32));
         result = 31 * result + (eventType != null ? eventType.hashCode() : 0);
         result = 31 * result + (value != null ? value.hashCode() : 0);
         result = 31 * result + (allFieldsNotNull ? 1 : 0);

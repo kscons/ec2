@@ -45,7 +45,7 @@ public class AsyncMessageReceiverWithClientInfo {
                 @Override
                 public void run() {
                     try {
-                        AsyncMessageReceiver.main(new String[0]);
+                       new AsyncMessageReceiver().start();
                     } catch (InterruptedException | JMSException ie) {
                         ie.printStackTrace();
                         System.exit(13);

@@ -48,14 +48,9 @@ public class MainProcessor {
                 LOG.error("ASyncMessageReceiver:  Studies got ");
 
             } else {
-
                 try {
                     final S3Object s3Object = S3Util.getFileFromBucket(bucketName, key);
-
                     //MetadataLogger.outputAllMetadata(s3Object);
-                    //insertion metadata on ec2
-
-
                     final Metadata metadata = new Metadata(s3Object.getObjectMetadata());
                   SaveMetadata.save(metadata);
                     //Add object to output bucket

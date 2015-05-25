@@ -13,26 +13,30 @@ import java.util.UUID;
  */
 public class TestDataGenerator {
     public static Metadata getTestMetadata() {
-        return new Metadata("eventID", (long) Math.random() * 100000, (long) Math.random() * 100000, new Date(), UUID.randomUUID().toString(), UUID.randomUUID().toString());
+        return new Metadata("eventID",genRandomLong(), genRandomLong(), genRandomLong(), UUID.randomUUID().toString(), UUID.randomUUID().toString());
     }
 
     public static Log getTestLog() {
-        return new Log("id", (long) Math.random() * 100000, UUID.randomUUID().toString(), UUID.randomUUID().toString(), UUID.randomUUID().toString());
+        return new Log("id", genRandomLong(), UUID.randomUUID().toString(), UUID.randomUUID().toString(), UUID.randomUUID().toString());
     }
 
     public static ArrayList<Metadata> getMetadatasTesList() {
         ArrayList<Metadata> metadatasList = new ArrayList<>();
-        for (int i = 1; i < Math.random() * 100; i++) {
-            metadatasList.add(new Metadata("eventID", (long) Math.random() * 100000, (long) Math.random() * 100000, new Date(), UUID.randomUUID().toString(), UUID.randomUUID().toString()));
+        for (int i = 1; i < 10; i++) {
+            metadatasList.add(new Metadata("eventID", genRandomLong(),genRandomLong(), genRandomLong(), UUID.randomUUID().toString(), UUID.randomUUID().toString()));
         }
         return metadatasList;
     }
 
     public static ArrayList<Log> getLogTesList() {
         ArrayList<Log> metadatasList = new ArrayList<>();
-        for (int i = 1; i < Math.random() * 100; i++) {
-            metadatasList.add(new Log("id", (long) Math.random() * 100000, UUID.randomUUID().toString(), UUID.randomUUID().toString(), UUID.randomUUID().toString()));
+        for (int i = 1; i <10; i++) {
+            metadatasList.add(new Log("id"+genRandomLong(), genRandomLong(), UUID.randomUUID().toString(), UUID.randomUUID().toString(), UUID.randomUUID().toString()));
         }
         return metadatasList;
+    }
+
+    public static  long genRandomLong(){
+        return (long) Math.random() * 100000;
     }
 }

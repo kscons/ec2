@@ -49,7 +49,7 @@ public class AsyncMessageReceiverTest {
                 @Override
                 public void run() {
                     try {
-                        AsyncMessageReceiver.main(new String[0]);
+                       new  AsyncMessageReceiver().start();
                     } catch (InterruptedException | JMSException ie) {
                         ie.printStackTrace();
                         System.exit(13);
@@ -72,8 +72,8 @@ public class AsyncMessageReceiverTest {
                     Thread.sleep(1000);
                     LOG.info("[Test] ====== " + ((time * reportCount) - i + (time * reportCount % chechStateFrequency * checkStatetime / 1000)) + "  seconds remaining." + " Server is  working");
                     if (i % chechStateFrequency == 0) {
-                        LOG.info("\t [TEST]  Objects(files) in INPUT BUCKET = " + S3Util.getAllObjectSummaries(MessageReceiversConfigurator.getDefaultInputBucketName()).size());
-                        LOG.info("\t [TEST]  Objects(files) in OUTPUT BUCKET = " + S3Util.getAllObjectSummaries(MessageReceiversConfigurator.getDefaultOutputBucketName()).size());
+         //               LOG.info("\t [TEST]  Objects(files) in INPUT BUCKET = " + S3Util.getAllObjectSummaries(MessageReceiversConfigurator.getDefaultInputBucketName()).size());
+          //              LOG.info("\t [TEST]  Objects(files) in OUTPUT BUCKET = " + S3Util.getAllObjectSummaries(MessageReceiversConfigurator.getDefaultOutputBucketName()).size());
                         LOG.info("\t [TEST]  Objects(metadata) in DYNAMODB  = " + NewDynamoDBUtil.getAllRecords(Metadata.class).size());
                         LOG.info("\t [TEST]  Objects(logs) in DYNAMODB  = " + NewDynamoDBUtil.<Log>getAllRecords(Log.class).size());
                         LOG.info("\t [TEST]  Objects(logs) in REDSHIFT  = " + RedshiftJDBCUtil.getAllLogsFromTable(RedshiftConfigurator.getLogsRedshiftOutputTableName()).size());
