@@ -14,7 +14,7 @@ import s3filesgenerator.S3Runner;
 import utils.Cleaner;
 import utils.s3.S3Util;
 import utils.archiever.Decompresser;
-import utils.dynamodb.NewDynamoDBUtil;
+import utils.dynamodb.MapperDynamoDBUtil;
 import utils.jsonprocessors.LogParser;
 import utils.redshift.jdbc.RedshiftJDBCUtil;
 
@@ -49,7 +49,7 @@ public class AsyncMessageReceiverTest {
                 @Override
                 public void run() {
                     try {
-                       new  AsyncMessageReceiver().start();
+                       new  AsyncMessageReceiver("TestQueue").start();
                     } catch (InterruptedException | JMSException ie) {
                         ie.printStackTrace();
                         System.exit(13);
@@ -74,8 +74,8 @@ public class AsyncMessageReceiverTest {
                     if (i % chechStateFrequency == 0) {
          //               LOG.info("\t [TEST]  Objects(files) in INPUT BUCKET = " + S3Util.getAllObjectSummaries(MessageReceiversConfigurator.getDefaultInputBucketName()).size());
           //              LOG.info("\t [TEST]  Objects(files) in OUTPUT BUCKET = " + S3Util.getAllObjectSummaries(MessageReceiversConfigurator.getDefaultOutputBucketName()).size());
-                        LOG.info("\t [TEST]  Objects(metadata) in DYNAMODB  = " + NewDynamoDBUtil.getAllRecords(Metadata.class).size());
-                        LOG.info("\t [TEST]  Objects(logs) in DYNAMODB  = " + NewDynamoDBUtil.<Log>getAllRecords(Log.class).size());
+                        LOG.info("\t [TEST]  Objects(metadata) in DYNAMODB  = " + MapperDynamoDBUtil.getAllRecords(Metadata.class).size());
+                        LOG.info("\t [TEST]  Objects(logs) in DYNAMODB  = " + MapperDynamoDBUtil.<Log>getAllRecords(Log.class).size());
                         LOG.info("\t [TEST]  Objects(logs) in REDSHIFT  = " + RedshiftJDBCUtil.getAllLogsFromTable(RedshiftConfigurator.getLogsRedshiftOutputTableName()).size());
                         // Thread.sleep(checkStatetime);
 
@@ -122,13 +122,13 @@ public class AsyncMessageReceiverTest {
 
     @Test
     public void testDynamoDBMetadataRecordsCount() {
-        assertEquals(NewDynamoDBUtil.<Metadata>getAllRecords(Metadata.class).size(), S3Runner.REPORT_COUNT);
+        assertEquals(MapperDynamoDBUtil.<Metadata>getAllRecords(Metadata.class).size(), S3Runner.REPORT_COUNT);
 
     }
 
     @Test
     public void testDynamoDBLogRecordsCount() {
-        assertEquals(NewDynamoDBUtil.<Log>getAllRecords(Log.class).size(), countOfLogsInReport * S3Runner.REPORT_COUNT);
+        assertEquals(MapperDynamoDBUtil.<Log>getAllRecords(Log.class).size(), countOfLogsInReport * S3Runner.REPORT_COUNT);
     }
 
     @Test

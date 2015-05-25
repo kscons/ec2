@@ -306,7 +306,7 @@ public class DynamoDBUtil {
 
     public static boolean isLogObjectExist(final String tableName, final Log log) {
         return getAllLogItemsRecords(tableName).stream()
-                .filter(object->object.equals(log))
+                .filter(object->object.getId().equals(log.getId()))
                 .findAny()
                 .isPresent();
     }

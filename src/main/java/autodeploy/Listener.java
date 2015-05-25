@@ -8,35 +8,41 @@ import autodeploy.entities.s3buckets.InputBucket;
 import autodeploy.entities.s3buckets.OutputBucket;
 import autodeploy.entities.sqs.SQS;
 import receiver.Receiver;
+import receiver.asynchronous.AsyncMessageReceiver;
+
 import java.util.ArrayList;
 
 /**
  * Created by Logitech on 25.05.15.
  */
 public class Listener {
-    ArrayList<InputBucket> inputBuckets;
-    ArrayList<SQS> queques;
-    ArrayList<OutputBucket> outputBuckets;
-    ArrayList<DynamoDBMetadataTable> dynamoDBMetadataTables;
-    ArrayList<DynamoDBLogsTable> dynamoDBLogsTables;
-    ArrayList<RedshiftTable> redshiftTables;
-    ArrayList<ArrayList<? extends Item>> items;
+    private ArrayList<InputBucket> inputBuckets;
+    private SQS queque;
+    private ArrayList<OutputBucket> outputBuckets;
+    private ArrayList<DynamoDBMetadataTable> dynamoDBMetadataTables;
+    private ArrayList<DynamoDBLogsTable> dynamoDBLogsTables;
+    private ArrayList<RedshiftTable> redshiftTables;
+    private ArrayList<ArrayList<? extends Item>> items;
 
-    Receiver receiver;
+    private Receiver receiver;
+    private String name;
 
-    public Listener(Receiver receiver) {
-        this.receiver = receiver;
-       /* items.add(inputBuckets);
-        items.add(queques);
-        items.add(outputBuckets);
-        items.add(dynamoDBMetadataTables);
-        items.add(dynamoDBLogsTables);
-        items.add(redshiftTables);*/
+    public Listener(String name,Receiver receiver) {
+        this.setReceiver(receiver);
+        this.name = name;
+        queque=new SQS(name);
+
+    }
+
+    public Listener(String name) {
+        this.setReceiver(new AsyncMessageReceiver(name));
+        this.name = name;
+        queque=new SQS(name);
     }
 
     public void start() {
         try {
-            receiver.start();
+            getReceiver().start();
         } catch (Exception ex) {
             ex.printStackTrace();
         }
@@ -44,25 +50,26 @@ public class Listener {
     }
 
     public void deploy() {
-        createAWSItems(inputBuckets);
-        createAWSItems(queques);
-        createAWSItems(outputBuckets);
-        createAWSItems(dynamoDBMetadataTables);
-        createAWSItems(dynamoDBLogsTables);
+        createList(getInputBuckets());
+        createList(getOutputBuckets());
+        createList(getDynamoDBMetadataTables());
+        createList(getDynamoDBLogsTables());
+        getQueque().create();
+
     }
     public void clear(){
-        clearList(inputBuckets);
-        clearList(queques);
-        clearList(outputBuckets);
-        clearList(dynamoDBMetadataTables);
-        clearList(dynamoDBLogsTables);
+        clearList(getInputBuckets());
+        clearList(getOutputBuckets());
+        clearList(getDynamoDBMetadataTables());
+        clearList(getDynamoDBLogsTables());
+        getQueque().delete();
     }
 
     public void clearList(ArrayList<? extends Item> itemList){
         itemList.forEach(item -> {item.delete();});
 
     }
-    public void createAWSItems(ArrayList<? extends Item> itemList){
+    public void createList(ArrayList<? extends Item> itemList){
       itemList.forEach(item -> {item.create();});
 
     }
@@ -115,13 +122,29 @@ public class Listener {
         this.receiver = receiver;
     }
 
-    public ArrayList<SQS> getQueques() {
-        return queques;
+
+
+    public SQS getQueque() {
+        return queque;
     }
 
-    public void setQueques(ArrayList<SQS> queques) {
-        this.queques = queques;
+    public void setQueque(SQS queque) {
+        this.queque = queque;
     }
 
+    public ArrayList<ArrayList<? extends Item>> getItems() {
+        return items;
+    }
 
+    public void setItems(ArrayList<ArrayList<? extends Item>> items) {
+        this.items = items;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 }

@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
 /**
  * Created by Logitech on 17.04.15.
  */
-public class NewDynamoDBUtil {
+public class MapperDynamoDBUtil {
     private static final Logger LOG = LoggerFactory.getLogger(DynamoDBUtil.class);
     private static String ENDPOINT = "https://dynamodb.eu-west-1.amazonaws.com";
     private static DynamoDB dynamoDB;

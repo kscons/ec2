@@ -6,28 +6,29 @@ import org.junit.Test;
 import utils.TestDataGenerator;
 
 import java.util.ArrayList;
-import java.util.Date;
 
 import static org.junit.Assert.*;
 
 /**
  * Created by Logitech on 18.05.15.
  */
-public class NewDynamoDBUtilTest {
+public class MapperDynamoDBUtilTest {
     @Test
     public void testInsertMetadataRecord() throws Exception {
         Metadata metadata = TestDataGenerator.getTestMetadata();
-        NewDynamoDBUtil.insertRecord(metadata);
-        assertTrue(NewDynamoDBUtil.isRecordExist(metadata));
+        MapperDynamoDBUtil.insertRecord(metadata);
+        assertTrue(MapperDynamoDBUtil.isRecordExist(metadata));
     }
 
     @Test
     public void testGetAllMetadataRecords() throws Exception {
         ArrayList<Metadata> arrayList = TestDataGenerator.getMetadatasTesList();
-        arrayList.stream()
-                .forEach(NewDynamoDBUtil::insertRecord);
+        MapperDynamoDBUtil.cleanTable(Metadata.class);
 
-        NewDynamoDBUtil.getAllRecords(Metadata.class).stream()
+        arrayList.stream()
+                .forEach(MapperDynamoDBUtil::insertRecord);
+
+        MapperDynamoDBUtil.getAllRecords(Metadata.class).stream()
                 .forEach(current -> {
                     assertTrue(
                             arrayList.stream()
@@ -39,36 +40,42 @@ public class NewDynamoDBUtilTest {
 
     @Test
     public void testCleanMetadataTable() throws Exception {
-        NewDynamoDBUtil.cleanTable(Log.class);
-        assertFalse(NewDynamoDBUtil.isRecordExist(Log.class));
+        MapperDynamoDBUtil.cleanTable(Log.class);
+        assertFalse(MapperDynamoDBUtil.isRecordExist(Log.class));
     }
 
 
     @Test
     public void testInsertLogRecord() throws Exception {
         Log log = TestDataGenerator.getTestLog();
-        NewDynamoDBUtil.insertRecord(log);
-        assertTrue(NewDynamoDBUtil.isRecordExist(log));
+        MapperDynamoDBUtil.insertRecord(log);
+        assertTrue(MapperDynamoDBUtil.isRecordExist(log));
     }
 
     @Test
     public void testGetAllLogRecords() throws Exception {
         ArrayList<Log> arrayList = TestDataGenerator.getLogTesList();
-        arrayList.stream()
-                .forEach(NewDynamoDBUtil::insertRecord);
 
-        NewDynamoDBUtil.getAllRecords(Log.class).stream()
+        MapperDynamoDBUtil.cleanTable(Log.class);
+
+
+        arrayList.stream()
+                .forEach(MapperDynamoDBUtil::insertRecord);
+        ArrayList<Log> arrayList1=   MapperDynamoDBUtil.getAllRecords(Log.class);
+        MapperDynamoDBUtil.getAllRecords(Log.class).stream()
                 .forEach(current -> {
                     assertTrue(
                             arrayList.stream()
-                                    .filter(log -> current.equals(log))
+                                    .filter(log -> current.getId().equals(log.getId()))
                                     .findAny()
                                     .isPresent());
                 });
+
+
     }
     @Test
     public void testCleanLogTable() throws Exception {
-        NewDynamoDBUtil.cleanTable(Log.class);
-        assertFalse(NewDynamoDBUtil.isRecordExist(Log.class));
+        MapperDynamoDBUtil.cleanTable(Log.class);
+        assertFalse(MapperDynamoDBUtil.isRecordExist(Log.class));
     }
 }

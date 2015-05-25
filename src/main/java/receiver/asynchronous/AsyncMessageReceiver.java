@@ -14,7 +14,12 @@ import java.util.concurrent.TimeUnit;
 
 public class AsyncMessageReceiver implements Receiver {
     private static final Logger LOG = LoggerFactory.getLogger(AsyncMessageReceiver.class);
-    private static final long autoCloseTime = 1;
+
+    private String name;
+
+    public AsyncMessageReceiver(String name) {
+        this.name = name;
+    }
 
     public void start() throws JMSException, InterruptedException {
         // ExampleConfiguration config = ExampleConfiguration.parseConfig("AsyncMessageReceiver", args);
@@ -36,7 +41,7 @@ public class AsyncMessageReceiver implements Receiver {
 
             // Create the session
             Session session = connection.createSession(false, Session.CLIENT_ACKNOWLEDGE);
-            MessageConsumer consumer = session.createConsumer(session.createQueue(MessageReceiversConfigurator.getDefaultQueueName()));
+            MessageConsumer consumer = session.createConsumer(session.createQueue(name));
 
             ReceiverCallback callback = new ReceiverCallback();
             consumer.setMessageListener(callback);
@@ -89,5 +94,14 @@ public class AsyncMessageReceiver implements Receiver {
         }
     }
 }
+
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 }
 
