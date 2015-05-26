@@ -11,6 +11,7 @@ import java.util.Properties;
 /**
  * Created by serhii on 08.04.15.
  */
+@Deprecated
 public class Configurator {
     public static void configureAll(String fileName) {
         try {

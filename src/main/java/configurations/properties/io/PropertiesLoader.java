@@ -10,6 +10,7 @@ import java.util.Properties;
 /**
  * Created by serhii on 08.04.15.
  */
+@Deprecated
 public class PropertiesLoader {
     public static Properties load(final String filename) throws NoPropertyException {
         Properties prop = new Properties();

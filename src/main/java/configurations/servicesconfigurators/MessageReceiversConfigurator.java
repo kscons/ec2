@@ -8,6 +8,7 @@ import java.util.Properties;
 /**
  * Created by serhii on 07.04.15.
  */
+@Deprecated
 public class MessageReceiversConfigurator {
     private static String DEFAULT_QUEUE_NAME = "TestQueue";
     private static String DEFAULT_OUTPUT_BUCKET_NAME = "logitech-analytics-ksolod-eu-west-1-sqsoutput";

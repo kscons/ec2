@@ -5,6 +5,7 @@ import java.util.Properties;
 /**
  * Created by serhii on 07.04.15.
  */
+@Deprecated
 public class DynamoDBConfiGurator {
     private static String LOGS_DYNAMODB_OUTPUT_TABLE_NAME = "logs";
     private static String METADATA_OUTPUT_TABLE = "Logitech_test_eu-west-1";

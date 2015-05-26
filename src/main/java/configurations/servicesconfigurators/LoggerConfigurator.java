@@ -5,6 +5,7 @@ import org.apache.log4j.PropertyConfigurator;
 /**
  * Created by serhii on 07.04.15.
  */
+@Deprecated
 public class LoggerConfigurator {
     public static void initLogger() {
         try {

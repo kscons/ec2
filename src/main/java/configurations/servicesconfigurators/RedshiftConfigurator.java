@@ -8,6 +8,7 @@ import java.util.Properties;
 /**
  * Created by serhii on 07.04.15.
  */
+@Deprecated
 public class RedshiftConfigurator {
     private static  String REDSHIFT_ENDPOINT = "logitech-analytics-ksolod.cdcrmjgf6mls.eu-west-1.redshift.amazonaws.com";
     private static  String masterUsername = "ksolod";
