@@ -44,7 +44,7 @@ public class DynamoDBUtil {
         //creating connection in default value of region which was set in ENDPOINT.
         addbcl = new AmazonDynamoDBClient(new ProfileCredentialsProvider());
         addbcl.setRegion(Regions.EU_WEST_1);
-          addbcl.setEndpoint(ENDPOINT);
+        addbcl.setEndpoint(ENDPOINT);
         dynamoDB = new DynamoDB(addbcl);
     }
 
@@ -110,13 +110,14 @@ public class DynamoDBUtil {
         ScanResult result = addbcl.scan(scanRequest);
         for (Map<String, AttributeValue> item : result.getItems()) {
 
-            Log log = new Log();
-            log.setId(item.get("id").toString());
-            log.setUserId(Long.parseLong(item.get("userid").getN().toString()));
-            log.setTimestamp(item.get("time").toString());
-            log.setKey(item.get("key").toString());
-            log.setValue(item.get("value").toString());
+          final Log log = new Log();
+            log.setId(item.get("id").getS());
+            log.setUserId(Long.parseLong(item.get("userid").getN()));
+            log.setTimestamp(item.get("time").getN());
+            log.setKey(item.get("key").getS());
+            log.setValue(item.get("value").getS());
 
+            listItems.add(log);
         }
         return listItems;
     }
@@ -129,7 +130,7 @@ public class DynamoDBUtil {
         cleanTable(tableName, Entities.METADATA);
     }
 
-    public static void cleanTable(final String tableName,final Entities entity) {
+    public static void cleanTable(final String tableName, final Entities entity) {
         String hashKeyName = "";
         switch (entity) {
             case LOG: {
@@ -306,7 +307,7 @@ public class DynamoDBUtil {
 
     public static boolean isLogObjectExist(final String tableName, final Log log) {
         return getAllLogItemsRecords(tableName).stream()
-                .filter(object->object.getId().equals(log.getId()))
+                .filter(object -> object.getId().equals(log.getId()))
                 .findAny()
                 .isPresent();
     }

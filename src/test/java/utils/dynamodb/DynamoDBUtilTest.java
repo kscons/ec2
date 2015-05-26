@@ -35,7 +35,9 @@ public class DynamoDBUtilTest {
     @Test
     public void testInsertMetadataRecord() throws Exception {
         DynamoDBUtil.createTableForMetadata(TEST_TABLE_METADATAS);
-        // DynamoDBUtil.insertMetadataRecord(TEST_TABLE_METADATAS, TEST_METADATA_OBJECT);
+        final Metadata testMetadata=TestDataGenerator.getTestMetadata();
+         DynamoDBUtil.insertMetadataRecord(TEST_TABLE_METADATAS,testMetadata );
+        assertTrue(DynamoDBUtil.isMetadataObjectExist(TEST_TABLE_METADATAS, testMetadata));
         DynamoDBUtil.deleteTable(TEST_TABLE_METADATAS);
 
     }
@@ -110,11 +112,6 @@ public class DynamoDBUtilTest {
 
     }
 
-    @Test
-    public void testCreateTableForLogs() throws Exception {
-        DynamoDBUtil.createTableForLogs(TEST_TABLE_LOGS_NAME);
-
-    }
 
     @Test
     public void testCreateTableForMetadata() throws Exception {
