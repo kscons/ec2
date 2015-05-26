@@ -40,14 +40,7 @@ public class Listener {
         queque=new SQS(name);
     }
 
-    public void start() {
-        try {
-            getReceiver().start();
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
 
-    }
 
     public void deploy() {
         createList(getInputBuckets());
@@ -57,12 +50,27 @@ public class Listener {
         getQueque().create();
 
     }
+    public void start() {
+        try {
+            getReceiver().start();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+
+    }
+    public void stop(){
+
+    }
     public void clear(){
         clearList(getInputBuckets());
         clearList(getOutputBuckets());
         clearList(getDynamoDBMetadataTables());
         clearList(getDynamoDBLogsTables());
         getQueque().delete();
+    }
+
+    public void test(){
+
     }
 
     public void clearList(ArrayList<? extends Item> itemList){
