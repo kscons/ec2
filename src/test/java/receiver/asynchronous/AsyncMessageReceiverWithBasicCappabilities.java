@@ -33,12 +33,13 @@ public class AsyncMessageReceiverWithBasicCappabilities {
     private static InputStream report;
     private static int countOfLogsInReport = 50;
     private static int reportCount = 4;
-    private static int time = 10;
+    private static int time = 30;
     private int chechStateFrequency = 20;
 
     @Before
     public void init() {
         if (!setUp) {
+
             report = AsyncMessageReceiver.class.getClassLoader().getResourceAsStream("archive_sample.gz");
             Cleaner.clean();
             new Thread(new Runnable() {

@@ -69,13 +69,13 @@ public class MainProcessor {
            receiver.asynchronous.paralellcommands.SaveLogs.save(objectToBucket,3);
 
                     S3Util.deleteFileFromBucket(bucketName, key);
-                } catch (AmazonS3Exception as3e) {
+                } catch (AmazonS3Exception  as3e) {
                     LOG.error(" ASyncMessageReceiver: No such key in s3 " + as3e);
                 }
             }
         } catch (JSONException jse) {
             LOG.error(jse.toString());
-        }catch (NoFileInBucketException nfibe){nfibe.printStackTrace();}
+        }catch (NoFileInBucketException nfibe){ LOG.error(" ASyncMessageReceiver: No such key in s3 " + nfibe);}
     }
 
 }
