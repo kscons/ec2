@@ -1,4 +1,4 @@
-package studies.s3datasourcegenerator;
+package client.basiccappsgenerator;
 
 import com.amazonaws.auth.profile.ProfileCredentialsProvider;
 import com.amazonaws.regions.Region;
@@ -17,9 +17,9 @@ import java.util.ArrayList;
 import java.util.Random;
 import java.util.UUID;
 
-public class S3DataSourceGenerator {
+public class BasicCappabilitiesGenerator {
 
-    private static final Logger LOG = LoggerFactory.getLogger(S3DataSourceGenerator.class);
+    private static final Logger LOG = LoggerFactory.getLogger(BasicCappabilitiesGenerator.class);
 
     private static final String bucket = "logitech-analytics-ksolod-eu-west-1-sqsinput";
     private static final Regions region = Regions.EU_WEST_1;
@@ -48,7 +48,7 @@ public class S3DataSourceGenerator {
         metadata.setContentType("application/json");
         metadata.setContentLength(report.available());
 
-        String key = String.format("%s:%s/%s", region.getName(), studies.getId(), "clientinfo" + ".json");
+        String key = String.format("%s:%s/%s", region.getName(), studies.getId(), "basiccapps" + ".json");
 
 
         metadata.setContentLength(report.available());

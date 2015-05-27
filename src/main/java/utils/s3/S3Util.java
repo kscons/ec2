@@ -24,7 +24,7 @@ import java.util.stream.Collectors;
 
 /**
  * This class consists exclusively of static methods that send,
- * get and delete S3Objects from S3 bucket.
+ * get and delete S3Objects from S3ClientHelper bucket.
  * It also create  AmazonS3client that enables us to do this manipulations.
  * There is a method cleanBucket that deletes all object in bucket.
  * It doesn'n use in data processing.
@@ -87,7 +87,7 @@ public class S3Util {
      *
      * @param bucketName- destination bucket.
      * @param key-        the S3Object will saved with this key in bucketName bucket
-     * @param in          - data that saves on S3
+     * @param in          - data that saves on S3ClientHelper
      */
     public static void putFileOnBucket(final String bucketName, final String key, final InputStream in) {
         ObjectMetadata metadata = new ObjectMetadata();
@@ -100,8 +100,8 @@ public class S3Util {
      * Which this method we would be able to delete object that we selected.
      * Method is used to delete archives that have already been extracted in message listener
      *
-     * @param bucketName -the name of S3 bucket from which you need delete object
-     * @param key-       destination to object that will be removed from S3 bucketName
+     * @param bucketName -the name of S3ClientHelper bucket from which you need delete object
+     * @param key-       destination to object that will be removed from S3ClientHelper bucketName
      */
     public static void deleteFileFromBucket(final String bucketName, final String key) {
         s3.deleteObject(new DeleteObjectRequest(bucketName, key));

@@ -25,7 +25,7 @@ public class StudiesHandler {
          DataCollectionMap dataCollectionMap= Studies.generate(studies);
         sendDcmIntoS3(dataCollectionMap,key);
             //generate client behaviour
-          String  newKey=key.replace("clientinfo.json","report.gz");
+          String  newKey=key.replace("basiccapps.json","report.gz");
             S3.pushReportByClientID(newKey);
         } catch (IOException io) {
             io.printStackTrace();
@@ -39,7 +39,7 @@ public class StudiesHandler {
                 baos = new ByteArrayOutputStream();
         baos.write(DCMJSONProcessor.generateJSON(dcm).getBytes());
         InputStream is = new ByteArrayInputStream(baos.toByteArray());
-        String newKey=key.replace("clientinfo","dcm");
+        String newKey=key.replace("basiccapps","dcm");
         S3Util.putFileOnBucket(MessageReceiversConfigurator.getDefaultOutputBucketName(), newKey, is);
 
 

@@ -19,9 +19,7 @@ public class PropertiesWriter {
     public static void save(final String fileName) {
         Properties prop = new Properties();
         try (OutputStream output = new FileOutputStream("config.properties")) {
-
             // set the properties value
-
             //messagereceiverconfig
             prop.setProperty("DEFAULT_QUEUE_NAME", "TestQueue");
             prop.setProperty("DEFAULT_OUTPUT_BUCKET_NAME", "logitech-analytics-ksolod-eu-west-1-sqsoutput");

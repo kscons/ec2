@@ -7,7 +7,8 @@ import utils.TestDataGenerator;
 
 import java.util.ArrayList;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Created by Logitech on 18.05.15.

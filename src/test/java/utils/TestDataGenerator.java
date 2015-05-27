@@ -2,10 +2,8 @@ package utils;
 
 import entities.Log;
 import entities.Metadata;
-import sun.misc.UUDecoder;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.UUID;
 
 /**

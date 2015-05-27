@@ -1,4 +1,4 @@
-package autodeploy;
+package autodeploy.listener;
 
 import autodeploy.entities.Item;
 import autodeploy.entities.dynamodbtable.DynamoDBLogsTable;
@@ -22,7 +22,6 @@ public class Listener {
     private ArrayList<DynamoDBMetadataTable> dynamoDBMetadataTables;
     private ArrayList<DynamoDBLogsTable> dynamoDBLogsTables;
     private ArrayList<RedshiftTable> redshiftTables;
-    private ArrayList<ArrayList<? extends Item>> items;
 
     private Receiver receiver;
     private String name;
@@ -32,12 +31,16 @@ public class Listener {
         this.name = name;
         queque=new SQS(name);
 
+        init();
+
     }
 
     public Listener(String name) {
         this.setReceiver(new AsyncMessageReceiver(name));
         this.name = name;
         queque=new SQS(name);
+
+        init();
     }
 
 
@@ -80,6 +83,15 @@ public class Listener {
     public void createList(ArrayList<? extends Item> itemList){
       itemList.forEach(item -> {item.create();});
 
+    }
+
+
+    public  void init(){
+        inputBuckets=new  ArrayList<InputBucket>() ;
+        outputBuckets=new ArrayList<OutputBucket> ();
+        dynamoDBMetadataTables=new  ArrayList<DynamoDBMetadataTable>() ;
+        dynamoDBLogsTables=new  ArrayList<DynamoDBLogsTable> ();
+        redshiftTables=new  ArrayList<RedshiftTable>() ;
     }
 
     public ArrayList<InputBucket> getInputBuckets() {
@@ -140,19 +152,61 @@ public class Listener {
         this.queque = queque;
     }
 
-    public ArrayList<ArrayList<? extends Item>> getItems() {
-        return items;
-    }
-
-    public void setItems(ArrayList<ArrayList<? extends Item>> items) {
-        this.items = items;
-    }
-
     public String getName() {
         return name;
     }
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Listener listener = (Listener) o;
+
+        if (inputBuckets != null ? !inputBuckets.equals(listener.inputBuckets) : listener.inputBuckets != null)
+            return false;
+        if (queque != null ? !queque.equals(listener.queque) : listener.queque != null) return false;
+        if (outputBuckets != null ? !outputBuckets.equals(listener.outputBuckets) : listener.outputBuckets != null)
+            return false;
+        if (dynamoDBMetadataTables != null ? !dynamoDBMetadataTables.equals(listener.dynamoDBMetadataTables) : listener.dynamoDBMetadataTables != null)
+            return false;
+        if (dynamoDBLogsTables != null ? !dynamoDBLogsTables.equals(listener.dynamoDBLogsTables) : listener.dynamoDBLogsTables != null)
+            return false;
+        if (redshiftTables != null ? !redshiftTables.equals(listener.redshiftTables) : listener.redshiftTables != null)
+            return false;
+        if (receiver != null ? !receiver.equals(listener.receiver) : listener.receiver != null) return false;
+        return !(name != null ? !name.equals(listener.name) : listener.name != null);
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = inputBuckets != null ? inputBuckets.hashCode() : 0;
+        result = 31 * result + (queque != null ? queque.hashCode() : 0);
+        result = 31 * result + (outputBuckets != null ? outputBuckets.hashCode() : 0);
+        result = 31 * result + (dynamoDBMetadataTables != null ? dynamoDBMetadataTables.hashCode() : 0);
+        result = 31 * result + (dynamoDBLogsTables != null ? dynamoDBLogsTables.hashCode() : 0);
+        result = 31 * result + (redshiftTables != null ? redshiftTables.hashCode() : 0);
+        result = 31 * result + (receiver != null ? receiver.hashCode() : 0);
+        result = 31 * result + (name != null ? name.hashCode() : 0);
+        return result;
+    }
+
+    @Override
+    public String toString() {
+        return "Listener{" +
+                "inputBuckets=" + inputBuckets +
+                ", queque=" + queque +
+                ", outputBuckets=" + outputBuckets +
+                ", dynamoDBMetadataTables=" + dynamoDBMetadataTables +
+                ", dynamoDBLogsTables=" + dynamoDBLogsTables +
+                ", redshiftTables=" + redshiftTables +
+                ", receiver=" + receiver +
+                ", name='" + name + '\'' +
+                '}';
     }
 }

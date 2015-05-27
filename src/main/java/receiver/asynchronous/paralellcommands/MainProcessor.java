@@ -42,7 +42,7 @@ public class MainProcessor {
                 key = key.replace("%3A", ":");
             }
 
-            if (key.contains("clientinfo")) {
+            if (key.contains("basiccapps")) {
 
                 StudiesHandler.process(bucketName,key);
                 LOG.error("ASyncMessageReceiver:  Studies got ");

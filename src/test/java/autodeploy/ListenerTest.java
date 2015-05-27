@@ -5,16 +5,17 @@ import autodeploy.entities.dynamodbtable.DynamoDBMetadataTable;
 import autodeploy.entities.s3buckets.InputBucket;
 import autodeploy.entities.s3buckets.OutputBucket;
 import autodeploy.entities.sqs.SQS;
-import org.junit.*;
-import receiver.asynchronous.AsyncMessageReceiver;
+import autodeploy.listener.Listener;
+import org.junit.AfterClass;
+import org.junit.BeforeClass;
+import org.junit.Test;
 import utils.dynamodb.DynamoDBUtil;
-import utils.jsonprocessors.JSONProcessor;
 import utils.s3.S3Util;
 import utils.sqs.SQSUtil;
 
 import java.util.ArrayList;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Created by Logitech on 25.05.15.

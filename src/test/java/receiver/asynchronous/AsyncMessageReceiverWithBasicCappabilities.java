@@ -9,13 +9,13 @@ import org.junit.Before;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import studies.s3datasourcegenerator.S3DataSourceGenerator;
+import client.basiccappsgenerator.BasicCappabilitiesGenerator;
 import utils.Cleaner;
-import utils.s3.S3Util;
 import utils.archiever.Decompresser;
 import utils.dynamodb.MapperDynamoDBUtil;
 import utils.jsonprocessors.LogParser;
 import utils.redshift.jdbc.RedshiftJDBCUtil;
+import utils.s3.S3Util;
 
 import javax.jms.JMSException;
 import java.io.InputStream;
@@ -26,14 +26,14 @@ import static org.junit.Assert.assertEquals;
 /**
  * Created by Logitech on 17.04.15.
  */
-public class AsyncMessageReceiverWithClientInfo {
+public class AsyncMessageReceiverWithBasicCappabilities {
     private static final Logger LOG = LoggerFactory.getLogger(AsyncMessageReceiver.class);
 
     private static boolean setUp = false;
     private static InputStream report;
     private static int countOfLogsInReport = 50;
     private static int reportCount = 4;
-    private static int time = 30;
+    private static int time = 10;
     private int chechStateFrequency = 20;
 
     @Before
@@ -58,7 +58,7 @@ public class AsyncMessageReceiverWithClientInfo {
             new Thread(new Runnable() {
                 @Override
                 public void run() {
-                    S3DataSourceGenerator.main(new String[0]);
+                    BasicCappabilitiesGenerator.main(new String[0]);
                 }
 
             }).start();
@@ -77,7 +77,7 @@ public class AsyncMessageReceiverWithClientInfo {
 
                     }
                 }
-                //  Thread.sleep(30000 * S3Runner.REPORT_COUNT);
+                //  Thread.sleep(30000 * ReportGenerator.REPORT_COUNT);
             } catch (InterruptedException ite) {
                 ite.printStackTrace();
             }

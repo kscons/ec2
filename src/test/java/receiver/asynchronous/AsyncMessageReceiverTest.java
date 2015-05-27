@@ -10,20 +10,18 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import s3filesgenerator.S3Runner;
-
 import utils.Cleaner;
-import utils.s3.S3Util;
 import utils.archiever.Decompresser;
 import utils.dynamodb.MapperDynamoDBUtil;
 import utils.jsonprocessors.LogParser;
 import utils.redshift.jdbc.RedshiftJDBCUtil;
+import utils.s3.S3Util;
 
 import javax.jms.JMSException;
-
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 /**
  * Created by Logitech on 16.04.15.
@@ -34,7 +32,7 @@ public class AsyncMessageReceiverTest {
     private static boolean setUp = false;
     private static InputStream report;
     private static int countOfLogsInReport = 50;
-    private static int reportCount = 5;
+    private static int reportCount = 20;
     private static int time = 30;
     private static int checkStatetime = 3000;
     private static int chechStateFrequency = 30;
@@ -82,7 +80,7 @@ public class AsyncMessageReceiverTest {
 
                     }
                 }
-                //  Thread.sleep(30000 * S3Runner.REPORT_COUNT);
+                //  Thread.sleep(30000 * ReportGenerator.REPORT_COUNT);
             } catch (InterruptedException ite) {
                 ite.printStackTrace();
             }

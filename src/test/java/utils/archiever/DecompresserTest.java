@@ -2,13 +2,12 @@ package utils.archiever;
 
 import exceptions.ZIPFormatException;
 import org.junit.Test;
-import receiver.asynchronous.AsyncMessageReceiver;
 import receiver.asynchronous.Mock;
 
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 /**
  * Created by Logitech on 08.05.15.

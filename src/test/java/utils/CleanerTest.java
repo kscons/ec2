@@ -2,8 +2,6 @@ package utils;
 
 import org.junit.Test;
 
-import static org.junit.Assert.*;
-
 /**
  * Created by Logitech on 15.05.15.
  */

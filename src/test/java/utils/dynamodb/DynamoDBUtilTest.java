@@ -4,15 +4,13 @@ import entities.Log;
 import entities.Metadata;
 import exceptions.dynamodb.MetadataFieldNullException;
 import exceptions.dynamodb.NonExistTableException;
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import utils.TestDataGenerator;
 
 import java.util.ArrayList;
-import java.util.Date;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Created by Logitech on 08.05.15.

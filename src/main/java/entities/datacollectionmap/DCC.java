@@ -1,11 +1,18 @@
 package entities.datacollectionmap;
 
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.util.ArrayList;
 
 /**
  * Created by Logitech on 13.04.15.
  */
 public class DCC {
+    @JsonProperty(value = "upload_interval")
+    private long uploadInterval=0;
+    @JsonProperty(value = "retry_interval")
+    private long retryInterval=0;
     private ArrayList<Source> sources;
 
     public DCC() {
